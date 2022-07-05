@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset = "UTF-8">
+  <meta name="viewport" content="width=devine-width,initial-scale=1.0">
+  <title> Formular</title>
+  <script src="registrieren.js" defer></script>
+  <link rel="stylesheet" href ="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class= "nav">
+                <li > <a href="index.html">Home</a></li>
+                <li > <a href="login.html">Einloggen</a></li>
+            </ul>
+        </nav>
+        <h1>Registrierung</h1>
+
+    </header>
+    <main>
+        <div  class = "register">
+            <form id="regForm" >
+                <fieldset id= "fieldreg">
+                    <legend> Felder mit* sind erforderlich</legend>
+                        <label for="username"> Benutzername</label>
+                        <input type ="text" id ="username" name ="username"/>
+                        <label for = "password"> Password*</label>
+                        <input type ="password" id = "password" name = "password" />
+                        <div>
+                            <button id="register" type ="button">Registrieren</button>
+                        </div>
+                </fieldset>
+            </form>
+        </div> 
+    </main> 
+</body>
+</html>
