@@ -7,7 +7,7 @@ async function login(_event: Event): Promise<void> {
     let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
 
     // http:://herokuapp/register.html?user=...&
-    let url: string = "https://gisws2021.herokuapp.com/login.html";
+    let url: string = "https://softwaredesign.herokuapp.com/login.html";
 
     url = url + "?" + query.toString();
     console.log(url);

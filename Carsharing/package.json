@@ -1,28 +1,33 @@
 {
-    "name": "carsharing",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "start": "ts-node-dev --respawn --transpile-only ./src/index.ts",
-        "test": "jest",
-        "debug": "tsc"
-    },
-    "author": "Lara Franke",
-    "license": "ISC",
-    "dependencies": {
-        "@types/jest": "^27.0.2",
-        "jest": "^27.3.1",
-        "mongodb": "^4.7.0",
-        "prompts": "^2.4.2",
-        "ts-jest": "^27.0.7",
-        "ts-loader": "^9.2.6",
-        "ts-node": "^10.4.0",
-        "ts-node-dev": "^1.1.8",
-        "typescript": "^4.4.4"
-    },
-    "devDependencies": {
-        "@types/node": "^18.0.1",
-        "@types/prompts": "^2.0.14"
-    }
+  "name": "carsharing",
+  "version": "1.0.0",
+  "description": "Carsharing Website",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js remote",
+    "test": "jest",
+    "debug": "tsc"
+  },
+  "author": "Lara Franke",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jest": "^27.0.2",
+    "@types/mongodb": "^4.0.7",
+    "jest": "^27.3.1",
+    "mongodb": "^4.7.0",
+    "prompts": "^2.4.2",
+    "ts-jest": "^27.0.7",
+    "ts-loader": "^9.2.6",
+    "ts-node": "^10.4.0",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.4.4"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.3",
+    "@types/prompts": "^2.0.14"
+  },
+  "repository": {
+    "type": "git",
+    "url": "Softwaredesign"
+  }
 }
