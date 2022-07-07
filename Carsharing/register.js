@@ -18,12 +18,12 @@ var Carsharing;
         let responseText = await response.text();
         //console.log(response);
         console.log(responseText);
-        // let registerText: HTMLElement = document.createElement("p");
-        // document.getElementById("response").appendChild(registerText);
-        // registerText.innerHTML = responseText;
-        // if (responseText == "Nutzer wurde erstellt") {
-        //     window.location.replace("index.html");
-        // }
+        let registerText = document.createElement("p");
+        document.getElementById("response").appendChild(registerText);
+        registerText.innerHTML = responseText;
+        if (responseText == "Nutzer wurde erstellt") {
+            window.location.replace("index.html");
+        }
     }
 })(Carsharing || (Carsharing = {}));
 //# sourceMappingURL=register.js.map

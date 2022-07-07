@@ -60,7 +60,6 @@ var Carsharing;
                 let users = {
                     username: parameter.username,
                     password: parameter.password,
-                    id: parameter.id,
                     status: false
                 };
                 //console.log(users);
@@ -96,9 +95,14 @@ var Carsharing;
         }
     }
     async function einloggen(_username, _password) {
-        let daten2 = await collection.findOne({ "username": _username }, { projection: { username: 0, password: 0, id: 0 } });
-        console.log(daten2);
-        return daten2;
+        if (!_username || !_password) {
+            return false;
+        }
+        else {
+            let daten2 = await collection.findOne({ "username": _username }, { projection: { username: 0, password: 0, id: 0 } });
+            console.log(daten2);
+            return true;
+        }
     }
 })(Carsharing = exports.Carsharing || (exports.Carsharing = {}));
 //# sourceMappingURL=server.js.map

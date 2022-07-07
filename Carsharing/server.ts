@@ -7,7 +7,7 @@ import { ParsedUrlQuery } from "querystring";
 export namespace Carsharing {
     
     interface User {
-        id: string;
+        //id: string;
         username: string;
         password: string;
         status: boolean;   
@@ -68,7 +68,7 @@ export namespace Carsharing {
 
             if (q.pathname == "/login.html") {
                 console.log("einloggen");
-                let result: string =  await einloggen(parameter.username as string , parameter.password as string);
+                let result: boolean =  await einloggen(parameter.username as string , parameter.password as string);
                 console.log("Login:", result);
                 _response.write(JSON.stringify(result));
             }
@@ -79,7 +79,6 @@ export namespace Carsharing {
                 let users: User = {
                     username: parameter.username as string,
                     password: parameter.password as string,
-                    id: parameter.id as string,
                     status: false
                 };
 
@@ -119,10 +118,18 @@ export namespace Carsharing {
         }
     }
 
-    async function einloggen(_username: string, _password: string): Promise<string> {
-        let daten2: any = await collection.findOne({"username": _username}, {projection: { username: 0, password: 0, id:0}} );
-        console.log(daten2);
-        return daten2;
+    async function einloggen(_username: string, _password: string): Promise<boolean> {
+        
+        if (!_username || !_password) {
+            return false;
+        }
+        else{
+            let daten2: any = await collection.findOne({"username": _username}, {projection: { username: 0, password: 0, id:0}} );
+            console.log(daten2);
+            return true;
+
+        }
+        
     }  
     
 }

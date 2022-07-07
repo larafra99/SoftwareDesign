@@ -23,11 +23,11 @@ namespace Carsharing{
         //console.log(response);
         console.log(responseText);
 
-        // let registerText: HTMLElement = document.createElement("p");
-        // document.getElementById("response").appendChild(registerText);
-        // registerText.innerHTML = responseText;
-        // if (responseText == "Nutzer wurde erstellt") {
-        //     window.location.replace("index.html");
-        // }
+        let registerText: HTMLElement = document.createElement("p");
+        document.getElementById("response").appendChild(registerText);
+        registerText.innerHTML = responseText;
+        if (responseText == "Nutzer wurde erstellt") {
+            window.location.replace("index.html");
+        }
     }
 }
