@@ -24,7 +24,8 @@ export namespace Carsharing {
 
     //let dataBaseUrl: string = "mongodb://localhost: 27017";
     //let dataBaseUrl: string = "mongodb+srv://Reader:Database123@gisws20-21.a07b1.mongodb.net/ASTA?retryWrites=true&w=majority";
-    let dataBaseUrl: string = "mongodb+srv://SoftwareReader:1234@gisws20-21.a07b1.mongodb.net/?retryWrites=true&w=majority";
+    //let dataBaseUrl: string = "mongodb+srv://SoftwareReader:1234@gisws20-21.a07b1.mongodb.net/?retryWrites=true&w=majority";
+    let dataBaseUrl: string = "mongodb+srv://SoftwareReader:1234@gisws20-21.a07b1.mongodb.net/Carsharing?retryWrites=true&w=majority";
     console.log("Starting server");
 
     //Aufruf der Funktionen
@@ -46,7 +47,8 @@ export namespace Carsharing {
         await mongoClient.connect();
         collection = mongoClient.db("Carsharing").collection("User");
         collectionData =  mongoClient.db("Carsharing").collection("Cars");
-        console.log("Database connection sucessfull ", collection != undefined);
+        console.log("Database connection user sucessfull ", collection != undefined);
+        console.log("Database connection Cars sucessfull ", collectionData != undefined);
     }
 
     function handleListen(): void {
@@ -59,8 +61,10 @@ export namespace Carsharing {
         _response.setHeader("Access-Control-Allow-Origin", "*"); 
 
         if (_request.url) {
-            let q: Url.UrlWithParsedQuery = Url.parse(_request.url, true);   
+            let q: Url.UrlWithParsedQuery = Url.parse(_request.url, true);  
+            console.log("q", q);
             let parameter: ParsedUrlQuery = q.query;
+            console.log("parameter", parameter);
 
             if (q.pathname == "/login.html") {
                 console.log("einloggen");
@@ -70,7 +74,7 @@ export namespace Carsharing {
             }
 
             else if (q.pathname == "/register.html") {
-                console.log("registieren erfolgreich");
+                console.log("registieren");
 
                 let users: User = {
                     username: parameter.username as string,
@@ -94,10 +98,11 @@ export namespace Carsharing {
     }
 
     async function registerien(_client: User): Promise<boolean> { 
-        console.log("registrieren");
-        if (!_client.username){
-            x=1;
-        }
+        console.log("versucht zu registrieren");
+        console.log("username", _client.username);
+        // if (!_client.username){
+        //     x=1;
+        // }
         let searchname: any = await collection.findOne({"username": _client.username});    
 
         if (!_client.username || !_client.password) {
@@ -108,6 +113,7 @@ export namespace Carsharing {
         }
         else {
             await collection.insertOne(_client);
+            console.log("registrieren erfolgreich");
 
             return true;
         }

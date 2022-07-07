@@ -4,7 +4,7 @@
   "description": "Carsharing Website",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js remote",
+    "start": "node Carsharing/server.js remote",
     "test": "jest",
     "debug": "tsc"
   },

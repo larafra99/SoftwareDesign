@@ -10,7 +10,8 @@ var Carsharing;
         let query = new URLSearchParams(formData);
         console.log(query.toString());
         // http:://herokuapp/register.html?user=...&
-        let url = "https://softwaredesign.herokuapp.com/register.html";
+        // let url: string = "https://softwaredesign.herokuapp.com/register.html";
+        let url = "https://localhost:8100/register.html";
         url = url + "?" + query.toString();
         console.log(url);
         let response = await fetch(url);
