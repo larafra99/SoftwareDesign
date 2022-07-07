@@ -13,8 +13,8 @@ namespace Carsharing{
         console.log(query.toString());
 
         // http:://herokuapp/register.html?user=...&
-        // let url: string = "https://softwaredesign.herokuapp.com/register.html";
-        let url: string = "https://localhost:8100/register.html";
+        let url: string = "https://softwaredesign.herokuapp.com/register.html";
+        //let url: string = "https://localhost:8100/register.html";
 
         url = url + "?" + query.toString();
         console.log(url);

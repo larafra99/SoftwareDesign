@@ -16,11 +16,11 @@ export namespace Carsharing {
     let collection: Mongo.Collection;
     let collectionData: Mongo.Collection;
 
-    let port: number = 8100; 
-    // let port: number = Number(process.env.PORT); 
-    // if (!port) {
-    //     port = 8100; 
-    // }
+    
+    let port: number = Number(process.env.PORT); 
+    if (!port) {
+        port = 8100; 
+    }
 
     //let dataBaseUrl: string = "mongodb://localhost: 27017";
     //let dataBaseUrl: string = "mongodb+srv://Reader:Database123@gisws20-21.a07b1.mongodb.net/ASTA?retryWrites=true&w=majority";
