@@ -99,7 +99,7 @@ var Carsharing;
             return false;
         }
         else {
-            let daten2 = await collection.findOne({ "username": _username }, { projection: { username: 0, password: 0, id: 0 } });
+            let daten2 = await collection.findOne({ "username": _username });
             console.log("PAssswort", daten2.password);
             if (daten2.password == _password) {
                 console.log(daten2);
