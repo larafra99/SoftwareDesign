@@ -18,7 +18,7 @@ async function login(_event) {
     loginText.innerHTML = responseText;
     if (responseText != "null") {
         sessionStorage.setItem("userId", responseText);
-        window.location.replace("verleih.html");
+        //window.location.replace("verleih.html");
     }
 }
 //# sourceMappingURL=login.js.map

@@ -27,7 +27,7 @@ namespace Carsharing{
         document.getElementById("response").appendChild(registerText);
         registerText.innerHTML = responseText;
         if (responseText == "Nutzer wurde erstellt") {
-            window.location.replace("index.html");
+            //window.location.replace("index.html");
         }
     }
 }

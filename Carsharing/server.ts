@@ -125,8 +125,17 @@ export namespace Carsharing {
         }
         else{
             let daten2: any = await collection.findOne({"username": _username}, {projection: { username: 0, password: 0, id:0}} );
-            console.log(daten2);
+            console.log("PAssswort", daten2.password)
+            if (daten2.password== _password){
+                console.log(daten2);
+                console.log("PAssswort", daten2.password)
             return true;
+            }
+            else{
+                console.log(daten2);
+            return false
+            }
+            
 
         }
         
