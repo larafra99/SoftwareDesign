@@ -110,6 +110,8 @@ var Carsharing;
             }
             else if (q.pathname == "/index.html") {
                 console.log("get Data");
+                let listCars = await showData();
+                _response.write(JSON.stringify(listCars));
             }
         }
         _response.end();
@@ -158,7 +160,6 @@ var Carsharing;
     }
     async function addcar(_car) {
         let daten = await collectionCars.findOne({ "id": _car.id });
-        console.log("Car", daten);
         if (!_car.id || !_car.name || !_car.fnut || !_car.lnut || !_car.max || !_car.pnd || !_car.ppmin) {
             console.log("Daten fehlen");
             //  trying to add car with empty fields
@@ -179,6 +180,10 @@ var Carsharing;
             // add car to database
             return true;
         }
+    }
+    async function showData() {
+        let data = await collectionCars.find().toArray();
+        return data;
     }
 })(Carsharing = exports.Carsharing || (exports.Carsharing = {}));
 //# sourceMappingURL=server.js.map

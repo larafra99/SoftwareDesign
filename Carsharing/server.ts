@@ -106,7 +106,8 @@ export namespace Carsharing {
                 else {
                     _response.write("username ist schon vergeben oder Felder sind leer");
                 }    
-            }  
+            } 
+
             else if(q.pathname =="/addcar.html"){
                 console.log("Add Car");
                 let car:Car ={
@@ -138,6 +139,8 @@ export namespace Carsharing {
             }
             else if(q.pathname =="/index.html"){
                 console.log("get Data");
+                let listCars: Car[] = await showData();
+                _response.write( JSON.stringify(listCars) )
             }     
         }
         _response.end();
@@ -191,7 +194,6 @@ export namespace Carsharing {
     }
     async function addcar(_car:Car): Promise<boolean>{
         let daten: any = await collectionCars.findOne({"id": _car.id} );
-        console.log("Car", daten);
         if (!_car.id || !_car.name || !_car.fnut || !_car.lnut || !_car.max || !_car.pnd || !_car.ppmin) {
             console.log("Daten fehlen")
             //  trying to add car with empty fields
@@ -212,5 +214,10 @@ export namespace Carsharing {
             // add car to database
             return true;  
         }   
+    }
+    async function showData(): Promise<Car[]> {
+        let data: any[] = await collectionCars.find().toArray();
+        return data;
+
     }   
 }
