@@ -145,7 +145,7 @@ var Carsharing;
             // if username exists
             if (daten2.password == _client.password) {
                 // right password for the username
-                //await collection.updateOne({_id: Mongo.ObjectId.createFromHexString(daten2._id)}, {$set: { "status": "true"} }); 
+                await collection.updateOne({ "username": _client.username }, { $set: { "status": "true" } });
                 return true;
             }
             else {
