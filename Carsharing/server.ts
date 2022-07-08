@@ -19,6 +19,7 @@ export namespace Carsharing {
         conventionell: boolean;
         fnut: string;
         lnut: string;
+        max: string;
         pnd: string;
         ppmin: string;
     }
@@ -121,6 +122,7 @@ export namespace Carsharing {
                     conventionell: false,
                     fnut: parameter.fnut as string,
                     lnut: parameter.snut as string,
+                    max: parameter.max as string,
                     pnd: parameter.pnd as string,
                     ppmin: parameter.ppmin as string,
                 }
@@ -132,8 +134,15 @@ export namespace Carsharing {
                     console.log("Konventionelles Auto");
                     car.conventionell= true;
                 }
-                await addcar(car);
-                _response.write("Auto wurde angelegt");          
+                let resultcar: boolean = await addcar(car);
+                if(resultcar){
+                    _response.write("Auto wurde angelegt");
+                }
+                else{
+                    _response.write("Felder sind leer oder Datentypen sind nicht korrekt");
+
+                }
+                          
             }      
         }
         _response.end();
@@ -142,9 +151,7 @@ export namespace Carsharing {
     async function registerien(_client: User): Promise<boolean> { 
         console.log("versucht zu registrieren");
         console.log("username", _client.username);
-        // if (!_client.username){
-        //     x=1;
-        // }
+    
         let searchname: any = await collection.findOne({"username": _client.username});    
 
         if (!_client.username || !_client.password) {
@@ -185,7 +192,21 @@ export namespace Carsharing {
             }  
         }  
     }
-    async function addcar(_car:Car): Promise<void>{
-        await collectionCars.insertOne(_car);
+    async function addcar(_car:Car): Promise<boolean>{
+        let daten: any = await collectionCars.findOne({"username": _car.id} );
+        if (!_car.id || !_car.name || !_car.fnut || !_car.lnut || !_car.max || !_car.pnd || !_car.ppmin) {
+            //  login without a username or passwort 
+            return false;
+        }
+        else if (daten == undefined) {
+            // username does not exist
+            return false;
+        }
+        else{
+            await collectionCars.insertOne(_car);
+            return true;
+             
+        }  
+        
     }   
 }

@@ -90,6 +90,7 @@ var Carsharing;
                     conventionell: false,
                     fnut: parameter.fnut,
                     lnut: parameter.snut,
+                    max: parameter.max,
                     pnd: parameter.pnd,
                     ppmin: parameter.ppmin,
                 };
@@ -101,8 +102,13 @@ var Carsharing;
                     console.log("Konventionelles Auto");
                     car.conventionell = true;
                 }
-                await addcar(car);
-                _response.write("Auto wurde angelegt");
+                let resultcar = await addcar(car);
+                if (resultcar) {
+                    _response.write("Auto wurde angelegt");
+                }
+                else {
+                    _response.write("Felder sind leer oder Datentypen sind nicht korrekt");
+                }
             }
         }
         _response.end();
@@ -110,9 +116,6 @@ var Carsharing;
     async function registerien(_client) {
         console.log("versucht zu registrieren");
         console.log("username", _client.username);
-        // if (!_client.username){
-        //     x=1;
-        // }
         let searchname = await collection.findOne({ "username": _client.username });
         if (!_client.username || !_client.password) {
             return false;
@@ -151,7 +154,19 @@ var Carsharing;
         }
     }
     async function addcar(_car) {
-        await collectionCars.insertOne(_car);
+        let daten = await collectionCars.findOne({ "username": _car.id });
+        if (!_car.id || !_car.name || !_car.fnut || !_car.lnut || !_car.max || !_car.pnd || !_car.ppmin) {
+            //  login without a username or passwort 
+            return false;
+        }
+        else if (daten == undefined) {
+            // username does not exist
+            return false;
+        }
+        else {
+            await collectionCars.insertOne(_car);
+            return true;
+        }
     }
 })(Carsharing = exports.Carsharing || (exports.Carsharing = {}));
 //# sourceMappingURL=server.js.map
