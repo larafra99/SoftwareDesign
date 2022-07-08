@@ -83,6 +83,24 @@ var Carsharing;
             }
             else if (q.pathname == "/addcar.html") {
                 console.log("Add Car");
+                let car = {
+                    id: parameter.carid,
+                    name: parameter.carname,
+                    electronic: false,
+                    conventionell: false,
+                    fnut: parameter.fnut,
+                    lnut: parameter.snut,
+                    pnd: parameter.pnd,
+                    ppmin: parameter.ppmin,
+                };
+                if (parameter.electric == "on") {
+                    console.log("Elektronisches Auto");
+                    car.electronic = true;
+                }
+                if (parameter.electric == "on") {
+                    console.log("Konventionelles Auto");
+                    car.conventionell = true;
+                }
             }
         }
         _response.end();
