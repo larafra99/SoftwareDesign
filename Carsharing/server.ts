@@ -217,6 +217,7 @@ export namespace Carsharing {
     }
     async function showData(): Promise<Car[]> {
         let data: any[] = await collectionCars.find().toArray();
+        console.log(data);
         return data;
 
     }   

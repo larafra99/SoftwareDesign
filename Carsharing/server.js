@@ -183,6 +183,7 @@ var Carsharing;
     }
     async function showData() {
         let data = await collectionCars.find().toArray();
+        console.log(data);
         return data;
     }
 })(Carsharing = exports.Carsharing || (exports.Carsharing = {}));
