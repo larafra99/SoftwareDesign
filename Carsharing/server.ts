@@ -130,7 +130,7 @@ export namespace Carsharing {
                     console.log("Elektronisches Auto");
                     car.electronic= true;
                 }
-                if(parameter.electric=="on"){
+                if(parameter.conventionell=="on"){
                     console.log("Konventionelles Auto");
                     car.conventionell= true;
                 }
