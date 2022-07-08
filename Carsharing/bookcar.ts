@@ -1,6 +1,7 @@
 namespace Carsharing{
     
     showData();
+
     interface Car{
         id: string;
         name: string;
@@ -45,7 +46,7 @@ namespace Carsharing{
         
         let betriebsart: string ="";
         if(responseTextJson.electronic == true && responseTextJson.conventionell == false){
-            console.log("elektonik");
+            console.log("elektronik");
             betriebsart = "E-Auto";
         }
         else if(responseTextJson.conventionell == true && responseTextJson.electronic == false){
@@ -79,14 +80,15 @@ namespace Carsharing{
         timeButton.addEventListener("click", booktime);
         
         async function booktime(_event: Event): Promise<void> {
+            console.log("click");
             let formData: FormData = new FormData(timeForm);
             let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
             console.log(query.toString());
-            let url: string = "https://softwaredesign.herokuapp.com/checktime.html";
+            let timeurl: string = "https://softwaredesign.herokuapp.com/checktime.html";
     
-            url = url + "?" + query.toString();
-            console.log(url);
-            let response: Response = await fetch(url);
+            timeurl = timeurl + "?" + query.toString();
+            console.log(timeurl);
+            let response: Response = await fetch(timeurl);
             let responseText: string = await response.text();
             //console.log(response);
             console.log(responseText);

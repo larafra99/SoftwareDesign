@@ -31,7 +31,7 @@ var Carsharing;
         let tableelement8 = document.createElement("td");
         let betriebsart = "";
         if (responseTextJson.electronic == true && responseTextJson.conventionell == false) {
-            console.log("elektonik");
+            console.log("elektronik");
             betriebsart = "E-Auto";
         }
         else if (responseTextJson.conventionell == true && responseTextJson.electronic == false) {
@@ -61,13 +61,14 @@ var Carsharing;
         let timeButton = document.getElementById("timebutton");
         timeButton.addEventListener("click", booktime);
         async function booktime(_event) {
+            console.log("click");
             let formData = new FormData(timeForm);
             let query = new URLSearchParams(formData);
             console.log(query.toString());
-            let url = "https://softwaredesign.herokuapp.com/checktime.html";
-            url = url + "?" + query.toString();
-            console.log(url);
-            let response = await fetch(url);
+            let timeurl = "https://softwaredesign.herokuapp.com/checktime.html";
+            timeurl = timeurl + "?" + query.toString();
+            console.log(timeurl);
+            let response = await fetch(timeurl);
             let responseText = await response.text();
             //console.log(response);
             console.log(responseText);
