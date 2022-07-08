@@ -3,15 +3,14 @@ import * as Url from "url";
 import * as Mongo from "mongodb";
 import { ParsedUrlQuery } from "querystring";
 
-
 export namespace Carsharing {
     
     interface User {
-        //id: string;
         username: string;
         password: string;
         status: boolean;   
     }
+    
     interface Car{
         id: string;
         name: string;
@@ -32,11 +31,10 @@ export namespace Carsharing {
         port = 8100; 
     }
 
-    //let dataBaseUrl: string = "mongodb://localhost: 27017";
     let dataBaseUrl: string = "mongodb+srv://SoftwareReader:1234@gisws20-21.a07b1.mongodb.net/Carsharing?retryWrites=true&w=majority";
     console.log("Starting server");
 
-    //Aufruf der Funktionen
+    //starting server and connection to database
     startServer(port);
     connectToDatabase(dataBaseUrl);
 
@@ -148,20 +146,20 @@ export namespace Carsharing {
 
     async function registerien(_client: User): Promise<boolean> { 
         console.log("versucht zu registrieren");
-        console.log("username", _client.username);
-    
+        // trying to find username in the database
         let searchname: any = await collection.findOne({"username": _client.username});    
-
         if (!_client.username || !_client.password) {
+            // username or password field are not filled out
             return false;
         }
         else if (searchname != undefined) {
+            // username is already taken
             return false;
         }
         else {
+            // insert username into database
             await collection.insertOne(_client);
             console.log("registrieren erfolgreich");
-
             return true;
         }
     }
@@ -169,7 +167,6 @@ export namespace Carsharing {
     async function einloggen(_client: User): Promise<boolean> {
         // check if username is found in the collection
         let daten2: any = await collection.findOne({"username": _client.username} );
-        console.log("id daten", daten2._id);
         //check if a password or a username are entered
         if (!_client.username || !_client.password) {
             //  login without a username or passwort 
@@ -216,6 +213,7 @@ export namespace Carsharing {
         }   
     }
     async function showData(): Promise<Car[]> {
+        // get all Cars in an array
         let data: any[] = await collectionCars.find().toArray();
         console.log(data);
         return data;

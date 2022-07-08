@@ -12,10 +12,9 @@ var Carsharing;
     if (!port) {
         port = 8100;
     }
-    //let dataBaseUrl: string = "mongodb://localhost: 27017";
     let dataBaseUrl = "mongodb+srv://SoftwareReader:1234@gisws20-21.a07b1.mongodb.net/Carsharing?retryWrites=true&w=majority";
     console.log("Starting server");
-    //Aufruf der Funktionen
+    //starting server and connection to database
     startServer(port);
     connectToDatabase(dataBaseUrl);
     function startServer(_port) {
@@ -118,15 +117,18 @@ var Carsharing;
     }
     async function registerien(_client) {
         console.log("versucht zu registrieren");
-        console.log("username", _client.username);
+        // trying to find username in the database
         let searchname = await collection.findOne({ "username": _client.username });
         if (!_client.username || !_client.password) {
+            // username or password field are not filled out
             return false;
         }
         else if (searchname != undefined) {
+            // username is already taken
             return false;
         }
         else {
+            // insert username into database
             await collection.insertOne(_client);
             console.log("registrieren erfolgreich");
             return true;
@@ -135,7 +137,6 @@ var Carsharing;
     async function einloggen(_client) {
         // check if username is found in the collection
         let daten2 = await collection.findOne({ "username": _client.username });
-        console.log("id daten", daten2._id);
         //check if a password or a username are entered
         if (!_client.username || !_client.password) {
             //  login without a username or passwort 
@@ -182,6 +183,7 @@ var Carsharing;
         }
     }
     async function showData() {
+        // get all Cars in an array
         let data = await collectionCars.find().toArray();
         console.log(data);
         return data;

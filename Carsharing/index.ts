@@ -51,50 +51,50 @@ namespace Carsharing{
         tabl.appendChild(tableheader7);
         tabl.appendChild(tableheader8);
             
-        // for ( let i: number = 0; i < Object.keys(responseTextJson).length; i++) {
+        for ( let i: number = 0; i < Object.keys(responseTextJson).length; i++) {
 
-        //     let tablerow: HTMLElement = document.createElement("tr");
-        //     let tableelement1: HTMLElement = document.createElement("td");
-        //     let tableelement2: HTMLElement = document.createElement("td");
-        //     let tableelement3: HTMLElement = document.createElement("td");
-        //     let tableelement4: HTMLElement = document.createElement("td");
-        //     let imag: HTMLImageElement = document.createElement("img");
-        //     imag.src = "picture/" + responseTextJson[i].url;
-        //     tableelement2.innerHTML = responseTextJson[i].name; 
-        //     tableelement3.innerHTML = responseTextJson[i].geld; 
-        //     //console.log(responseTextJson[1].status);
-        //     console.log(sessionStorage.getItem("userId"));
-        //     console.log("respone" + responseTextJson[i].reserviert );
+            let tablerow: HTMLElement = document.createElement("tr");
+            let tableelement1: HTMLElement = document.createElement("td");
+            let tableelement2: HTMLElement = document.createElement("td");
+            let tableelement3: HTMLElement = document.createElement("td");
+            let tableelement4: HTMLElement = document.createElement("td");
+            let tableelement5: HTMLElement = document.createElement("td");
+            let tableelement6: HTMLElement = document.createElement("td");
+            let tableelement7: HTMLElement = document.createElement("td");
+            let tableelement8: HTMLElement = document.createElement("td");
 
-        //     if (responseTextJson[i].status == "frei") {
-        //         let button: HTMLButtonElement = document.createElement("button");
-        //         button.addEventListener("click", ausleihen);
-        //         button.id = responseTextJson[i]._id;
-        //         //console.log(responseTextJson[i]._id);
-        //         tableelement4.appendChild(button);
-        //         button.innerHTML = "ausleihen";
-        //     }
-        //     else {
-        //         tableelement4.innerHTML = responseTextJson[i].status;
-        //         if (responseTextJson[i].reserviert  == sessionStorage.getItem("userId")) {
-        //             tablerow.style.backgroundColor = "#81F781";
+            let betriebsart: string ="";
+            if(responseTextJson[i].electronic == true && responseTextJson[i].conventionell == false){
+                console.log("elektonik");
+                betriebsart = "E-Auto";
+            }
+            else if(responseTextJson[i].conventionell == true && responseTextJson[i].electronic == false){
+                betriebsart = "Konventionell";
+            }
+            else{
+                betriebsart = "Hybrid";
+            }
 
-        //         }
-        //         else {
-        //             tablerow.style.backgroundColor = "#9B9696";
-        //         }
-                
-                
-        //     }
+            tableelement1.innerHTML = responseTextJson[i].id; 
+            tableelement2.innerHTML = responseTextJson[i].name; 
+            tableelement3.innerHTML = betriebsart; 
+            tableelement4.innerHTML = responseTextJson[i].fnut; 
+            tableelement5.innerHTML = responseTextJson[i].lnut; 
+            tableelement6.innerHTML = responseTextJson[i].max;
+            tableelement7.innerHTML = responseTextJson[i].pnd; 
+            tableelement8.innerHTML = responseTextJson[i].ppmin;
+            
 
-        //     tablerow.appendChild(tableelement1);
-        //     tablerow.appendChild(tableelement2);
-        //     tablerow.appendChild(tableelement3);
-        //     tablerow.appendChild(tableelement4);
-        //     tableelement1.appendChild(imag);
-        //     tabl.appendChild(tablerow);
-
-        // }    
+            tablerow.appendChild(tableelement1);
+            tablerow.appendChild(tableelement2);
+            tablerow.appendChild(tableelement3);
+            tablerow.appendChild(tableelement4);
+            tablerow.appendChild(tableelement5);
+            tablerow.appendChild(tableelement6);
+            tablerow.appendChild(tableelement7);
+            tablerow.appendChild(tableelement8);
+            tabl.appendChild(tablerow);
+        }    
 
     }  
     async function ausleihen(_event: Event): Promise<void> {
