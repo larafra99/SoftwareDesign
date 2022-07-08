@@ -116,7 +116,7 @@ var Carsharing;
                 console.log("book car");
                 console.log("dataid", parameter.dataID);
                 let car = await bookCar(parameter.dataID);
-                _response.write("Auto wurde angelegt");
+                _response.write(JSON.stringify(car));
             }
         }
         _response.end();
@@ -195,9 +195,11 @@ var Carsharing;
         return data;
     }
     async function bookCar(_carid) {
+        console.log("Auto buchen");
+        // get Car by id
         let daten3 = await collectionCars.findOne({ "id": _carid });
         console.log("Daten", daten3);
-        return true;
+        return daten3;
     }
 })(Carsharing = exports.Carsharing || (exports.Carsharing = {}));
 //# sourceMappingURL=server.js.map
