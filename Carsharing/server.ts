@@ -26,7 +26,6 @@ export namespace Carsharing {
 
     let collection: Mongo.Collection;
     let collectionCars: Mongo.Collection;
-
     
     let port: number = Number(process.env.PORT); 
     if (!port) {
@@ -94,14 +93,11 @@ export namespace Carsharing {
 
             else if (q.pathname == "/register.html") {
                 console.log("registieren");
-
                 let users: User = {
                     username: parameter.username as string,
                     password: parameter.password as string,
                     status: false
                 };
-
-                //console.log(users);
                 let resultreg: boolean = await registerien(users);
                 if (resultreg) {
                     _response.write("Nutzer wurde erstellt");
@@ -113,7 +109,6 @@ export namespace Carsharing {
             }  
             else if(q.pathname =="/addcar.html"){
                 console.log("Add Car");
-
                 let car:Car ={
                     id: parameter.carid as string,
                     name: parameter.carname as string,
@@ -140,7 +135,10 @@ export namespace Carsharing {
                 else{
                     _response.write("Felder sind leer oder Datentypen sind nicht korrekt oder Auto Id existiert schon");
                 }            
-            }      
+            }
+            else if(q.pathname =="/index.html"){
+                console.log("get Data");
+            }     
         }
         _response.end();
     }

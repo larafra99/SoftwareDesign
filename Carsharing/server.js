@@ -70,7 +70,6 @@ var Carsharing;
                     password: parameter.password,
                     status: false
                 };
-                //console.log(users);
                 let resultreg = await registerien(users);
                 if (resultreg) {
                     _response.write("Nutzer wurde erstellt");
@@ -108,6 +107,9 @@ var Carsharing;
                 else {
                     _response.write("Felder sind leer oder Datentypen sind nicht korrekt oder Auto Id existiert schon");
                 }
+            }
+            else if (q.pathname == "/index.html") {
+                console.log("get Data");
             }
         }
         _response.end();
