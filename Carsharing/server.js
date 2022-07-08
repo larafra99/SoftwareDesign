@@ -114,9 +114,11 @@ var Carsharing;
             }
             else if (q.pathname == "/bookcars.html") {
                 console.log("book car");
-                console.log("dataid", parameter.dataID);
                 let car = await bookCar(parameter.dataID);
                 _response.write(JSON.stringify(car));
+            }
+            else if (q.pathname == "/checktime.html ") {
+                console.log("check if car is available");
             }
         }
         _response.end();
@@ -191,14 +193,12 @@ var Carsharing;
     async function showData() {
         // get all Cars in an array
         let data = await collectionCars.find().toArray();
-        console.log(data);
         return data;
     }
     async function bookCar(_carid) {
         console.log("Auto buchen");
         // get Car by id
         let daten3 = await collectionCars.findOne({ "id": _carid });
-        console.log("Daten", daten3);
         return daten3;
     }
 })(Carsharing = exports.Carsharing || (exports.Carsharing = {}));

@@ -143,11 +143,14 @@ export namespace Carsharing {
 
             else if(q.pathname=="/bookcars.html"){
                 console.log("book car");
-                console.log("dataid",parameter.dataID);
                 let car: Car = await bookCar(parameter.dataID as string);
 
                 _response.write(JSON.stringify(car));
-            }     
+            }
+            else if(q.pathname=="/checktime.html "){
+                console.log("check if car is available")
+            }
+               
         }
         _response.end();
     }
@@ -223,7 +226,6 @@ export namespace Carsharing {
     async function showData(): Promise<Car[]> {
         // get all Cars in an array
         let data: any[] = await collectionCars.find().toArray();
-        console.log(data);
         return data;
     }
 
@@ -231,7 +233,6 @@ export namespace Carsharing {
         console.log("Auto buchen");
         // get Car by id
         let daten3: any = await collectionCars.findOne({"id": _carid} );
-        console.log("Daten",daten3);
         return daten3;
     } 
 }

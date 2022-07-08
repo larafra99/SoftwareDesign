@@ -62,11 +62,11 @@ namespace Carsharing{
             tableelement1.innerHTML = responseTextJson[i].id; 
             tableelement2.innerHTML = responseTextJson[i].name; 
             tableelement3.innerHTML = betriebsart; 
-            tableelement4.innerHTML = responseTextJson[i].fnut; 
-            tableelement5.innerHTML = responseTextJson[i].lnut; 
-            tableelement6.innerHTML = responseTextJson[i].max;
-            tableelement7.innerHTML = responseTextJson[i].pnd; 
-            tableelement8.innerHTML = responseTextJson[i].ppmin;
+            tableelement4.innerHTML = responseTextJson[i].fnut + " Uhr"; 
+            tableelement5.innerHTML = responseTextJson[i].lnut + " Uhr"; 
+            tableelement6.innerHTML = responseTextJson[i].max + " Min";
+            tableelement7.innerHTML = responseTextJson[i].pnd + " €"; 
+            tableelement8.innerHTML = responseTextJson[i].ppmin + " €";
             tableelement9.innerHTML = "buchen";
             
             tablerow.appendChild(tableelement1);
@@ -89,5 +89,5 @@ namespace Carsharing{
         sessionStorage.removeItem("dataId");
         sessionStorage.setItem("dataId",dataId);
         window.location.replace("bookcar.html");
-    }
+    }    
 }
