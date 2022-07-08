@@ -58,7 +58,6 @@ var Carsharing;
                 console.log("Login:", result);
                 if (result) {
                     _response.write("erfolgreich eingeloggt");
-                    user.status = true;
                 }
                 else {
                     _response.write("Überprüfen Sie Benutzernamen oder das Passwort");
@@ -132,6 +131,7 @@ var Carsharing;
     async function einloggen(_client) {
         // check if username is found in the collection
         let daten2 = await collection.findOne({ "username": _client.username });
+        console.log("id daten", daten2._id);
         //check if a password or a username are entered
         if (!_client.username || !_client.password) {
             //  login without a username or passwort 
@@ -144,7 +144,8 @@ var Carsharing;
         else {
             // if username exists
             if (daten2.password == _client.password) {
-                // check if its the right password for the username
+                // right password for the username
+                await collection.updateOne({ _id: Mongo.ObjectId.createFromHexString(buttonId) }, { $set: { "status": "true" } });
                 return true;
             }
             else {
@@ -158,20 +159,22 @@ var Carsharing;
         console.log("Car", daten);
         if (!_car.id || !_car.name || !_car.fnut || !_car.lnut || !_car.max || !_car.pnd || !_car.ppmin) {
             console.log("Daten fehlen");
-            //  login without a username or passwort 
+            //  trying to add car with empty fields
             return false;
         }
         if (_car.conventionell == false && _car.electronic == false) {
             console.log("Antriebsart fehlt");
+            // type car engine is missing
             return false;
         }
         else if (daten != undefined) {
             console.log("Auto existiert schon");
-            // username does not exist
+            // carid exists
             return false;
         }
         else {
             await collectionCars.insertOne(_car);
+            // add car to database
             return true;
         }
     }
