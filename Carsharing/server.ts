@@ -68,9 +68,21 @@ export namespace Carsharing {
 
             if (q.pathname == "/login.html") {
                 console.log("einloggen");
-                let result: boolean =  await einloggen(parameter.username as string , parameter.password as string);
+                let user: User = {
+                    username: parameter.username as string,
+                    password: parameter.password as string,
+                    status: false
+                };
+                let result: boolean =  await einloggen(user);
                 console.log("Login:", result);
                 _response.write(JSON.stringify(result));
+                if (result) {
+                    _response.write("erfolgreich eingeloggt");
+                    user.status = true; 
+                }
+                else {
+                    _response.write("Überprüfen Sie Benutzernamen oder das Passwort");
+                }  
             }
 
             else if (q.pathname == "/register.html") {
@@ -118,21 +130,23 @@ export namespace Carsharing {
         }
     }
 
-    async function einloggen(_username: string, _password: string): Promise<boolean> {
-        
-        if (!_username || !_password) {
+    async function einloggen(_client: User): Promise<boolean> {
+        //check if a password or a username are entered
+        if (!_client.username || !_client.password) {
+            //  login without a username or passwort 
             return false;
         }
         else{
-            let daten2: any = await collection.findOne({"username": _username} );
+            // check if username is found in the collection
+            let daten2: any = await collection.findOne({"username": _client.username} );
             console.log("PAssswort", daten2.password)
-            if (daten2.password== _password){
-                console.log(daten2);
+            if (daten2.password== _client.password){
+                // check if its the right passwort for the username
                 console.log("PAssswort", daten2.password)
             return true;
             }
             else{
-                console.log(daten2);
+                // passwort is wrong
             return false
             }
             
