@@ -195,10 +195,12 @@ export namespace Carsharing {
     async function addcar(_car:Car): Promise<boolean>{
         let daten: any = await collectionCars.findOne({"username": _car.id} );
         if (!_car.id || !_car.name || !_car.fnut || !_car.lnut || !_car.max || !_car.pnd || !_car.ppmin) {
+            console.log("Daten fehlen")
             //  login without a username or passwort 
             return false;
         }
         else if (daten != undefined) {
+            console.log("Auto existiert schon")
             // username does not exist
             return false;
         }
