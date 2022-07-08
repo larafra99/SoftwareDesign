@@ -154,7 +154,7 @@ var Carsharing;
         }
     }
     async function addcar(_car) {
-        let daten = await collectionCars.findOne({ "username": _car.id });
+        let daten = await collectionCars.findOne({ "id": _car.id });
         console.log("Car", daten);
         if (!_car.id || !_car.name || !_car.fnut || !_car.lnut || !_car.max || !_car.pnd || !_car.ppmin) {
             console.log("Daten fehlen");

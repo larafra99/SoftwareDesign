@@ -193,7 +193,7 @@ export namespace Carsharing {
         }  
     }
     async function addcar(_car:Car): Promise<boolean>{
-        let daten: any = await collectionCars.findOne({"username": _car.id} );
+        let daten: any = await collectionCars.findOne({"id": _car.id} );
         console.log("Car", daten);
         if (!_car.id || !_car.name || !_car.fnut || !_car.lnut || !_car.max || !_car.pnd || !_car.ppmin) {
             console.log("Daten fehlen")
