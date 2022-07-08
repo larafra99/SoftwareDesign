@@ -107,7 +107,7 @@ var Carsharing;
                     _response.write("Auto wurde angelegt");
                 }
                 else {
-                    _response.write("Felder sind leer oder Datentypen sind nicht korrekt");
+                    _response.write("Felder sind leer oder Datentypen sind nicht korrekt oder Auto Id existiert schon");
                 }
             }
         }
@@ -159,6 +159,10 @@ var Carsharing;
         if (!_car.id || !_car.name || !_car.fnut || !_car.lnut || !_car.max || !_car.pnd || !_car.ppmin) {
             console.log("Daten fehlen");
             //  login without a username or passwort 
+            return false;
+        }
+        if (_car.conventionell == false && _car.electronic == false) {
+            console.log("Antriebsart fehlt");
             return false;
         }
         else if (daten != undefined) {
