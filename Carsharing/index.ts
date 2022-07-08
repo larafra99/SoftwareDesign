@@ -1,5 +1,4 @@
 namespace Carsharing{
-
     
     showData();
     interface Car{
@@ -22,34 +21,15 @@ namespace Carsharing{
         //console.log(response);
         console.log(responseTextJson);
         console.log(Object.keys(responseTextJson).length);
+        let tabledescription: string[]= ["Auto Id","Auto Bezeichnung","Antriebsart","frühste Nutzungsuhrzeit","späteste Nutzungsuhrzeit","maximale Nutzungdauer","pauschale Nutzungspreis","Preis pro Minute","Buchen"]
         
-
         let tabl: HTMLElement = document.createElement("table");
-        let tableheader1: HTMLElement = document.createElement("th");
-        let tableheader2: HTMLElement = document.createElement("th");
-        let tableheader3: HTMLElement = document.createElement("th");
-        let tableheader4: HTMLElement = document.createElement("th");
-        let tableheader5: HTMLElement = document.createElement("th");
-        let tableheader6: HTMLElement = document.createElement("th");
-        let tableheader7: HTMLElement = document.createElement("th");
-        let tableheader8: HTMLElement = document.createElement("th");
-        tableheader1.innerHTML = "Auto Id";
-        tableheader2.innerHTML = "Auto Bezeichnung";
-        tableheader3.innerHTML = "Antriebsart";
-        tableheader4.innerHTML = "frühste Nutzungsuhrzeit";
-        tableheader5.innerHTML = "späteste Nutzungsuhrzeit";
-        tableheader6.innerHTML = "maximale Nutzungdauer";
-        tableheader7.innerHTML = "pauschale Nutzungspreis";
-        tableheader8.innerHTML = "Preis pro Minute";
         document.getElementById("showData").appendChild(tabl);
-        tabl.appendChild(tableheader1);
-        tabl.appendChild(tableheader2);
-        tabl.appendChild(tableheader3);
-        tabl.appendChild(tableheader4);
-        tabl.appendChild(tableheader5);
-        tabl.appendChild(tableheader6);
-        tabl.appendChild(tableheader7);
-        tabl.appendChild(tableheader8);
+        for ( let i: number = 0; i <= 8; i++) {
+            let tableheader: HTMLElement = document.createElement("th");
+            tableheader.innerHTML = tabledescription[i];
+            tabl.appendChild(tableheader);
+        }
             
         for ( let i: number = 0; i < Object.keys(responseTextJson).length; i++) {
 
@@ -62,7 +42,11 @@ namespace Carsharing{
             let tableelement6: HTMLElement = document.createElement("td");
             let tableelement7: HTMLElement = document.createElement("td");
             let tableelement8: HTMLElement = document.createElement("td");
+            let tableelement9: HTMLElement = document.createElement("button");
 
+            tableelement9.addEventListener("click", bookcar);
+            tableelement9.id = responseTextJson[i].id;
+            
             let betriebsart: string ="";
             if(responseTextJson[i].electronic == true && responseTextJson[i].conventionell == false){
                 console.log("elektonik");
@@ -83,8 +67,8 @@ namespace Carsharing{
             tableelement6.innerHTML = responseTextJson[i].max;
             tableelement7.innerHTML = responseTextJson[i].pnd; 
             tableelement8.innerHTML = responseTextJson[i].ppmin;
+            tableelement9.innerHTML = "buchen";
             
-
             tablerow.appendChild(tableelement1);
             tablerow.appendChild(tableelement2);
             tablerow.appendChild(tableelement3);
@@ -93,23 +77,17 @@ namespace Carsharing{
             tablerow.appendChild(tableelement6);
             tablerow.appendChild(tableelement7);
             tablerow.appendChild(tableelement8);
+            tablerow.appendChild(tableelement9);
             tabl.appendChild(tablerow);
         }    
-
     }  
-    async function ausleihen(_event: Event): Promise<void> {
-        let url: string = "https://gisws2021.herokuapp.com/ausleihen.html";
 
-        let userId: string = sessionStorage.getItem("userId");
+    async function bookcar(_event: Event): Promise<void> {
+        console.log("click");
         let dataId: string = (_event.target as HTMLImageElement).id;
         console.log(dataId);
-        url = url + "?" + "userID=" + userId + "&dataID=" + dataId;
-        console.log(url);
-        let response: Response = await fetch(url);
-        let responseText: string = await response.text();
-        //console.log(response);
-        console.log(responseText);
-        window.location.replace("verleih.html"); 
-       
+        sessionStorage.removeItem("dataId");
+        sessionStorage.setItem("dataId",dataId);
+        window.location.replace("bookcar.html");
     }
 }

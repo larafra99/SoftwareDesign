@@ -10,7 +10,7 @@ export namespace Carsharing {
         password: string;
         status: boolean;   
     }
-    
+
     interface Car{
         id: string;
         name: string;
@@ -139,6 +139,9 @@ export namespace Carsharing {
                 console.log("get Data");
                 let listCars: Car[] = await showData();
                 _response.write( JSON.stringify(listCars) )
+            }
+            else if(q.pathname=="/bookcars.html"){
+                console.log("book car");
             }     
         }
         _response.end();
