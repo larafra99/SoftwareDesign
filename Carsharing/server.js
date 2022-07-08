@@ -115,10 +115,8 @@ var Carsharing;
         else {
             // check if username is found in the collection
             let daten2 = await collection.findOne({ "username": _client.username });
-            console.log("PAssswort", daten2.password);
             if (daten2.password == _client.password) {
                 // check if its the right passwort for the username
-                console.log("PAssswort", daten2.password);
                 return true;
             }
             else {
