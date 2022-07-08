@@ -17,10 +17,10 @@ export namespace Carsharing {
         name: string;
         electronic: boolean;
         conventionell: boolean;
-        fnut: number;
-        lnut: number;
-        pnd: number;
-        ppmin: number;
+        fnut: string;
+        lnut: string;
+        pnd: string;
+        ppmin: string;
     }
 
     let collection: Mongo.Collection;
@@ -113,6 +113,28 @@ export namespace Carsharing {
             }  
             else if(q.pathname =="/addcar.html"){
                 console.log("Add Car");
+
+                let car:Car ={
+                    id: parameter.carid as string,
+                    name: parameter.carname as string,
+                    electronic: false,
+                    conventionell: false,
+                    fnut: parameter.fnut as string,
+                    lnut: parameter.snut as string,
+                    pnd: parameter.pnd as string,
+                    ppmin: parameter.ppmin as string,
+                }
+                if (parameter.electric == "on"){
+                    console.log("Elektronisches Auto");
+                    car.electronic= true;
+                }
+                if(parameter.electric=="on"){
+                    console.log("Konventionelles Auto");
+                    car.conventionell= true;
+                }
+
+
+                
             }      
         }
         _response.end();
