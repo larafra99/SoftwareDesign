@@ -114,6 +114,8 @@ var Carsharing;
             }
             else if (q.pathname == "/bookcars.html") {
                 console.log("book car");
+                console.log("dataid", parameter.dataID);
+                _response.write("Auto wurde angelegt");
             }
         }
         _response.end();
