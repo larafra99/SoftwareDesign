@@ -147,7 +147,7 @@ export namespace Carsharing {
 
                 _response.write(JSON.stringify(car));
             }
-            else if(q.pathname=="/checktime.html "){
+            else if(q.pathname=="/checktime.html"){
                 console.log("check if car is available")
             }
                

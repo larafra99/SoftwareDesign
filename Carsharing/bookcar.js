@@ -67,10 +67,10 @@ var Carsharing;
             let url = "https://softwaredesign.herokuapp.com/checktime.html";
             url = url + "?" + query.toString();
             console.log(url);
-            // let response: Response = await fetch(url);
-            // let responseText: string = await response.text();
-            // //console.log(response);
-            // console.log(responseText);
+            let response = await fetch(url);
+            let responseText = await response.text();
+            //console.log(response);
+            console.log(responseText);
         }
     }
 })(Carsharing || (Carsharing = {}));

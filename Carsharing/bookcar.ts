@@ -86,10 +86,10 @@ namespace Carsharing{
     
             url = url + "?" + query.toString();
             console.log(url);
-            // let response: Response = await fetch(url);
-            // let responseText: string = await response.text();
-            // //console.log(response);
-            // console.log(responseText);
+            let response: Response = await fetch(url);
+            let responseText: string = await response.text();
+            //console.log(response);
+            console.log(responseText);
         }
     } 
 }
