@@ -7,7 +7,7 @@ const Mongo = require("mongodb");
 var Carsharing;
 (function (Carsharing) {
     let collection;
-    let collectionData;
+    let collectionCars;
     let port = Number(process.env.PORT);
     if (!port) {
         port = 8100;
@@ -31,9 +31,9 @@ var Carsharing;
         let mongoClient = new Mongo.MongoClient(_url);
         await mongoClient.connect();
         collection = mongoClient.db("Carsharing").collection("User");
-        collectionData = mongoClient.db("Carsharing").collection("Cars");
+        collectionCars = mongoClient.db("Carsharing").collection("Cars");
         console.log("Database connection user sucessfull ", collection != undefined);
-        console.log("Database connection Cars sucessfull ", collectionData != undefined);
+        console.log("Database connection Cars sucessfull ", collectionCars != undefined);
     }
     function handleListen() {
         console.log("listening");
@@ -101,6 +101,8 @@ var Carsharing;
                     console.log("Konventionelles Auto");
                     car.conventionell = true;
                 }
+                await addcar(car);
+                _response.write("Auto wurde angelegt");
             }
         }
         _response.end();
@@ -147,6 +149,9 @@ var Carsharing;
                 return false;
             }
         }
+    }
+    async function addcar(_car) {
+        await collectionCars.insertOne(_car);
     }
 })(Carsharing = exports.Carsharing || (exports.Carsharing = {}));
 //# sourceMappingURL=server.js.map

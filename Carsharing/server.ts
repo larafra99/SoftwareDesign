@@ -24,7 +24,7 @@ export namespace Carsharing {
     }
 
     let collection: Mongo.Collection;
-    let collectionData: Mongo.Collection;
+    let collectionCars: Mongo.Collection;
 
     
     let port: number = Number(process.env.PORT); 
@@ -54,9 +54,9 @@ export namespace Carsharing {
         let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url);
         await mongoClient.connect();
         collection = mongoClient.db("Carsharing").collection("User");
-        collectionData =  mongoClient.db("Carsharing").collection("Cars");
+        collectionCars =  mongoClient.db("Carsharing").collection("Cars");
         console.log("Database connection user sucessfull ", collection != undefined);
-        console.log("Database connection Cars sucessfull ", collectionData != undefined);
+        console.log("Database connection Cars sucessfull ", collectionCars != undefined);
     }
 
     function handleListen(): void {
@@ -132,9 +132,8 @@ export namespace Carsharing {
                     console.log("Konventionelles Auto");
                     car.conventionell= true;
                 }
-
-
-                
+                await addcar(car);
+                _response.write("Auto wurde angelegt");          
             }      
         }
         _response.end();
@@ -185,5 +184,8 @@ export namespace Carsharing {
             return false
             }  
         }  
+    }
+    async function addcar(_car:Car): Promise<void>{
+        await collectionCars.insertOne(_car);
     }   
 }
