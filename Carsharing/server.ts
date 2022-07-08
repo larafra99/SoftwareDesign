@@ -75,7 +75,6 @@ export namespace Carsharing {
                 };
                 let result: boolean =  await einloggen(user);
                 console.log("Login:", result);
-                _response.write(JSON.stringify(result));
                 if (result) {
                     _response.write("erfolgreich eingeloggt");
                     user.status = true; 
@@ -131,20 +130,25 @@ export namespace Carsharing {
     }
 
     async function einloggen(_client: User): Promise<boolean> {
+        // check if username is found in the collection
+        let daten2: any = await collection.findOne({"username": _client.username} );
         //check if a password or a username are entered
         if (!_client.username || !_client.password) {
             //  login without a username or passwort 
             return false;
         }
+        else if (daten2 == undefined) {
+            // username does not exist
+            return false;
+        }
         else{
-            // check if username is found in the collection
-            let daten2: any = await collection.findOne({"username": _client.username} );
+            // if username exists
             if (daten2.password== _client.password){
-                // check if its the right passwort for the username
+                // check if its the right password for the username
             return true;
             }
             else{
-                // passwort is wrong
+                // password is wrong
             return false
             }
             
