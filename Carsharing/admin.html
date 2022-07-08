@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset = "UTF-8">
+  <meta name="viewport" content="width=devine-width,initial-scale=1.0">
+  <title> Formular</title>
+  <script src="admin.js" defer></script>
+  <link rel="stylesheet" href ="navistyle.css">
+  <link rel="stylesheet" href ="adminstyle.css">
+  <link rel="stylesheet" href ="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class= "nav">
+                <li > <a href="login.html">Einloggen</a></li>
+                <li > <a href="index.html">Home</a></li>
+                <li > <a href="register.html">Registrieren</a></li>
+            </ul>
+        </nav>
+        <h1>Autos anlegen</h1>
+
+    </header>
+    <main>
+        <div  class = "car">
+            <form id="addcar" >
+                <fieldset id= "formcar">
+                    <legend> Felder mit* sind erforderlich</legend>
+                        <label for="id"> Auto ID*</label>
+                        <input type ="text" id ="id" placeholder ="TELMOD3-1"name="carid"/>
+                        <label for = "carname"> Auto Bezeichnung*</label>
+                        <input type ="text" id = "carname" placeholder = "Tesla Model 3 - weiß" name="carname" />
+                        <legend> Antriebsart*</legend>
+                                <label for ="electric">Elektro Auto</label>
+                                <input type ="checkbox" id="checkbox" name="electric">
+                                <label for ="conventionell">Konventionell</label>
+                                <input type ="checkbox" id="checkbox" name="conventionell">
+                        <label for="id"> Frühste Nutzungsuhrzeit*</label>
+                        <input type ="time" id = "time" name = "fnut" />
+                        <label for="id"> Späteste Nutzungsuhrzeit*</label>
+                        <input type ="time" id = "time" name = "snut" />
+                        <label for="id"> Maximale Nutzungsdauer in Minuten*</label>
+                        <input type ="number" id = "max" name = "max" min="0" />
+                        <label for="id"> Pauschaler Nutzungspreis in €*</label>
+                        <input type="number" id = "max" odplaceholder="20€" step="0.01" min="0" name="pnd">
+                        <label for="id"> Nutzungspreis pro Minute in €*</label>
+                        <input type="number" id = "max" placeholder="0.5€" step="0.01" min="0"name="ppmin">
+                            
+
+
+
+                        <div>
+                            <button id="buttonaddcar" type ="button">Auto hinzufügen</button>
+                        </div>
+                </fieldset>
+            </form>
+        </div> 
+        <div id = "response">
+        </div>
+    </main>  
+</body>
+</html>

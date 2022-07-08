@@ -1,0 +1,34 @@
+label{  
+    display: block;
+    margin-bottom: 5px;
+}
+legend{
+    margin-bottom: 20px;
+}
+.car{
+    width:600px; 
+    height: 1070px; 
+    padding-left: 40px;
+    padding-top:30px;
+    text-align: center;
+    background-color:#E0F2F7;
+    border-radius:10px;
+}
+#carname{
+    width: 98%;
+}
+#id{
+    width: 98%;
+}
+#checkbox{
+    size: 1px;
+}
+#time{
+    width:15%;
+}
+#max{
+    width: 15%;
+}
+#buttonaddcar{
+    align-items: center;
+}

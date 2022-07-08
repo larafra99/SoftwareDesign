@@ -13,8 +13,6 @@ var Carsharing;
         port = 8100;
     }
     //let dataBaseUrl: string = "mongodb://localhost: 27017";
-    //let dataBaseUrl: string = "mongodb+srv://Reader:Database123@gisws20-21.a07b1.mongodb.net/ASTA?retryWrites=true&w=majority";
-    //let dataBaseUrl: string = "mongodb+srv://SoftwareReader:1234@gisws20-21.a07b1.mongodb.net/?retryWrites=true&w=majority";
     let dataBaseUrl = "mongodb+srv://SoftwareReader:1234@gisws20-21.a07b1.mongodb.net/Carsharing?retryWrites=true&w=majority";
     console.log("Starting server");
     //Aufruf der Funktionen
@@ -82,6 +80,9 @@ var Carsharing;
                 else {
                     _response.write("username ist schon vergeben oder Felder sind leer");
                 }
+            }
+            else if (q.pathname == "/addcar.html") {
+                console.log("Add Car");
             }
         }
         _response.end();

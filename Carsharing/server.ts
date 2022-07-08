@@ -12,6 +12,16 @@ export namespace Carsharing {
         password: string;
         status: boolean;   
     }
+    interface Car{
+        id: string;
+        name: string;
+        electronic: boolean;
+        conventionell: boolean;
+        fnut: number;
+        lnut: number;
+        pnd: number;
+        ppmin: number;
+    }
 
     let collection: Mongo.Collection;
     let collectionData: Mongo.Collection;
@@ -23,8 +33,6 @@ export namespace Carsharing {
     }
 
     //let dataBaseUrl: string = "mongodb://localhost: 27017";
-    //let dataBaseUrl: string = "mongodb+srv://Reader:Database123@gisws20-21.a07b1.mongodb.net/ASTA?retryWrites=true&w=majority";
-    //let dataBaseUrl: string = "mongodb+srv://SoftwareReader:1234@gisws20-21.a07b1.mongodb.net/?retryWrites=true&w=majority";
     let dataBaseUrl: string = "mongodb+srv://SoftwareReader:1234@gisws20-21.a07b1.mongodb.net/Carsharing?retryWrites=true&w=majority";
     console.log("Starting server");
 
@@ -102,7 +110,10 @@ export namespace Carsharing {
                 else {
                     _response.write("username ist schon vergeben oder Felder sind leer");
                 }    
-            }           
+            }  
+            else if(q.pathname =="/addcar.html"){
+                console.log("Add Car");
+            }      
         }
         _response.end();
     }
@@ -150,11 +161,7 @@ export namespace Carsharing {
             else{
                 // password is wrong
             return false
-            }
-            
-
-        }
-        
-    }  
-    
+            }  
+        }  
+    }   
 }
