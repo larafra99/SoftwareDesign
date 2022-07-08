@@ -198,7 +198,7 @@ export namespace Carsharing {
             //  login without a username or passwort 
             return false;
         }
-        else if (daten == undefined) {
+        else if (daten != undefined) {
             // username does not exist
             return false;
         }
