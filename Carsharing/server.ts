@@ -316,6 +316,8 @@ export namespace Carsharing {
             // carid exist in database
             
             for ( let i: number = 0; i <= data5.length; i++){
+                console.log("Data",data5[i].date);
+                console.log("InterfaceData",_usetime.date);
                 if(data5[i].date ==_usetime.date){
                     return false;
 
@@ -323,10 +325,10 @@ export namespace Carsharing {
                     
                 
             }
-            await collectionUseTimes.insertOne(_usetime);
-            console.log("auto eingefügt");
+            // await collectionUseTimes.insertOne(_usetime);
+            // console.log("auto eingefügt");
             // add car to database because date for car does not exist in database
-            return true; 
+            return false; 
             
         }
         else{
