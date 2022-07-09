@@ -260,7 +260,7 @@ export namespace Carsharing {
         let start: number = parseInt((daten4.fnut).replace(":",""));
         let wunschstart: number = parseInt((_starttime).replace(":",""))
         console.log("Strat",start,"Wunsch",wunschstart);
-        if(wunschstart>start){
+        if(wunschstart<start){
             console.log("zu früh")
         }
         

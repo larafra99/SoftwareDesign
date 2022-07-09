@@ -225,7 +225,7 @@ var Carsharing;
         let start = parseInt((daten4.fnut).replace(":", ""));
         let wunschstart = parseInt((_starttime).replace(":", ""));
         console.log("Strat", start, "Wunsch", wunschstart);
-        if (wunschstart > start) {
+        if (wunschstart < start) {
             console.log("zu früh");
         }
         return "true";
