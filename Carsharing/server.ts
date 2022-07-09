@@ -258,9 +258,9 @@ export namespace Carsharing {
         console.log("User",_checkuser);
         let daten4: any = await collection.findOne({"username": _checkuser} );
         console.log(daten4);
-        // if (daten4.status == "true"){
-        //     console.log("eingeloogt");
-        // }
+        if (daten4.status == "true"){
+            console.log("eingeloogt");
+        }
         return true;
         
     }
