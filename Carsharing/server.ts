@@ -150,10 +150,17 @@ export namespace Carsharing {
             else if(q.pathname=="/checktime.html"){
                 console.log("check if car is available")
                 if (parameter.booktime!= "" && parameter.starttime!= ""&& parameter.duration!= ""){
-                    console.log("Paramter != null");
                     let available:string=await checktime(parameter.carid as string,parameter.starttime as string,parameter.duration as string);
-                    //let time: boolean = await checkavailable();
-                    console.log(available);
+                    
+                    if( available!="true")
+                    {
+                        _response.write(available); 
+                    }
+                    else{
+                        console.log("check if car is booked")
+                        //let time: boolean = await checkavailable();
+
+                    }
                 }
                 else{
                     // time field empty
@@ -267,17 +274,20 @@ export namespace Carsharing {
         console.log("enddauer",wishend,"Rest", rest);
         // let wunschend: number = parseInt((_endtime).replace(":",""));
         if(wishstart<start){
-            return "das Auto ist nicht so früh nutzbar, erst nutzbar ab"+" "+(daten4.fnut).toString()
+            return "das Auto ist nicht so früh nutzbar, erst nutzbar ab "+(daten4.fnut).toString()
         }
         else if(wishduration>duration){
             return "ihre gewünschte Nutzdauer ist zu lange"
         }
         else if(wishend>end){
-            return "das Auto ist so spät nicht nutzbar, nur nutzbar bis"+(daten4.lnut).toString()
+            return "das Auto ist so spät nicht nutzbar, nur nutzbar bis "+(daten4.lnut).toString()+"Uhr"
+        }
+        else{
+            return "true"; 
         }
 
         
-        return "true";   
+          
     }
     async function checkavailable():Promise<boolean> {
         console.log("Auto check time");
