@@ -334,8 +334,7 @@ export namespace Carsharing {
                     }
                     
                 }
-                    
-                
+                     
             }
             // await collectionUseTimes.insertOne(_usetime);
             console.log("auto eingefügt");
