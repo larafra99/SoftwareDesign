@@ -255,7 +255,7 @@ export namespace Carsharing {
         console.log("Auto check time");
         console.log("Id",_carid,"Start",_starttime,"Ende",_endtime);
         let daten4: any = await collectionCars.findOne({"id": _carid} );
-        console.log(daten4),
+        console.log(daten4);
         return "true";   
     }
     async function checktime():Promise<boolean> {
