@@ -123,7 +123,9 @@ var Carsharing;
                     console.log("Paramter != null");
                     let time = await checktime();
                 }
-                console.log("Parameter", parameter.booktime);
+                else {
+                    _response.write("bitte eine Zeit eintragen");
+                }
             }
         }
         _response.end();

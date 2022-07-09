@@ -155,8 +155,12 @@ export namespace Carsharing {
                     
 
                 }
+                else{
+                    _response.write("bitte eine Zeit eintragen");
+
+                }
                 
-                console.log("Parameter",parameter.booktime);
+                
                 
             }
                
