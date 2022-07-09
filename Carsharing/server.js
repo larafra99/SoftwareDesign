@@ -118,8 +118,11 @@ var Carsharing;
                 _response.write(JSON.stringify(car));
             }
             else if (q.pathname == "/checktime.html") {
-                let time = await checktime();
                 console.log("check if car is available");
+                if (parameter.booktime != null) {
+                    let time = await checktime();
+                }
+                console.log("Parameter", parameter.booktime);
             }
         }
         _response.end();

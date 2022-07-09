@@ -148,8 +148,14 @@ export namespace Carsharing {
                 _response.write(JSON.stringify(car));
             }
             else if(q.pathname=="/checktime.html"){
-                let time: boolean = await checktime();
                 console.log("check if car is available")
+                if (parameter.booktime!= null){
+                    let time: boolean = await checktime();
+                    
+
+                }
+                console.log("Parameter",parameter.booktime);
+                
             }
                
         }
