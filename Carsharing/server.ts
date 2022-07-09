@@ -151,8 +151,8 @@ export namespace Carsharing {
                 console.log("check if car is available")
                 if (parameter.booktime!= "" && parameter.starttime!= ""&& parameter.endtime!= ""){
                     console.log("Paramter != null");
-                    let available:string=await checkavailable(parameter.carid as string,parameter.starttime as string,parameter.endtime as string);
-                    //let time: boolean = await checktime();
+                    let available:string=await checktime(parameter.carid as string,parameter.starttime as string,parameter.endtime as string);
+                    //let time: boolean = await checkavailable();
                     console.log(available);
                 }
                 else{
@@ -251,14 +251,14 @@ export namespace Carsharing {
         let daten3: any = await collectionCars.findOne({"id": _carid} );
         return daten3;
     } 
-    async function checkavailable(_carid:string,_starttime: string, _endtime:string):Promise<string> {
+    async function checktime(_carid:string,_starttime: string, _endtime:string):Promise<string> {
         console.log("Auto check time");
         console.log("Id",_carid,"Start",_starttime,"Ende",_endtime);
         let daten4: any = await collectionCars.findOne({"id": _carid} );
         console.log(daten4);
         return "true";   
     }
-    async function checktime():Promise<boolean> {
+    async function checkavailable():Promise<boolean> {
         console.log("Auto check time");
         return true;   
     }
