@@ -220,7 +220,7 @@ var Carsharing;
         return true;
     }
     async function checkuser(_checkuser) {
-        let daten4 = await collectionCars.findOne({ "username": _checkuser });
+        let daten4 = await collection.findOne({ "username": _checkuser });
         console.log(daten4);
         if (daten4.status == "true") {
             console.log("eingeloogt");
