@@ -325,14 +325,14 @@ export namespace Carsharing {
                     
                 
             }
-            // await collectionUseTimes.insertOne(_usetime);
-            // console.log("auto eingefügt");
-            // add car to database because date for car does not exist in database
+            await collectionUseTimes.insertOne(_usetime);
+            console.log("auto eingefügt");
+            //add car to database because date for car does not exist in database
             return false; 
             
         }
         else{
-            //await collectionUseTimes.insertOne(_usetime);
+            await collectionUseTimes.insertOne(_usetime);
             console.log("auto eingefügt");
             // add car to database because carid does not exist in database
             return true;  
