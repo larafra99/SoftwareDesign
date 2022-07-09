@@ -1,5 +1,6 @@
 namespace Carsharing{
     showData(10);
+
     interface Car{
         id: string;
         name: string;
@@ -95,7 +96,6 @@ namespace Carsharing{
         showData(parseInt((query.toString()).substring(9))); 
     } 
      
-
     async function bookcar(_event: Event): Promise<void> {
         console.log("click");
         let dataId: string = (_event.target as HTMLImageElement).id;
