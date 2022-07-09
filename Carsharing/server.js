@@ -120,6 +120,7 @@ var Carsharing;
             else if (q.pathname == "/checktime.html") {
                 console.log("check if car is available");
                 if (parameter.booktime != null) {
+                    console.log("Paramter != null");
                     let time = await checktime();
                 }
                 console.log("Parameter", parameter.booktime);
