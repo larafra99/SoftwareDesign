@@ -223,7 +223,7 @@ var Carsharing;
         let daten4 = await collectionCars.findOne({ "id": _carid });
         console.log(daten4);
         let start = parseInt((daten4.fnut).replace(":", ""));
-        let wunschstart = parseInt((_carid).replace(":", ""));
+        let wunschstart = parseInt((_starttime).replace(":", ""));
         console.log("Strat", start, "Wunsch", wunschstart);
         if (wunschstart > start) {
             console.log("zu früh");

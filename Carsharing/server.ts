@@ -258,7 +258,7 @@ export namespace Carsharing {
         let daten4: any = await collectionCars.findOne({"id": _carid});
         console.log(daten4);
         let start: number = parseInt((daten4.fnut).replace(":",""));
-        let wunschstart: number = parseInt((_carid).replace(":",""))
+        let wunschstart: number = parseInt((_starttime).replace(":",""))
         console.log("Strat",start,"Wunsch",wunschstart);
         if(wunschstart>start){
             console.log("zu früh")
