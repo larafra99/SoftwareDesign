@@ -268,13 +268,16 @@ var Carsharing;
             console.log("Auto existiert schon");
             // carid exist in database
             for (let i = 0; i <= data5.length; i++) {
-                console.log("Data", data5[i].date);
-                console.log("InterfaceData", _usetime.date);
                 if (data5[i].date == _usetime.date) {
                     console.log("Date is the same");
-                    console.log("starttime", data5[i].starttime);
-                    console.log("InterfaceStarttime", _usetime.starttime);
-                    console.log("InterfaceEndtime", _usetime.endtime);
+                    let start = parseInt((data5[i].starttime).replace(":", ""));
+                    let wishstart = parseInt((_usetime.starttime).replace(":", ""));
+                    let end = parseInt((data5[i].endtime).replace(":", ""));
+                    let wishend = parseInt(_usetime.endtime);
+                    console.log("starttime", start);
+                    console.log("endtime", end);
+                    console.log("InterfaceStarttime", wishstart);
+                    console.log("InterfaceEndtime", wishend);
                     if (data5[i].starttime <= _usetime.starttime && _usetime.starttime <= data5[i].endtime) {
                         console.log("starttime is in between");
                         return false;
