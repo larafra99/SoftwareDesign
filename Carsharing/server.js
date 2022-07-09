@@ -223,12 +223,18 @@ var Carsharing;
         let daten4 = await collectionCars.findOne({ "id": _carid });
         console.log(daten4);
         let start = parseInt((daten4.fnut).replace(":", ""));
-        let wunschstart = parseInt((_starttime).replace(":", ""));
+        let duration = parseInt(daten4.max);
+        let wishduration = parseInt(_duration);
+        let wishstart = parseInt((_starttime).replace(":", ""));
         let end = parseInt((daten4.lnut).replace(":", ""));
+        let wishend = duration / 60;
+        console.log("enddauer", wishend);
         // let wunschend: number = parseInt((_endtime).replace(":",""));
-        console.log("Strat", start, "Wunsch", wunschstart);
-        if (wunschstart < start) {
-            return "das Auto ist nicht so früh nutzbar, erst nutzbar ab" + (daten4.fnut).toString();
+        if (wishstart < start) {
+            return "das Auto ist nicht so früh nutzbar, erst nutzbar ab" + " " + (daten4.fnut).toString();
+        }
+        else if (wishduration > duration) {
+            return "ihre gewünschte Nutzdauer ist zu lange";
         }
         // else if(wunschend>end){
         //     return "das Auto ist so spät nicht nutzbar, nur nutzbar bis"+(daten4.lnut).toString()
