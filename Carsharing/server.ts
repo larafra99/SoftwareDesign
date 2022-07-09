@@ -328,7 +328,7 @@ export namespace Carsharing {
                     console.log("endtime",end);
                     console.log("InterfaceStarttime",wishstart);
                     console.log("InterfaceEndtime",wishend);
-                    if(data5[i].starttime <=  _usetime.starttime && _usetime.starttime<=data5[i].endtime){
+                    if(start <=  wishstart&& wishstart<=end){
                         console.log("starttime is in between");
                         return false;
                     }
