@@ -123,7 +123,7 @@ export namespace Carsharing {
                     console.log("Elektronisches Auto");
                     car.electronic= true;
                 }
-                if(parameter.conventionell=="on"){
+                if(parameter.conventionell =="on"){
                     console.log("Konventionelles Auto");
                     car.conventionell= true;
                 }
@@ -149,7 +149,7 @@ export namespace Carsharing {
             }
             else if(q.pathname=="/checktime.html"){
                 console.log("check if car is available")
-                if (parameter.booktime!= null){
+                if (parameter.booktime!= ""){
                     console.log("Paramter != null");
                     let time: boolean = await checktime();
                     
