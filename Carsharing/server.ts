@@ -262,7 +262,7 @@ export namespace Carsharing {
         let wishduration: number = parseInt(_duration);
         let wishstart: number = parseInt((_starttime).replace(":",""));
         let end: number = parseInt((daten4.lnut).replace(":",""));
-        let wishend: number = Math.floor(wishduration/60)*100 + wishduration%60;
+        let wishend: number = Math.floor(wishduration/60)*100 + wishduration%60 + wishstart;
         let rest: number = wishduration%60;
         console.log("enddauer",wishend,"Rest", rest);
         // let wunschend: number = parseInt((_endtime).replace(":",""));
@@ -271,11 +271,10 @@ export namespace Carsharing {
         }
         else if(wishduration>duration){
             return "ihre gewünschte Nutzdauer ist zu lange"
-
         }
-        // else if(wunschend>end){
-        //     return "das Auto ist so spät nicht nutzbar, nur nutzbar bis"+(daten4.lnut).toString()
-        // }
+        else if(wishend>end){
+            return "das Auto ist so spät nicht nutzbar, nur nutzbar bis"+(daten4.lnut).toString()
+        }
 
         
         return "true";   
