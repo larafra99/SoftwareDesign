@@ -227,8 +227,9 @@ var Carsharing;
         let wishduration = parseInt(_duration);
         let wishstart = parseInt((_starttime).replace(":", ""));
         let end = parseInt((daten4.lnut).replace(":", ""));
-        let wishend = Math.floor(wishduration / 60);
-        console.log("enddauer", wishend);
+        let wishend = Math.floor(wishduration / 60) * 100 + wishduration % 60;
+        let rest = wishduration % 60;
+        console.log("enddauer", wishend, "Rest", rest);
         // let wunschend: number = parseInt((_endtime).replace(":",""));
         if (wishstart < start) {
             return "das Auto ist nicht so früh nutzbar, erst nutzbar ab" + " " + (daten4.fnut).toString();
