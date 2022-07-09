@@ -17,7 +17,7 @@ namespace Carsharing{
 
     async function showData(): Promise<void> {
         let url: string = "https://softwaredesign.herokuapp.com/bookcars.html";
-        let dataId: string =sessionStorage.getItem("dataId");
+        let dataId: string =localStorage.getItem("dataId");
         url = url + "?" + "&dataID=" + dataId;
         //console.log(url);
         let response: Response = await fetch(url);
@@ -81,7 +81,7 @@ namespace Carsharing{
         timeButton.addEventListener("click", booktime);
         
         async function booktime(_event: Event): Promise<void> {
-            let user: string =sessionStorage.getItem("user");
+            let user: string =localStorage.getItem("user");
             console.log(user);
             let checklogin: string = "https://softwaredesign.herokuapp.com/logincheck.html";
             checklogin = checklogin + "?" + user;

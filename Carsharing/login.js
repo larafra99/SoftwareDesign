@@ -20,7 +20,7 @@ async function login(_event) {
     document.getElementById("response").appendChild(loginText);
     loginText.innerHTML = responseText;
     if (responseText != "null") {
-        sessionStorage.setItem("user", ((query.toString()).split("&").shift()));
+        localStorage.setItem("user", ((query.toString()).split("&").shift()));
         //window.location.replace("verleih.html");
     }
 }

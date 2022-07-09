@@ -131,7 +131,8 @@ var Carsharing;
             }
             else if (q.pathname == "/logincheck.html") {
                 console.log("check if user is logged in");
-                console.log("Parameter", parameter.username);
+                let status = await checkuser(parameter.username);
+                console.log(status);
             }
         }
         _response.end();
@@ -216,6 +217,14 @@ var Carsharing;
     }
     async function checktime() {
         console.log("Auto check time");
+        return true;
+    }
+    async function checkuser(_checkuser) {
+        let daten4 = await collectionCars.findOne({ "username": _checkuser });
+        console.log(daten4);
+        if (daten4.status == "true") {
+            console.log("eingeloogt");
+        }
         return true;
     }
 })(Carsharing = exports.Carsharing || (exports.Carsharing = {}));

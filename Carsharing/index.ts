@@ -100,8 +100,8 @@ namespace Carsharing{
         console.log("click");
         let dataId: string = (_event.target as HTMLImageElement).id;
         console.log(dataId);
-        sessionStorage.removeItem("dataId");
-        sessionStorage.setItem("dataId",dataId);
+        localStorage.removeItem("dataId");
+        localStorage.setItem("dataId",dataId);
         window.location.replace("bookcar.html");
     }    
 }

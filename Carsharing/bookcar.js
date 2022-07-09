@@ -5,7 +5,7 @@ var Carsharing;
     showData();
     async function showData() {
         let url = "https://softwaredesign.herokuapp.com/bookcars.html";
-        let dataId = sessionStorage.getItem("dataId");
+        let dataId = localStorage.getItem("dataId");
         url = url + "?" + "&dataID=" + dataId;
         //console.log(url);
         let response = await fetch(url);
@@ -62,7 +62,7 @@ var Carsharing;
         let timeButton = document.getElementById("timebutton");
         timeButton.addEventListener("click", booktime);
         async function booktime(_event) {
-            let user = sessionStorage.getItem("user");
+            let user = localStorage.getItem("user");
             console.log(user);
             let checklogin = "https://softwaredesign.herokuapp.com/logincheck.html";
             checklogin = checklogin + "?" + user;

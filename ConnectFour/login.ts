@@ -20,7 +20,7 @@ async function login(_event: Event): Promise<void> {
     document.getElementById("response").appendChild(loginText);
     loginText.innerHTML = responseText; 
     if (responseText != "null") {
-        sessionStorage.setItem("userId", responseText);
+        localStorage.setItem("userId", responseText);
         window.location.replace("verleih.html");
         }
 

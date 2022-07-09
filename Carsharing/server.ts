@@ -161,7 +161,8 @@ export namespace Carsharing {
             }
             else if(q.pathname=="/logincheck.html"){
                 console.log("check if user is logged in");
-                console.log("Parameter",parameter.username);
+                let status: boolean = await checkuser(parameter.username as string);
+                console.log(status);
 
             }
                
@@ -251,6 +252,14 @@ export namespace Carsharing {
     } 
     async function checktime():Promise<boolean> {
         console.log("Auto check time");
+        return true;   
+    }
+    async function checkuser(_checkuser: string):Promise<boolean> {
+        let daten4: any = await collectionCars.findOne({"username": _checkuser} );
+        console.log(daten4);
+        if (daten4.status == "true"){
+            console.log("eingeloogt");
+        }
         return true;
         
     }
