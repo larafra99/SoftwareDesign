@@ -64,26 +64,27 @@ var Carsharing;
         async function booktime(_event) {
             let user = localStorage.getItem("user");
             console.log(user);
-            let checklogin = "https://softwaredesign.herokuapp.com/logincheck.html";
-            checklogin = checklogin + "?" + user;
-            let loginresponse = await fetch(checklogin);
-            let loginresponseText = await loginresponse.text();
-            console.log(loginresponse);
-            console.log(loginresponseText);
-            // console.log("click");
-            // let formData: FormData = new FormData(timeForm);
-            // let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
-            // console.log(query.toString());
-            // let timeurl: string = "https://softwaredesign.herokuapp.com/checktime.html";
-            // timeurl = timeurl + "?" + query.toString();
-            // console.log(timeurl);
-            // let response: Response = await fetch(timeurl);
-            // let responseText: string = await response.text();
-            // console.log(response);
-            // console.log(responseText);
-            // let booktext: HTMLElement = document.createElement("p");
-            // document.getElementById("response").appendChild(booktext);
-            // booktext.innerHTML = responseText; 
+            if (user == null) {
+                console.log("user not logged in");
+                localStorage.setItem("lastmove", "bookcar.html");
+                window.location.replace("login.html");
+            }
+            else {
+                console.log("click");
+                let formData = new FormData(timeForm);
+                let query = new URLSearchParams(formData);
+                console.log(query.toString());
+                let timeurl = "https://softwaredesign.herokuapp.com/checktime.html";
+                timeurl = timeurl + "?" + query.toString() + "&" + user + "&" + "carid=" + responseTextJson.id;
+                console.log(timeurl);
+                let response = await fetch(timeurl);
+                let responseText = await response.text();
+                console.log(response);
+                console.log(responseText);
+                let booktext = document.createElement("p");
+                document.getElementById("response").appendChild(booktext);
+                booktext.innerHTML = responseText;
+            }
         }
     }
 })(Carsharing || (Carsharing = {}));

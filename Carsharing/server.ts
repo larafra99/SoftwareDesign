@@ -149,7 +149,7 @@ export namespace Carsharing {
             }
             else if(q.pathname=="/checktime.html"){
                 console.log("check if car is available")
-                if (parameter.booktime!= ""){
+                if (parameter.booktime!= "" && parameter.starttime!= ""&& parameter.endtime!= ""){
                     console.log("Paramter != null");
                     let time: boolean = await checktime();
                     console.log(time);
@@ -159,12 +159,12 @@ export namespace Carsharing {
                     _response.write("bitte eine Zeit eintragen");
                 }    
             }
-            else if(q.pathname=="/logincheck.html"){
-                console.log("check if user is logged in");
-                let status: boolean = await checkuser(parameter.username as string);
-                console.log(status);
+            // else if(q.pathname=="/logincheck.html"){
+            //     console.log("check if user is logged in");
+            //     let status: boolean = await checkuser(parameter.username as string);
+            //     console.log(status);
 
-            }
+            // }
                
         }
         _response.end();
@@ -254,14 +254,14 @@ export namespace Carsharing {
         console.log("Auto check time");
         return true;   
     }
-    async function checkuser(_checkuser: string):Promise<boolean> {
-        console.log("User",_checkuser);
-        let daten4: any = await collection.findOne({"username": _checkuser} );
-        console.log(daten4);
-        if (daten4.status == "true"){
-            console.log("eingeloogt");
-        }
-        return true;
+    // async function checkuser(_checkuser: string):Promise<boolean> {
+    //     console.log("User",_checkuser);
+    //     let daten4: any = await collection.findOne({"username": _checkuser} );
+    //     console.log(daten4);
+    //     if (daten4.status == "true"){
+    //         console.log("eingeloogt");
+    //     }
+    //     return true;
         
-    }
+    // }
 }

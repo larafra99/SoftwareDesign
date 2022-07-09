@@ -119,7 +119,7 @@ var Carsharing;
             }
             else if (q.pathname == "/checktime.html") {
                 console.log("check if car is available");
-                if (parameter.booktime != "") {
+                if (parameter.booktime != "" && parameter.starttime != "" && parameter.endtime != "") {
                     console.log("Paramter != null");
                     let time = await checktime();
                     console.log(time);
@@ -129,11 +129,11 @@ var Carsharing;
                     _response.write("bitte eine Zeit eintragen");
                 }
             }
-            else if (q.pathname == "/logincheck.html") {
-                console.log("check if user is logged in");
-                let status = await checkuser(parameter.username);
-                console.log(status);
-            }
+            // else if(q.pathname=="/logincheck.html"){
+            //     console.log("check if user is logged in");
+            //     let status: boolean = await checkuser(parameter.username as string);
+            //     console.log(status);
+            // }
         }
         _response.end();
     }
@@ -219,14 +219,14 @@ var Carsharing;
         console.log("Auto check time");
         return true;
     }
-    async function checkuser(_checkuser) {
-        console.log("User", _checkuser);
-        let daten4 = await collection.findOne({ "username": _checkuser });
-        console.log(daten4);
-        if (daten4.status == "true") {
-            console.log("eingeloogt");
-        }
-        return true;
-    }
+    // async function checkuser(_checkuser: string):Promise<boolean> {
+    //     console.log("User",_checkuser);
+    //     let daten4: any = await collection.findOne({"username": _checkuser} );
+    //     console.log(daten4);
+    //     if (daten4.status == "true"){
+    //         console.log("eingeloogt");
+    //     }
+    //     return true;
+    // }
 })(Carsharing = exports.Carsharing || (exports.Carsharing = {}));
 //# sourceMappingURL=server.js.map

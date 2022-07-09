@@ -22,9 +22,19 @@ async function login(_event: Event): Promise<void> {
     document.getElementById("response").innerHTML="";
     document.getElementById("response").appendChild(loginText);
     loginText.innerHTML = responseText; 
-    if (responseText != "null") {
+    if (responseText == "erfolgreich eingeloggt") {
         localStorage.setItem("user", ((query.toString()).split("&").shift()));
-        //window.location.replace("verleih.html");
+        
+        if(localStorage.getItem("lastmove")!= null){
+            let location: string= localStorage.getItem("lastmove");
+            console.log("port back");
+            console.log(location);
+            window.location.replace(location);
+        }
+        else{
+            window.location.replace("index.html");
+
+        }
         }
 
     }
