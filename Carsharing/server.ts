@@ -331,17 +331,20 @@ export namespace Carsharing {
                     if(start <=  wishstart&& wishstart<=end){
                         console.log("starttime is in between");
                         return false;
-                    }
-                    
-                }
-                     
+                    } 
+                    else if(start <=  wishend&& wishend<=end){
+                        console.log("endtime is in between");
+                        return false;
+
+                    }     
+                }                    
             }
-            // await collectionUseTimes.insertOne(_usetime);
+            await collectionUseTimes.insertOne(_usetime);
             console.log("auto eingefügt");
             //add car to database because date for car does not exist in database
-            return false; 
-            
+            return false;   
         }
+
         else{
             await collectionUseTimes.insertOne(_usetime);
             console.log("auto eingefügt");
