@@ -164,7 +164,8 @@ export namespace Carsharing {
                 if (parameter.booktime!= "" && parameter.starttime!= ""&& parameter.duration!= ""){
                     //let available:string=await checktime(parameter.carid as string,parameter.starttime as string,parameter.duration as string);
                     let duration: number = parseInt(parameter.duration as string );
-                    let end: number =Math.floor(duration /60)*100 + duration%60 + duration;
+                    let start: number = parseInt((parameter.starttime as string).replace(":",""));
+                    let end: number =Math.floor(duration /60)*100 + duration%60 + start;
 
                     let usetime:UseTimes={
                         carid: parameter.carid as string,

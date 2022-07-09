@@ -125,7 +125,8 @@ var Carsharing;
                 if (parameter.booktime != "" && parameter.starttime != "" && parameter.duration != "") {
                     //let available:string=await checktime(parameter.carid as string,parameter.starttime as string,parameter.duration as string);
                     let duration = parseInt(parameter.duration);
-                    let end = Math.floor(duration / 60) * 100 + duration % 60 + duration;
+                    let start = parseInt(parameter.starttime.replace(":", ""));
+                    let end = Math.floor(duration / 60) * 100 + duration % 60 + start;
                     let usetime = {
                         carid: parameter.carid,
                         date: parameter.booktime,
