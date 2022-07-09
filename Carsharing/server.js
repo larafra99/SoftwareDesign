@@ -222,8 +222,8 @@ var Carsharing;
         // get Car by id
         let daten4 = await collectionCars.findOne({ "id": _carid });
         console.log(daten4);
-        let start = daten4.fnut;
-        console.log((daten4.fnut).replace(":", ""));
+        let start = parseInt((daten4.fnut).replace(":", ""));
+        console.log(start);
         // if(daten4.fnut)
         return "true";
     }
