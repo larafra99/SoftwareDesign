@@ -140,6 +140,7 @@ var Carsharing;
                     else {
                         console.log("check if car is booked");
                         let time = await checkavailable(usetime);
+                        console.log(time);
                     }
                 }
                 else {
@@ -270,6 +271,7 @@ var Carsharing;
                 console.log("Data", data5[i].date);
                 console.log("InterfaceData", _usetime.date);
                 if (data5[i].date == _usetime.date) {
+                    console.log("Date is the same");
                     return false;
                 }
             }

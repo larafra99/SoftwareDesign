@@ -181,6 +181,7 @@ export namespace Carsharing {
                     else{
                         console.log("check if car is booked")
                         let time: boolean = await checkavailable(usetime);
+                        console.log(time);
 
                     }
                 }
@@ -319,6 +320,7 @@ export namespace Carsharing {
                 console.log("Data",data5[i].date);
                 console.log("InterfaceData",_usetime.date);
                 if(data5[i].date ==_usetime.date){
+                    console.log("Date is the same");
                     return false;
 
                 }
