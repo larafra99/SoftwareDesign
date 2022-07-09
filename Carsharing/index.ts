@@ -1,5 +1,5 @@
 namespace Carsharing{
-    showData(10);
+    showData("10");
 
     interface Car{
         id: string;
@@ -13,7 +13,7 @@ namespace Carsharing{
         ppmin: string;
     }
 
-    async function showData(caramount:number): Promise<void> {
+    async function showData(caramount:string): Promise<void> {
         document.getElementById("showData").innerHTML="";
         let url: string = "https://softwaredesign.herokuapp.com/index.html";
         let response: Response = await fetch(url);
@@ -31,11 +31,17 @@ namespace Carsharing{
             tableheader.innerHTML = tabledescription[i];
             tabl.appendChild(tableheader);
         }
-        if (Object.keys(responseTextJson).length< caramount){
-            caramount=Object.keys(responseTextJson).length
+        let amount: number;
+        if (caramount=="all"){
+            amount=Object.keys(responseTextJson).length
+
+        }
+        amount = parseInt(caramount);
+        if (Object.keys(responseTextJson).length< amount||caramount=="all"){
+            amount=Object.keys(responseTextJson).length
         }
             
-        for ( let i: number = 0; i < caramount; i++) {
+        for ( let i: number = 0; i < amount; i++) {
 
             let tablerow: HTMLElement = document.createElement("tr");
             let tableelement1: HTMLElement = document.createElement("td");
@@ -85,15 +91,17 @@ namespace Carsharing{
             tabl.appendChild(tablerow);
         }
         let amountButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("submit");
-        amountButton.addEventListener("click", amount);       
+        amountButton.addEventListener("click", amountbutton);       
     }
-    async function amount(_event:Event):Promise<void> {
+    async function amountbutton(_event:Event):Promise<void> {
         console.log("amount click");
         let amountForm: HTMLFormElement = <HTMLFormElement>document.getElementById("amountForm");
         let formData: FormData = new FormData(amountForm);
         let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
         console.log("Query", query.toString());
-        showData(parseInt((query.toString()).substring(9))); 
+        console.log((query.toString()).substring(9));
+        showData((query.toString()).substring(9)); 
+        
     } 
      
     async function bookcar(_event: Event): Promise<void> {

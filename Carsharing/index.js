@@ -1,7 +1,7 @@
 "use strict";
 var Carsharing;
 (function (Carsharing) {
-    showData(10);
+    showData("10");
     async function showData(caramount) {
         document.getElementById("showData").innerHTML = "";
         let url = "https://softwaredesign.herokuapp.com/index.html";
@@ -19,10 +19,15 @@ var Carsharing;
             tableheader.innerHTML = tabledescription[i];
             tabl.appendChild(tableheader);
         }
-        if (Object.keys(responseTextJson).length < caramount) {
-            caramount = Object.keys(responseTextJson).length;
+        let amount;
+        if (caramount == "all") {
+            amount = Object.keys(responseTextJson).length;
         }
-        for (let i = 0; i < caramount; i++) {
+        amount = parseInt(caramount);
+        if (Object.keys(responseTextJson).length < amount || caramount == "all") {
+            amount = Object.keys(responseTextJson).length;
+        }
+        for (let i = 0; i < amount; i++) {
             let tablerow = document.createElement("tr");
             let tableelement1 = document.createElement("td");
             let tableelement2 = document.createElement("td");
@@ -67,15 +72,16 @@ var Carsharing;
             tabl.appendChild(tablerow);
         }
         let amountButton = document.getElementById("submit");
-        amountButton.addEventListener("click", amount);
+        amountButton.addEventListener("click", amountbutton);
     }
-    async function amount(_event) {
+    async function amountbutton(_event) {
         console.log("amount click");
         let amountForm = document.getElementById("amountForm");
         let formData = new FormData(amountForm);
         let query = new URLSearchParams(formData);
         console.log("Query", query.toString());
-        showData(parseInt((query.toString()).substring(9)));
+        console.log((query.toString()).substring(9));
+        showData((query.toString()).substring(9));
     }
     async function bookcar(_event) {
         console.log("click");

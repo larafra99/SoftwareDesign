@@ -314,7 +314,20 @@ export namespace Carsharing {
         if (data5[0] != undefined) {
             console.log("Auto existiert schon");
             // carid exist in database
-            return false;
+            
+            for ( let i: number = 0; i <= data5.length; i++){
+                if(data5[i].date ==_usetime.date){
+                    return false;
+
+                }
+                    
+                
+            }
+            await collectionUseTimes.insertOne(_usetime);
+            console.log("auto eingefügt");
+            // add car to database because date for car does not exist in database
+            return true; 
+            
         }
         else{
             await collectionUseTimes.insertOne(_usetime);
