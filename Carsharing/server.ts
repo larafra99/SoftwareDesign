@@ -173,7 +173,6 @@ export namespace Carsharing {
                         endtime: end.toString(),
                         user:parameter.username as string,
                     }
-                    console.log("interface",usetime)
                     let available:string=await checktime(usetime, duration);
 
                     if( available!="true"){
@@ -310,6 +309,7 @@ export namespace Carsharing {
     async function checkavailable(_usetime:UseTimes):Promise<boolean> {
         console.log("Auto check time");
         let data5: any[] = await collectionUseTimes.find({"id": _usetime.carid}).toArray();
+        console.log("DataArray", data5);
         console.log("Data",data5[0]);
         if (data5[0] != undefined) {
             console.log("Auto existiert schon");
@@ -332,7 +332,7 @@ export namespace Carsharing {
             
         }
         else{
-            await collectionUseTimes.insertOne(_usetime);
+            //await collectionUseTimes.insertOne(_usetime);
             console.log("auto eingefügt");
             // add car to database because carid does not exist in database
             return true;  

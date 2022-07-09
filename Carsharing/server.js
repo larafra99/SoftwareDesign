@@ -133,7 +133,6 @@ var Carsharing;
                         endtime: end.toString(),
                         user: parameter.username,
                     };
-                    console.log("interface", usetime);
                     let available = await checktime(usetime, duration);
                     if (available != "true") {
                         _response.write(available);
@@ -262,6 +261,7 @@ var Carsharing;
     async function checkavailable(_usetime) {
         console.log("Auto check time");
         let data5 = await collectionUseTimes.find({ "id": _usetime.carid }).toArray();
+        console.log("DataArray", data5);
         console.log("Data", data5[0]);
         if (data5[0] != undefined) {
             console.log("Auto existiert schon");
@@ -279,7 +279,7 @@ var Carsharing;
             return false;
         }
         else {
-            await collectionUseTimes.insertOne(_usetime);
+            //await collectionUseTimes.insertOne(_usetime);
             console.log("auto eingefügt");
             // add car to database because carid does not exist in database
             return true;
