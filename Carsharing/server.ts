@@ -148,6 +148,7 @@ export namespace Carsharing {
                 _response.write(JSON.stringify(car));
             }
             else if(q.pathname=="/checktime.html"){
+                let time: boolean = await checktime();
                 console.log("check if car is available")
             }
                
@@ -235,4 +236,9 @@ export namespace Carsharing {
         let daten3: any = await collectionCars.findOne({"id": _carid} );
         return daten3;
     } 
+    async function checktime():Promise<boolean> {
+        console.log("Auto check time");
+        return true;
+        
+    }
 }

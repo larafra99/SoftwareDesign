@@ -118,6 +118,7 @@ var Carsharing;
                 _response.write(JSON.stringify(car));
             }
             else if (q.pathname == "/checktime.html") {
+                let time = await checktime();
                 console.log("check if car is available");
             }
         }
@@ -200,6 +201,10 @@ var Carsharing;
         // get Car by id
         let daten3 = await collectionCars.findOne({ "id": _carid });
         return daten3;
+    }
+    async function checktime() {
+        console.log("Auto check time");
+        return true;
     }
 })(Carsharing = exports.Carsharing || (exports.Carsharing = {}));
 //# sourceMappingURL=server.js.map
