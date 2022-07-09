@@ -311,7 +311,7 @@ export namespace Carsharing {
         console.log("Auto check time");
         let data5: any[] = await collectionUseTimes.find({"id": _usetime.carid}).toArray();
         console.log("Data",data5[0]);
-        if (data5 != undefined) {
+        if (data5[0] != undefined) {
             console.log("Auto existiert schon");
             // carid exist in database
             return false;
