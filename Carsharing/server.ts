@@ -248,14 +248,19 @@ export namespace Carsharing {
     async function bookCar(_carid:string): Promise<Car>{
         console.log("Auto buchen");
         // get Car by id
-        let daten3: any = await collectionCars.findOne({"id": _carid} );
+        let daten3: any = await collectionCars.findOne({"id": _carid});
         return daten3;
     } 
     async function checktime(_carid:string,_starttime: string, _endtime:string):Promise<string> {
         console.log("Auto check time");
         console.log("Id",_carid,"Start",_starttime,"Ende",_endtime);
-        let daten4: any = await collectionCars.findOne({"id": _carid} );
+        // get Car by id
+        let daten4: any = await collectionCars.findOne({"id": _carid});
         console.log(daten4);
+        let start: number = parseInt(daten4.fnut);
+        console.log(start);
+        // if(daten4.fnut)
+        
         return "true";   
     }
     async function checkavailable():Promise<boolean> {

@@ -219,8 +219,12 @@ var Carsharing;
     async function checktime(_carid, _starttime, _endtime) {
         console.log("Auto check time");
         console.log("Id", _carid, "Start", _starttime, "Ende", _endtime);
+        // get Car by id
         let daten4 = await collectionCars.findOne({ "id": _carid });
         console.log(daten4);
+        let start = parseInt(daten4.fnut);
+        console.log(start);
+        // if(daten4.fnut)
         return "true";
     }
     async function checkavailable() {
