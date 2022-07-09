@@ -23,8 +23,17 @@ export namespace Carsharing {
         ppmin: string;
     }
 
+    interface UseTimes{
+        carid:string;
+        date: string;
+        starttime: string;
+        endtime: string;
+        user: string;
+    }
+
     let collection: Mongo.Collection;
     let collectionCars: Mongo.Collection;
+    let collectionUseTimes: Mongo.Collection;
     
     let port: number = Number(process.env.PORT); 
     if (!port) {
@@ -53,8 +62,10 @@ export namespace Carsharing {
         await mongoClient.connect();
         collection = mongoClient.db("Carsharing").collection("User");
         collectionCars =  mongoClient.db("Carsharing").collection("Cars");
+        collectionUseTimes =  mongoClient.db("Carsharing").collection("Dates");
         console.log("Database connection user sucessfull ", collection != undefined);
         console.log("Database connection Cars sucessfull ", collectionCars != undefined);
+        console.log("Database connection Cars sucessfull ", collectionUseTimes != undefined);
     }
 
     function handleListen(): void {
@@ -148,19 +159,30 @@ export namespace Carsharing {
                 _response.write(JSON.stringify(car));
             }
             else if(q.pathname=="/checktime.html"){
-                console.log("check if car is available")
+                console.log("check if car is available");
+                
                 if (parameter.booktime!= "" && parameter.starttime!= ""&& parameter.duration!= ""){
-                    let available:string=await checktime(parameter.carid as string,parameter.starttime as string,parameter.duration as string);
-                    
-                    if( available!="true")
-                    {
-                        _response.write(available); 
-                    }
-                    else{
-                        console.log("check if car is booked")
-                        //let time: boolean = await checkavailable();
+                    //let available:string=await checktime(parameter.carid as string,parameter.starttime as string,parameter.duration as string);
+                    let duration: number = parseInt(parameter.duration as string );
+                    let end: number =Math.floor(duration /60)*100 + duration%60 + duration;
 
+                    let usetime:UseTimes={
+                        carid: parameter.carid as string,
+                        date: parameter.booktime as string,
+                        starttime:parameter.starttime as string,
+                        endtime: end.toString(),
+                        user:parameter.username as string,
                     }
+                    console.log("interface",usetime)
+                //     if( available!="true")
+                //     {
+                //         _response.write(available); 
+                //     }
+                //     else{
+                //         console.log("check if car is booked")
+                //         let time: boolean = await checkavailable();
+
+                //     }
                 }
                 else{
                     // time field empty

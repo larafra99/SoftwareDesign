@@ -8,6 +8,7 @@ var Carsharing;
 (function (Carsharing) {
     let collection;
     let collectionCars;
+    let collectionUseTimes;
     let port = Number(process.env.PORT);
     if (!port) {
         port = 8100;
@@ -31,8 +32,10 @@ var Carsharing;
         await mongoClient.connect();
         collection = mongoClient.db("Carsharing").collection("User");
         collectionCars = mongoClient.db("Carsharing").collection("Cars");
+        collectionUseTimes = mongoClient.db("Carsharing").collection("Dates");
         console.log("Database connection user sucessfull ", collection != undefined);
         console.log("Database connection Cars sucessfull ", collectionCars != undefined);
+        console.log("Database connection Cars sucessfull ", collectionUseTimes != undefined);
     }
     function handleListen() {
         console.log("listening");
@@ -120,14 +123,25 @@ var Carsharing;
             else if (q.pathname == "/checktime.html") {
                 console.log("check if car is available");
                 if (parameter.booktime != "" && parameter.starttime != "" && parameter.duration != "") {
-                    let available = await checktime(parameter.carid, parameter.starttime, parameter.duration);
-                    if (available != "true") {
-                        _response.write(available);
-                    }
-                    else {
-                        console.log("check if car is booked");
-                        //let time: boolean = await checkavailable();
-                    }
+                    //let available:string=await checktime(parameter.carid as string,parameter.starttime as string,parameter.duration as string);
+                    let duration = parseInt(parameter.duration);
+                    let end = Math.floor(duration / 60) * 100 + duration % 60 + duration;
+                    let usetime = {
+                        carid: parameter.carid,
+                        date: parameter.booktime,
+                        starttime: parameter.starttime,
+                        endtime: end.toString(),
+                        user: parameter.username,
+                    };
+                    console.log("interface", usetime);
+                    //     if( available!="true")
+                    //     {
+                    //         _response.write(available); 
+                    //     }
+                    //     else{
+                    //         console.log("check if car is booked")
+                    //         let time: boolean = await checkavailable();
+                    //     }
                 }
                 else {
                     // time field empty
