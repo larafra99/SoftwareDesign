@@ -272,10 +272,16 @@ var Carsharing;
                 console.log("InterfaceData", _usetime.date);
                 if (data5[i].date == _usetime.date) {
                     console.log("Date is the same");
-                    return false;
+                    console.log("starttime", data5[i].starttime);
+                    console.log("InterfaceStarttime", _usetime.starttime);
+                    console.log("InterfaceEndtime", _usetime.endtime);
+                    if (data5[i].starttime <= _usetime.starttime && _usetime.starttime <= data5[i].endtime) {
+                        console.log("starttime is in between");
+                        return false;
+                    }
                 }
             }
-            await collectionUseTimes.insertOne(_usetime);
+            // await collectionUseTimes.insertOne(_usetime);
             console.log("auto eingefügt");
             //add car to database because date for car does not exist in database
             return false;
