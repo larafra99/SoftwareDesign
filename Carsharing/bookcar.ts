@@ -81,21 +81,27 @@ namespace Carsharing{
         timeButton.addEventListener("click", booktime);
         
         async function booktime(_event: Event): Promise<void> {
-            console.log("click");
-            let formData: FormData = new FormData(timeForm);
-            let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
-            console.log(query.toString());
-            let timeurl: string = "https://softwaredesign.herokuapp.com/checktime.html";
+            let checklogin: string = "https://softwaredesign.herokuapp.com/logincheck.html";
+            let loginresponse: Response = await fetch(checklogin);
+            let loginresponseText: string = await loginresponse.text();
+            console.log(loginresponse);
+            console.log(loginresponseText);
+
+            // console.log("click");
+            // let formData: FormData = new FormData(timeForm);
+            // let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
+            // console.log(query.toString());
+            // let timeurl: string = "https://softwaredesign.herokuapp.com/checktime.html";
     
-            timeurl = timeurl + "?" + query.toString();
-            console.log(timeurl);
-            let response: Response = await fetch(timeurl);
-            let responseText: string = await response.text();
-            console.log(response);
-            console.log(responseText);
-            let booktext: HTMLElement = document.createElement("p");
-            document.getElementById("response").appendChild(booktext);
-            booktext.innerHTML = responseText; 
+            // timeurl = timeurl + "?" + query.toString();
+            // console.log(timeurl);
+            // let response: Response = await fetch(timeurl);
+            // let responseText: string = await response.text();
+            // console.log(response);
+            // console.log(responseText);
+            // let booktext: HTMLElement = document.createElement("p");
+            // document.getElementById("response").appendChild(booktext);
+            // booktext.innerHTML = responseText; 
         }
     } 
 }

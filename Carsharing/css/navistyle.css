@@ -9,6 +9,11 @@
 .nav>li{
     float:left;
 }
+.nav>div>button{
+    float:right;
+   
+
+}
 .nav li a{
     display:block;
     color:white;
@@ -20,4 +25,9 @@
 li a:hover{
     background-color: black;
     cursor: pointer;  
+}
+#logout{
+    display:block;
+    border: none;
+    display: inline-block;
 }

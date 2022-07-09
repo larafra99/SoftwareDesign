@@ -122,11 +122,15 @@ var Carsharing;
                 if (parameter.booktime != "") {
                     console.log("Paramter != null");
                     let time = await checktime();
+                    console.log(time);
                 }
                 else {
                     // time field empty
                     _response.write("bitte eine Zeit eintragen");
                 }
+            }
+            else if (q.pathname == "logincheck.html") {
+                console.log("check if user is logged in");
             }
         }
         _response.end();
