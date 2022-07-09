@@ -140,7 +140,7 @@ var Carsharing;
                     }
                     else {
                         console.log("check if car is booked");
-                        let time = await checkavailable();
+                        let time = await checkavailable(usetime);
                     }
                 }
                 else {
@@ -238,28 +238,40 @@ var Carsharing;
         console.log("Auto check time");
         // get Car by id
         let daten4 = await collectionCars.findOne({ "id": _time.carid });
-        console.log(daten4);
+        // transfer string to integer for comparision
         let start = parseInt((daten4.fnut).replace(":", ""));
-        let duration = parseInt(daten4.max);
         let wishstart = parseInt((_time.starttime).replace(":", ""));
         let end = parseInt((daten4.lnut).replace(":", ""));
-        // let wunschend: number = parseInt((_endtime).replace(":",""));
         if (wishstart < start) {
+            //start is too early
             return "das Auto ist nicht so früh nutzbar, erst nutzbar ab " + (daten4.fnut).toString();
         }
-        else if (_duration > duration) {
+        else if (_duration > parseInt(daten4.max)) {
+            // duration is too long
             return "ihre gewünschte Nutzdauer ist zu lange";
         }
         else if (parseInt(_time.endtime) > end) {
+            // end is too late
             return "das Auto ist so spät nicht nutzbar, nur nutzbar bis " + (daten4.lnut).toString() + "Uhr";
         }
         else {
+            // standart parameter fits
             return "true";
         }
     }
-    async function checkavailable() {
+    async function checkavailable(_usetime) {
         console.log("Auto check time");
-        return true;
+        let data5 = await collectionUseTimes.find({ "id": _usetime.carid }).toArray();
+        if (data5 != undefined) {
+            console.log("Auto existiert schon");
+            // carid exist in database
+            return false;
+        }
+        else {
+            await collectionCars.insertOne(_usetime);
+            // add car to database because carid does not exist in database
+            return true;
+        }
     }
     // async function checkuser(_checkuser: string):Promise<boolean> {
     //     console.log("User",_checkuser);
