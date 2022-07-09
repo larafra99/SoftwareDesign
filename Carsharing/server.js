@@ -231,7 +231,7 @@ var Carsharing;
             return "das Auto ist nicht so früh nutzbar, erst nutzbar ab" + (daten4.fnut).toString();
         }
         else if (wunschend > end) {
-            return "das Auto ist so spät nicht nutzbar, nur nutzbar bis" + (daten4.snut).toString();
+            return "das Auto ist so spät nicht nutzbar, nur nutzbar bis" + (daten4.lnut).toString();
         }
         return "true";
     }
