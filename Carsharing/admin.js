@@ -19,6 +19,7 @@ var Carsharing;
         //console.log(response);
         console.log(responseText);
         let registerText = document.createElement("p");
+        document.getElementById("response").innerHTML = "";
         document.getElementById("response").appendChild(registerText);
         registerText.innerHTML = responseText;
         if (responseText == "Nutzer wurde erstellt") {

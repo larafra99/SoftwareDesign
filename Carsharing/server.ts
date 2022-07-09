@@ -156,8 +156,8 @@ export namespace Carsharing {
 
                 }
                 else{
+                    // time field empty
                     _response.write("bitte eine Zeit eintragen");
-
                 }
                 
                 

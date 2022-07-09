@@ -14,6 +14,7 @@ async function login(_event) {
     //console.log(response);
     console.log(responseText);
     let loginText = document.createElement("p");
+    document.getElementById("response").innerHTML = "";
     document.getElementById("response").appendChild(loginText);
     loginText.innerHTML = responseText;
     if (responseText != "null") {

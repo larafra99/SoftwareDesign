@@ -124,6 +124,7 @@ var Carsharing;
                     let time = await checktime();
                 }
                 else {
+                    // time field empty
                     _response.write("bitte eine Zeit eintragen");
                 }
             }

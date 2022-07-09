@@ -1,3 +1,4 @@
+//import{Car}from "./interfaces/interface.js";
 namespace Carsharing{
     
     showData();
@@ -90,8 +91,11 @@ namespace Carsharing{
             console.log(timeurl);
             let response: Response = await fetch(timeurl);
             let responseText: string = await response.text();
-            //console.log(response);
+            console.log(response);
             console.log(responseText);
+            let booktext: HTMLElement = document.createElement("p");
+            document.getElementById("response").appendChild(booktext);
+            booktext.innerHTML = responseText; 
         }
     } 
 }

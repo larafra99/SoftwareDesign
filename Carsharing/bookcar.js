@@ -1,4 +1,5 @@
 "use strict";
+//import{Car}from "./interfaces/interface.js";
 var Carsharing;
 (function (Carsharing) {
     showData();
@@ -70,8 +71,11 @@ var Carsharing;
             console.log(timeurl);
             let response = await fetch(timeurl);
             let responseText = await response.text();
-            //console.log(response);
+            console.log(response);
             console.log(responseText);
+            let booktext = document.createElement("p");
+            document.getElementById("response").appendChild(booktext);
+            booktext.innerHTML = responseText;
         }
     }
 })(Carsharing || (Carsharing = {}));

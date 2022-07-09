@@ -1,6 +1,5 @@
 namespace Carsharing{
-    
-    showData();
+    showData(10);
     interface Car{
         id: string;
         name: string;
@@ -13,7 +12,8 @@ namespace Carsharing{
         ppmin: string;
     }
 
-    async function showData(): Promise<void> {
+    async function showData(caramount:number): Promise<void> {
+        document.getElementById("showData").innerHTML="";
         let url: string = "https://softwaredesign.herokuapp.com/index.html";
         let response: Response = await fetch(url);
         let responseText: string = await response.text();
@@ -30,8 +30,11 @@ namespace Carsharing{
             tableheader.innerHTML = tabledescription[i];
             tabl.appendChild(tableheader);
         }
+        if (Object.keys(responseTextJson).length< caramount){
+            caramount=Object.keys(responseTextJson).length
+        }
             
-        for ( let i: number = 0; i < Object.keys(responseTextJson).length; i++) {
+        for ( let i: number = 0; i < caramount; i++) {
 
             let tablerow: HTMLElement = document.createElement("tr");
             let tableelement1: HTMLElement = document.createElement("td");
@@ -79,8 +82,19 @@ namespace Carsharing{
             tablerow.appendChild(tableelement8);
             tablerow.appendChild(tableelement9);
             tabl.appendChild(tablerow);
-        }    
-    }  
+        }
+        let amountButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("submit");
+        amountButton.addEventListener("click", amount);       
+    }
+    async function amount(_event:Event):Promise<void> {
+        console.log("amount click");
+        let amountForm: HTMLFormElement = <HTMLFormElement>document.getElementById("amountForm");
+        let formData: FormData = new FormData(amountForm);
+        let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
+        console.log("Query", query.toString());
+        showData(parseInt((query.toString()).substring(9))); 
+    } 
+     
 
     async function bookcar(_event: Event): Promise<void> {
         console.log("click");

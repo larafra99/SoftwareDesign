@@ -24,6 +24,7 @@ namespace Carsharing{
         console.log(responseText);
 
         let registerText: HTMLElement = document.createElement("p");
+        document.getElementById("response").innerHTML="";
         document.getElementById("response").appendChild(registerText);
         registerText.innerHTML = responseText;
         if (responseText == "Nutzer wurde erstellt") {
