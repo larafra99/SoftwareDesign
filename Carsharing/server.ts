@@ -159,7 +159,7 @@ export namespace Carsharing {
                     _response.write("bitte eine Zeit eintragen");
                 }    
             }
-            else if(q.pathname=="logincheck.html"){
+            else if(q.pathname=="/logincheck.html"){
                 console.log("check if user is logged in");
 
             }
