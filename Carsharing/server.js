@@ -224,7 +224,7 @@ var Carsharing;
         console.log(daten4);
         let start = parseInt((daten4.fnut).replace(":", ""));
         let wunschstart = parseInt((_starttime).replace(":", ""));
-        let end = parseInt((daten4.snut).replace(":", ""));
+        let end = parseInt((daten4.lnut).replace(":", ""));
         let wunschend = parseInt((_endtime).replace(":", ""));
         console.log("Strat", start, "Wunsch", wunschstart);
         if (wunschstart < start) {

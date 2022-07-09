@@ -259,7 +259,7 @@ export namespace Carsharing {
         console.log(daten4);
         let start: number = parseInt((daten4.fnut).replace(":",""));
         let wunschstart: number = parseInt((_starttime).replace(":",""));
-        let end: number = parseInt((daten4.snut).replace(":",""));
+        let end: number = parseInt((daten4.lnut).replace(":",""));
         let wunschend: number = parseInt((_endtime).replace(":",""));
         console.log("Strat",start,"Wunsch",wunschstart);
         if(wunschstart<start){
@@ -267,7 +267,6 @@ export namespace Carsharing {
         }
         else if(wunschend>end){
             return "das Auto ist so spät nicht nutzbar, nur nutzbar bis"+(daten4.snut).toString()
-
         }
 
         
