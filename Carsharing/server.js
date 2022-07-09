@@ -269,7 +269,7 @@ var Carsharing;
             return false;
         }
         else {
-            await collectionCars.insertOne(_usetime);
+            await collectionUseTimes.insertOne(_usetime);
             console.log("auto eingefügt");
             // add car to database because carid does not exist in database
             return true;
