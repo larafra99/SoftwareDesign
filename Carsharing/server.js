@@ -218,6 +218,7 @@ var Carsharing;
     }
     async function checkavailable(_starttime, _endtime) {
         console.log("Auto check time");
+        console.log("Start", _starttime, "Ende", _endtime);
         return "true";
     }
     async function checktime() {

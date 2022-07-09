@@ -253,6 +253,7 @@ export namespace Carsharing {
     } 
     async function checkavailable(_starttime: string, _endtime:string):Promise<string> {
         console.log("Auto check time");
+        console.log("Start",_starttime,"Ende",_endtime)
         return "true";   
     }
     async function checktime():Promise<boolean> {
