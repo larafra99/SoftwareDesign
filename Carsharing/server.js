@@ -262,6 +262,7 @@ var Carsharing;
     async function checkavailable(_usetime) {
         console.log("Auto check time");
         let data5 = await collectionUseTimes.find({ "id": _usetime.carid }).toArray();
+        console.log("Data", data5);
         if (data5 != undefined) {
             console.log("Auto existiert schon");
             // carid exist in database
