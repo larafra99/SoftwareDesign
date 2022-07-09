@@ -258,7 +258,7 @@ export namespace Carsharing {
         let daten4: any = await collectionCars.findOne({"id": _carid});
         console.log(daten4);
         let start: string = daten4.fnut;
-        console.log(start.replace(":",""));
+        console.log((daten4.fnut).replace(":",""));
         // if(daten4.fnut)
         
         return "true";   

@@ -223,7 +223,7 @@ var Carsharing;
         let daten4 = await collectionCars.findOne({ "id": _carid });
         console.log(daten4);
         let start = daten4.fnut;
-        console.log(start.replace(":", ""));
+        console.log((daten4.fnut).replace(":", ""));
         // if(daten4.fnut)
         return "true";
     }
