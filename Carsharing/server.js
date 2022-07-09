@@ -227,7 +227,7 @@ var Carsharing;
         let wishduration = parseInt(_duration);
         let wishstart = parseInt((_starttime).replace(":", ""));
         let end = parseInt((daten4.lnut).replace(":", ""));
-        let wishend = wishduration / 60;
+        let wishend = Math.floor(wishduration / 60);
         console.log("enddauer", wishend);
         // let wunschend: number = parseInt((_endtime).replace(":",""));
         if (wishstart < start) {
