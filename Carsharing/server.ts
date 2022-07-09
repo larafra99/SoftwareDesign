@@ -258,11 +258,18 @@ export namespace Carsharing {
         let daten4: any = await collectionCars.findOne({"id": _carid});
         console.log(daten4);
         let start: number = parseInt((daten4.fnut).replace(":",""));
-        let wunschstart: number = parseInt((_starttime).replace(":",""))
+        let wunschstart: number = parseInt((_starttime).replace(":",""));
+        let end: number = parseInt((daten4.snut).replace(":",""));
+        let wunschend: number = parseInt((_endtime).replace(":",""));
         console.log("Strat",start,"Wunsch",wunschstart);
         if(wunschstart<start){
-            console.log("zu früh")
+            return "das Auto ist nicht so früh nutzbar, erst nutzbar ab"+(daten4.fnut).toString()
         }
+        else if(wunschend>end){
+            return "das Auto ist so spät nicht nutzbar, nur nutzbar bis"+(daten4.snut).toString()
+
+        }
+
         
         return "true";   
     }

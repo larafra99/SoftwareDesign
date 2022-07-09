@@ -224,9 +224,14 @@ var Carsharing;
         console.log(daten4);
         let start = parseInt((daten4.fnut).replace(":", ""));
         let wunschstart = parseInt((_starttime).replace(":", ""));
+        let end = parseInt((daten4.snut).replace(":", ""));
+        let wunschend = parseInt((_endtime).replace(":", ""));
         console.log("Strat", start, "Wunsch", wunschstart);
         if (wunschstart < start) {
-            console.log("zu früh");
+            return "das Auto ist nicht so früh nutzbar, erst nutzbar ab" + (daten4.fnut).toString();
+        }
+        else if (wunschend > end) {
+            return "das Auto ist so spät nicht nutzbar, nur nutzbar bis" + (daten4.snut).toString();
         }
         return "true";
     }
