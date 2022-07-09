@@ -65,7 +65,7 @@ export namespace Carsharing {
         collectionUseTimes =  mongoClient.db("Carsharing").collection("Dates");
         console.log("Database connection user sucessfull ", collection != undefined);
         console.log("Database connection Cars sucessfull ", collectionCars != undefined);
-        console.log("Database connection Cars sucessfull ", collectionUseTimes != undefined);
+        console.log("Database connection Dates sucessfull ", collectionUseTimes != undefined);
     }
 
     function handleListen(): void {
@@ -162,7 +162,6 @@ export namespace Carsharing {
                 console.log("check if car is available");
                 
                 if (parameter.booktime!= "" && parameter.starttime!= ""&& parameter.duration!= ""){
-                    //let available:string=await checktime(parameter.carid as string,parameter.starttime as string,parameter.duration as string);
                     let duration: number = parseInt(parameter.duration as string );
                     let start: number = parseInt((parameter.starttime as string).replace(":",""));
                     let end: number =Math.floor(duration /60)*100 + duration%60 + start;
@@ -175,15 +174,17 @@ export namespace Carsharing {
                         user:parameter.username as string,
                     }
                     console.log("interface",usetime)
-                //     if( available!="true")
-                //     {
-                //         _response.write(available); 
-                //     }
-                //     else{
-                //         console.log("check if car is booked")
-                //         let time: boolean = await checkavailable();
+                    let available:string=await checktime(usetime, duration);
 
-                //     }
+                    if( available!="true")
+                    {
+                        _response.write(available); 
+                    }
+                    else{
+                        console.log("check if car is booked")
+                        let time: boolean = await checkavailable();
+
+                    }
                 }
                 else{
                     // time field empty
@@ -281,28 +282,24 @@ export namespace Carsharing {
         let daten3: any = await collectionCars.findOne({"id": _carid});
         return daten3;
     } 
-    async function checktime(_carid:string,_starttime: string, _duration:string):Promise<string> {
+    async function checktime(_time:UseTimes,_duration:number):Promise<string> {
         console.log("Auto check time");
-        console.log("Id",_carid,"Start",_starttime,"Ende",_duration);
         // get Car by id
-        let daten4: any = await collectionCars.findOne({"id": _carid});
+        let daten4: any = await collectionCars.findOne({"id": _time.carid});
         console.log(daten4);
         let start: number = parseInt((daten4.fnut).replace(":",""));
         let duration: number = parseInt(daten4.max);
-        let wishduration: number = parseInt(_duration);
-        let wishstart: number = parseInt((_starttime).replace(":",""));
+        let wishstart: number = parseInt((_time.starttime).replace(":",""));
         let end: number = parseInt((daten4.lnut).replace(":",""));
-        let wishend: number = Math.floor(wishduration/60)*100 + wishduration%60 + wishstart;
-        let rest: number = wishduration%60;
-        console.log("enddauer",wishend,"Rest", rest);
+        
         // let wunschend: number = parseInt((_endtime).replace(":",""));
         if(wishstart<start){
             return "das Auto ist nicht so früh nutzbar, erst nutzbar ab "+(daten4.fnut).toString()
         }
-        else if(wishduration>duration){
+        else if(_duration>duration){
             return "ihre gewünschte Nutzdauer ist zu lange"
         }
-        else if(wishend>end){
+        else if(parseInt(_time.endtime)>end){
             return "das Auto ist so spät nicht nutzbar, nur nutzbar bis "+(daten4.lnut).toString()+"Uhr"
         }
         else{
