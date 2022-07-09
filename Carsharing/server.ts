@@ -262,7 +262,7 @@ export namespace Carsharing {
         let wishduration: number = parseInt(_duration);
         let wishstart: number = parseInt((_starttime).replace(":",""));
         let end: number = parseInt((daten4.lnut).replace(":",""));
-        let wishend: number = duration/60;
+        let wishend: number = wishduration/60;
         console.log("enddauer",wishend)
         // let wunschend: number = parseInt((_endtime).replace(":",""));
         if(wishstart<start){
