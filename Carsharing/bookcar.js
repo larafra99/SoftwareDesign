@@ -62,7 +62,10 @@ var Carsharing;
         let timeButton = document.getElementById("timebutton");
         timeButton.addEventListener("click", booktime);
         async function booktime(_event) {
+            let user = sessionStorage.getItem("user");
+            console.log(user);
             let checklogin = "https://softwaredesign.herokuapp.com/logincheck.html";
+            checklogin = checklogin + "?" + user;
             let loginresponse = await fetch(checklogin);
             let loginresponseText = await loginresponse.text();
             console.log(loginresponse);

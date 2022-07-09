@@ -81,7 +81,10 @@ namespace Carsharing{
         timeButton.addEventListener("click", booktime);
         
         async function booktime(_event: Event): Promise<void> {
+            let user: string =sessionStorage.getItem("user");
+            console.log(user);
             let checklogin: string = "https://softwaredesign.herokuapp.com/logincheck.html";
+            checklogin = checklogin + "?" + user;
             let loginresponse: Response = await fetch(checklogin);
             let loginresponseText: string = await loginresponse.text();
             console.log(loginresponse);

@@ -11,9 +11,11 @@ async function login(_event: Event): Promise<void> {
 
     url = url + "?" + query.toString();
     console.log(url);
+    console.log("query",(query.toString()).substring(9));
+    console.log("query",((query.toString()).split("&").shift()).substring(9));
     let response: Response = await fetch(url);
     let responseText: string = await response.text();
-    //console.log(response);
+    console.log(response);
     console.log(responseText);
 
     let loginText: HTMLElement = document.createElement("p");
@@ -21,7 +23,7 @@ async function login(_event: Event): Promise<void> {
     document.getElementById("response").appendChild(loginText);
     loginText.innerHTML = responseText; 
     if (responseText != "null") {
-        sessionStorage.setItem("userId", responseText);
+        sessionStorage.setItem("user", ((query.toString()).split("&").shift()).substring(9));
         //window.location.replace("verleih.html");
         }
 

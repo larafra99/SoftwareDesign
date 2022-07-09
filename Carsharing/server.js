@@ -131,6 +131,7 @@ var Carsharing;
             }
             else if (q.pathname == "/logincheck.html") {
                 console.log("check if user is logged in");
+                console.log("Parameter", parameter.user);
             }
         }
         _response.end();
