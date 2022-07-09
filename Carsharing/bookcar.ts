@@ -103,9 +103,10 @@ namespace Carsharing{
                 let responseText: string = await response.text();
                 console.log(response);
                 console.log(responseText);
+                document.getElementById("response").innerHTML="";
                 let booktext: HTMLElement = document.createElement("p");
                 document.getElementById("response").appendChild(booktext);
-                booktext.innerHTML = responseText; 
+                booktext.innerHTML = responseText;  
             }
 
         }

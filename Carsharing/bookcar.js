@@ -81,6 +81,7 @@ var Carsharing;
                 let responseText = await response.text();
                 console.log(response);
                 console.log(responseText);
+                document.getElementById("response").innerHTML = "";
                 let booktext = document.createElement("p");
                 document.getElementById("response").appendChild(booktext);
                 booktext.innerHTML = responseText;

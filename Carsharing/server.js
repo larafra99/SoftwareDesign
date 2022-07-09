@@ -126,7 +126,7 @@ var Carsharing;
                 }
                 else {
                     // time field empty
-                    _response.write("bitte eine Zeit eintragen");
+                    _response.write("bitte füllen Sie alle Felder aus");
                 }
             }
             // else if(q.pathname=="/logincheck.html"){
