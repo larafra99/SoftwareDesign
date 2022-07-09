@@ -260,7 +260,7 @@ var Carsharing;
     }
     async function checkavailable(_usetime) {
         console.log("Auto check time");
-        let data5 = await collectionUseTimes.find({ "id": _usetime.carid }).toArray();
+        let data5 = await collectionUseTimes.find({ "carid": _usetime.carid }).toArray();
         console.log("DataArray", data5);
         console.log("Data", data5[0]);
         if (data5[0] != undefined) {
