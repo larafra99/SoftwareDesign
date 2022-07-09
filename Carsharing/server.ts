@@ -149,9 +149,9 @@ export namespace Carsharing {
             }
             else if(q.pathname=="/checktime.html"){
                 console.log("check if car is available")
-                if (parameter.booktime!= "" && parameter.starttime!= ""&& parameter.endtime!= ""){
+                if (parameter.booktime!= "" && parameter.starttime!= ""&& parameter.duration!= ""){
                     console.log("Paramter != null");
-                    let available:string=await checktime(parameter.carid as string,parameter.starttime as string,parameter.endtime as string);
+                    let available:string=await checktime(parameter.carid as string,parameter.starttime as string,parameter.duration as string);
                     //let time: boolean = await checkavailable();
                     console.log(available);
                 }
@@ -251,23 +251,23 @@ export namespace Carsharing {
         let daten3: any = await collectionCars.findOne({"id": _carid});
         return daten3;
     } 
-    async function checktime(_carid:string,_starttime: string, _endtime:string):Promise<string> {
+    async function checktime(_carid:string,_starttime: string, _duration:string):Promise<string> {
         console.log("Auto check time");
-        console.log("Id",_carid,"Start",_starttime,"Ende",_endtime);
+        console.log("Id",_carid,"Start",_starttime,"Ende",_duration);
         // get Car by id
         let daten4: any = await collectionCars.findOne({"id": _carid});
         console.log(daten4);
         let start: number = parseInt((daten4.fnut).replace(":",""));
         let wunschstart: number = parseInt((_starttime).replace(":",""));
         let end: number = parseInt((daten4.lnut).replace(":",""));
-        let wunschend: number = parseInt((_endtime).replace(":",""));
+        // let wunschend: number = parseInt((_endtime).replace(":",""));
         console.log("Strat",start,"Wunsch",wunschstart);
         if(wunschstart<start){
             return "das Auto ist nicht so früh nutzbar, erst nutzbar ab"+(daten4.fnut).toString()
         }
-        else if(wunschend>end){
-            return "das Auto ist so spät nicht nutzbar, nur nutzbar bis"+(daten4.lnut).toString()
-        }
+        // else if(wunschend>end){
+        //     return "das Auto ist so spät nicht nutzbar, nur nutzbar bis"+(daten4.lnut).toString()
+        // }
 
         
         return "true";   
