@@ -262,6 +262,8 @@ var Carsharing;
     async function checkavailable(_usetime) {
         console.log("Auto check time");
         let data5 = await collectionUseTimes.find({ "carid": _usetime.carid }).toArray();
+        let wishend = parseInt(_usetime.endtime);
+        let wishstart = parseInt((_usetime.starttime).replace(":", ""));
         console.log("DataArray", data5);
         console.log("Data", data5[0]);
         if (data5[0] != undefined) {
@@ -271,9 +273,7 @@ var Carsharing;
                 if (data5[i].date == _usetime.date) {
                     console.log("Date is the same");
                     let start = parseInt((data5[i].starttime).replace(":", ""));
-                    let wishstart = parseInt((_usetime.starttime).replace(":", ""));
                     let end = parseInt((data5[i].endtime).replace(":", ""));
-                    let wishend = parseInt(_usetime.endtime);
                     console.log("starttime", start);
                     console.log("endtime", end);
                     console.log("InterfaceStarttime", wishstart);

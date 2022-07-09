@@ -310,6 +310,8 @@ export namespace Carsharing {
     async function checkavailable(_usetime:UseTimes):Promise<boolean> {
         console.log("Auto check time");
         let data5: any[] = await collectionUseTimes.find({"carid": _usetime.carid}).toArray();
+        let wishend: number = parseInt(_usetime.endtime);
+        let wishstart: number = parseInt((_usetime.starttime).replace(":",""));
         console.log("DataArray", data5);
         console.log("Data",data5[0]);
         if (data5[0] != undefined) {
@@ -320,10 +322,8 @@ export namespace Carsharing {
                 if(data5[i].date ==_usetime.date){
                     console.log("Date is the same");
                     
-                    let start: number = parseInt((data5[i].starttime).replace(":",""));
-                    let wishstart: number = parseInt((_usetime.starttime).replace(":",""));
+                    let start: number = parseInt((data5[i].starttime).replace(":","")); 
                     let end: number = parseInt((data5[i].endtime).replace(":",""));
-                    let wishend: number = parseInt(_usetime.endtime);
                     console.log("starttime",start);
                     console.log("endtime",end);
                     console.log("InterfaceStarttime",wishstart);
