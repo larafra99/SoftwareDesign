@@ -121,7 +121,7 @@ var Carsharing;
                 console.log("check if car is available");
                 if (parameter.booktime != "" && parameter.starttime != "" && parameter.endtime != "") {
                     console.log("Paramter != null");
-                    let available = await checkavailable(parameter.starttime, parameter.endtime);
+                    let available = await checkavailable(parameter.carid, parameter.starttime, parameter.endtime);
                     //let time: boolean = await checktime();
                     console.log(available);
                 }
@@ -216,9 +216,12 @@ var Carsharing;
         let daten3 = await collectionCars.findOne({ "id": _carid });
         return daten3;
     }
-    async function checkavailable(_starttime, _endtime) {
+    async function checkavailable(_carid, _starttime, _endtime) {
         console.log("Auto check time");
-        console.log("Start", _starttime, "Ende", _endtime);
+        console.log("Id", _carid, "Start", _starttime, "Ende", _endtime);
+        let daten4 = await collectionCars.findOne({ "id": _carid });
+        console.log(daten4),
+        ;
         return "true";
     }
     async function checktime() {
