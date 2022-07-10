@@ -143,7 +143,7 @@ var Carsharing;
                         let duration = parseInt(parameter.duration);
                         let start = parseInt(parameter.time.replace(":", ""));
                         let end = Math.floor(duration / 60) * 100 + duration % 60 + start;
-                        let listCars = await filtertimeCar(parameter.date, start.toString(), end.toString());
+                        let listCars = await filtertimeCar(parameter.date, start.toString(), end.toString(), duration);
                         _response.write(JSON.stringify(listCars));
                         console.log("filter time");
                     }
@@ -281,7 +281,7 @@ var Carsharing;
             return data;
         }
     }
-    async function filtertimeCar(_date, _start, _end) {
+    async function filtertimeCar(_date, _start, _end, _duration) {
         console.log("date", _date);
         console.log("start", _start);
         console.log("end", _end);
@@ -291,29 +291,28 @@ var Carsharing;
         console.log("wishend", wishend);
         //erstmal duartion start und endzeit checken => carid nehmen Autos die in frage kommen
         let data = await collectionCars.find().toArray();
-        //let potentialcar: Car[];
+        let potentialcar;
         for (let i = 0; i < data.length; i++) {
             let start = parseInt((data[i].fnut).replace(":", ""));
             let end = parseInt((data[i].lnut).replace(":", ""));
             console.log("datenstart", start);
             console.log("datenend", end);
-            // if(wishstart<start){
-            //     //start is too early
-            //     return "das Auto ist nicht so früh nutzbar, erst nutzbar ab "+(daten4.fnut).toString()
-            // }
-            // else if(_duration>parseInt(daten4.max)){
-            //     // duration is too long
-            //     return "ihre gewünschte Nutzdauer ist zu lange"
-            // }
-            // else if(parseInt(_time.endtime)>end){
-            //     // end is too late
-            //     return "das Auto ist so spät nicht nutzbar, nur nutzbar bis "+(daten4.lnut).toString()+"Uhr"
-            // }
-            // else{
-            //     // standart parameter fits
-            //     potentialcar.push(data[i].id) 
-            // }
+            console.log("carid", data[i].id);
+            if (wishstart < start) {
+                //start is too early
+            }
+            else if (_duration > parseInt(data[i].max)) {
+                // duration is too long
+            }
+            else if (wishend > end) {
+                // end is too late
+            }
+            else {
+                // standart parameter fits
+                potentialcar.push(data[i].id);
+            }
         }
+        console.log(potentialcar);
         // transfer string to integer for comparision
         // 
         // check availability
