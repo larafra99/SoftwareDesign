@@ -285,7 +285,38 @@ var Carsharing;
         console.log("date", _date);
         console.log("start", _start);
         console.log("end", _end);
-        let data = await collectionCars.find({ "conventionell": false }).toArray();
+        let wishstart = parseInt(_start);
+        let wishend = parseInt(_end);
+        console.log("wishstart", wishstart);
+        console.log("wishend", wishend);
+        //erstmal duartion start und endzeit checken => carid nehmen Autos die in frage kommen
+        let data = await collectionCars.find().toArray();
+        //let potentialcar: Car[];
+        for (let i = 0; i < data.length; i++) {
+            let start = parseInt((data[i].fnut).replace(":", ""));
+            let end = parseInt((data[i].lnut).replace(":", ""));
+            console.log("datenstart", start);
+            console.log("datenend", end);
+            // if(wishstart<start){
+            //     //start is too early
+            //     return "das Auto ist nicht so früh nutzbar, erst nutzbar ab "+(daten4.fnut).toString()
+            // }
+            // else if(_duration>parseInt(daten4.max)){
+            //     // duration is too long
+            //     return "ihre gewünschte Nutzdauer ist zu lange"
+            // }
+            // else if(parseInt(_time.endtime)>end){
+            //     // end is too late
+            //     return "das Auto ist so spät nicht nutzbar, nur nutzbar bis "+(daten4.lnut).toString()+"Uhr"
+            // }
+            // else{
+            //     // standart parameter fits
+            //     potentialcar.push(data[i].id) 
+            // }
+        }
+        // transfer string to integer for comparision
+        // 
+        // check availability
         return data;
     }
     async function bookCar(_carid) {
