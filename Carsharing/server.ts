@@ -329,17 +329,10 @@ export namespace Carsharing {
             return data;
         }  
     }
-    async function filtertimeCar(_date:string,_start:string,_end:string,_duration:number): Promise<Car[]>{
-        console.log("date",_date);
-        console.log("start",_start);
-        console.log("end",_end);
-        
+    async function filtertimeCar(_date:string,_start:string,_end:string,_duration:number): Promise<Car[]>{    
         let wishstart: number = parseInt(_start);
         let wishend: number = parseInt(_end);
-        console.log("wishstart",wishstart);
-        console.log("wishend",wishend);
-        
-        //erstmal duartion start und endzeit checken => carid nehmen Autos die in frage kommen
+
         let data: any[] = await collectionCars.find().toArray();
         let potentialcar: string[]= [];
         let carsavailable: string[]= [];
@@ -348,9 +341,6 @@ export namespace Carsharing {
         for ( let i: number = 0; i < data.length; i++){
             let start: number = parseInt((data[i].fnut).replace(":",""));
             let end: number = parseInt((data[i].lnut).replace(":",""));
-            // console.log("datenstart",start);
-            // console.log("datenend",end);
-            // console.log("carid",data[i].id);
             if(wishstart<start){
                 //start is too early
             }
@@ -367,7 +357,6 @@ export namespace Carsharing {
         }
         console.log(potentialcar);
         if(potentialcar.length == 0){
-            //return ;
             // no cars available
         }
         else{
@@ -390,10 +379,7 @@ export namespace Carsharing {
             let daten5: any = await bookCar(carsavailable[y]);
             finalcars.push(daten5);
         }
-        console.log("available car", carsavailable);
-        console.log("final car", finalcars);
-        return data;
-
+        return finalcars;
     }
 
     async function bookCar(_carid:string): Promise<Car>{

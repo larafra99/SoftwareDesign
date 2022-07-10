@@ -283,14 +283,8 @@ var Carsharing;
         }
     }
     async function filtertimeCar(_date, _start, _end, _duration) {
-        console.log("date", _date);
-        console.log("start", _start);
-        console.log("end", _end);
         let wishstart = parseInt(_start);
         let wishend = parseInt(_end);
-        console.log("wishstart", wishstart);
-        console.log("wishend", wishend);
-        //erstmal duartion start und endzeit checken => carid nehmen Autos die in frage kommen
         let data = await collectionCars.find().toArray();
         let potentialcar = [];
         let carsavailable = [];
@@ -298,9 +292,6 @@ var Carsharing;
         for (let i = 0; i < data.length; i++) {
             let start = parseInt((data[i].fnut).replace(":", ""));
             let end = parseInt((data[i].lnut).replace(":", ""));
-            // console.log("datenstart",start);
-            // console.log("datenend",end);
-            // console.log("carid",data[i].id);
             if (wishstart < start) {
                 //start is too early
             }
@@ -317,7 +308,6 @@ var Carsharing;
         }
         console.log(potentialcar);
         if (potentialcar.length == 0) {
-            //return ;
             // no cars available
         }
         else {
@@ -340,9 +330,7 @@ var Carsharing;
             let daten5 = await bookCar(carsavailable[y]);
             finalcars.push(daten5);
         }
-        console.log("available car", carsavailable);
-        console.log("final car", finalcars);
-        return data;
+        return finalcars;
     }
     async function bookCar(_carid) {
         console.log("Auto buchen");
