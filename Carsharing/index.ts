@@ -15,19 +15,43 @@ namespace Carsharing{
 
     async function showData(): Promise<void> {
         document.getElementById("showData").innerHTML="";
+        document.getElementById("filteroptions").innerHTML="";
         let filter: string = localStorage.getItem("filter");
         if(filter =="a" || filter== null){
             let filterurl: string = "https://softwaredesign.herokuapp.com/index.html?filter=a";
             localStorage.setItem("url",filterurl);   
         }
         else if (filter =="b"){
-            let filterurl: string = "https://softwaredesign.herokuapp.com/index.html?filter=b";
-            localStorage.setItem("url",filterurl);   
+            console.log("Filter antriebsart");
+            
+            let filterformelement:HTMLElement = document.createElement("form");
+            filterformelement.id = "optionForm";
+            document.getElementById("filteroptions").appendChild(filterformelement);
+            let filterelement: HTMLInputElement = document.createElement("input");
+            filterelement.type = "checkbox";
+            filterelement.name = "conventionell";
+            let filterelement2: HTMLElement = document.createElement("label");
+            filterelement2.innerHTML="Konventionell";
+            let filterelement3: HTMLInputElement = document.createElement("input");
+            filterelement3.type = "checkbox";
+            filterelement3.name = "electro";
+            let filterelement4: HTMLElement = document.createElement("label");
+            filterelement4.innerHTML="Elektro";
+            let filtersubmitButton: HTMLElement = document.createElement("button");
+            filtersubmitButton.addEventListener("click", filtersubmitbutton); 
+            filtersubmitButton.innerHTML="submit";
+            filterformelement.appendChild(filterelement);
+            filterformelement.appendChild(filterelement2);
+            filterformelement.appendChild(filterelement3);
+            filterformelement.appendChild(filterelement4);
+            filterformelement.appendChild(filtersubmitButton);
+              
         }
         else{
             let filterurl: string = "https://softwaredesign.herokuapp.com/index.html?filter=c";
             localStorage.setItem("url",filterurl);   
         }
+        
         let url:string = localStorage.getItem("url");
         let response: Response = await fetch(url);
         let responseText: string = await response.text();
@@ -58,7 +82,6 @@ namespace Carsharing{
             amount=Object.keys(responseTextJson).length
         }
 
-            
         for ( let i: number = 0; i < amount; i++) {
 
             let tablerow: HTMLElement = document.createElement("tr");
@@ -76,7 +99,6 @@ namespace Carsharing{
             
             let betriebsart: string ="";
             if(responseTextJson[i].electronic == true && responseTextJson[i].conventionell == false){
-                console.log("elektonik");
                 betriebsart = "E-Auto";
             }
             else if(responseTextJson[i].conventionell == true && responseTextJson[i].electronic == false){
@@ -127,9 +149,20 @@ namespace Carsharing{
         let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
         console.log("Query", query.toString());
         console.log((query.toString()).substring(7));
-        localStorage.removeItem("filter");
-        //localStorage.setItem("filter",(query.toString()).substring(7));
+        //localStorage.removeItem("filter");
+        localStorage.setItem("filter",(query.toString()).substring(7));
         showData();
+        
+    }
+    async function filtersubmitbutton(_event:Event): Promise<void> {
+        console.log("filtersubmit click");
+        let optionForm: HTMLFormElement = <HTMLFormElement>document.getElementById("optionForm");
+        let formData: FormData = new FormData(optionForm);
+        let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
+        let filterurl: string = "https://softwaredesign.herokuapp.com/index.html?filter=b";
+        filterurl = filterurl + "&" + query.toString();
+        console.log("Query", query.toString());
+        localStorage.setItem("url",filterurl); 
         
     } 
      
