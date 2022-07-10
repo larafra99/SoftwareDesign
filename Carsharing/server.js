@@ -363,6 +363,7 @@ var Carsharing;
                 //     return true;  
                 // }  
             }
+            console.log("Available cars", carsavailable);
         }
         return data;
     }

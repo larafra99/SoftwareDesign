@@ -419,6 +419,7 @@ export namespace Carsharing {
                 
 
             }
+            console.log("Available cars",carsavailable);
 
         }
         return data;
