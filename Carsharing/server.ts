@@ -378,11 +378,17 @@ export namespace Carsharing {
                     endtime: _end,
                     user: null,
                 }
-                console.log(time);
+                let checkcaravailable:boolean = await checkavailable(time);
+                //console.log(time);
+                if (checkcaravailable== true){
+                    carsavailable.push(potentialcar[i]);
+
+                }
 
 
             }
         }
+        console.log("available car", carsavailable);
         return data;
             
             // for ( let i: number = 0; i < potentialcar.length; i++){
@@ -485,13 +491,18 @@ export namespace Carsharing {
                     }   
                 }                    
             }
-            await collectionUseTimes.insertOne(_usetime);
+            if (_usetime.user!=null){
+                await collectionUseTimes.insertOne(_usetime);
+            }
+            
             console.log("auto eingefügt");
             //add car to database because date for car does not exist in database
-            return false;   
+            return true;   
         }
         else{
-            await collectionUseTimes.insertOne(_usetime);
+            if (_usetime.user!=null){
+                await collectionUseTimes.insertOne(_usetime);
+            }
             console.log("auto existiert noch nicht");
             // add car to database because carid does not exist in database
             return true;  
