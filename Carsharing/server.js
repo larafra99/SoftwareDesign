@@ -144,6 +144,7 @@ var Carsharing;
                         let start = parseInt(parameter.time.replace(":", ""));
                         let end = Math.floor(duration / 60) * 100 + duration % 60 + start;
                         let listCars = await filtertimeCar(parameter.date, start.toString(), end.toString(), duration);
+                        //TODO listcar.length = 0;kein Auto verfügbar
                         _response.write(JSON.stringify(listCars));
                         console.log("filter time");
                     }
@@ -292,6 +293,7 @@ var Carsharing;
         //erstmal duartion start und endzeit checken => carid nehmen Autos die in frage kommen
         let data = await collectionCars.find().toArray();
         let potentialcar = [];
+        let carsavailable = [];
         for (let i = 0; i < data.length; i++) {
             let start = parseInt((data[i].fnut).replace(":", ""));
             let end = parseInt((data[i].lnut).replace(":", ""));
@@ -314,11 +316,54 @@ var Carsharing;
         }
         console.log(potentialcar);
         if (potentialcar.length == 0) {
-            console.log("no car available");
+            //return ;
+            // no cars available
         }
-        // transfer string to integer for comparision
-        // 
-        // check availability
+        else {
+            for (let i = 0; i < potentialcar.length; i++) {
+                let data2 = await collectionUseTimes.find({ "carid": potentialcar[i] }).toArray();
+                console.log("Data2", data2);
+                if (data2.length == 0) {
+                    carsavailable.push(potentialcar[i]);
+                }
+                // let wishend: number = parseInt(_usetime.endtime);
+                // let wishstart: number = parseInt((_usetime.starttime));
+                // // if array is empty car id is not in database
+                // if (data5[0] != undefined) {
+                //     console.log("Auto existiert schon");
+                //     // carid exist in database
+                //     for ( let i: number = 0; i < data5.length; i++){
+                //         if(data5[i].date ==_usetime.date){
+                //             console.log("Date is the same");
+                //             let start: number = parseInt((data5[i].starttime).replace(":","")); 
+                //             let end: number = parseInt((data5[i].endtime).replace(":",""));
+                //             if(start <=  wishstart&& wishstart<=end){
+                //                 console.log("starttime is in between");
+                //                 return false;
+                //             } 
+                //             else if(start <=  wishend&& wishend<=end){
+                //                 console.log("endtime is in between");
+                //                 return false;
+                //             }  
+                //             else if (wishstart<start && wishend>end){
+                //                 console.log("time is crossing");
+                //                 return false;
+                //             }   
+                //         }                    
+                //     }
+                //     await collectionUseTimes.insertOne(_usetime);
+                //     console.log("auto eingefügt");
+                //     //add car to database because date for car does not exist in database
+                //     return false;   
+                // }
+                // else{
+                //     await collectionUseTimes.insertOne(_usetime);
+                //     console.log("auto existiert noch nicht");
+                //     // add car to database because carid does not exist in database
+                //     return true;  
+                // }  
+            }
+        }
         return data;
     }
     async function bookCar(_carid) {
