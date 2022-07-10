@@ -149,18 +149,15 @@ export namespace Carsharing {
             else if(q.pathname =="/index.html"){
                 console.log("get Data");
                 if (parameter.filter = "a"){
+                    console.log("get all cars")
                     // get all cars
                     let listCars: Car[] = await showData();
                     _response.write( JSON.stringify(listCars) )
                 }
                 else if (parameter.filter = "b"){
-                        let listCars:Car[] = await filterCar(parameter.electro as string,parameter.conventionell as string);
-                        _response.write( JSON.stringify(listCars) )
-                       
-
-                    
-                    
-
+                    console.log("filter car types")
+                    let listCars:Car[] = await filterCar(parameter.electro as string,parameter.conventionell as string);
+                    _response.write( JSON.stringify(listCars) )
                 }
                 else{
 
