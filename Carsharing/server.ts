@@ -291,12 +291,21 @@ export namespace Carsharing {
         let data: any[] = await collectionCars.find().toArray();
         return data;
     }
-    async function filterCar(_electro:string, _conven:string): Promise<Car[]> {
-        console.log(_electro, _conven);
-        let data: any[] = await collectionCars.find().toArray();
-        return data;
 
-        
+    async function filterCar(_electro:string, _conven:string): Promise<Car[]> {
+        console.log("Filter",_electro, _conven);
+        if(_electro =="on"){
+            let data: any[] = await collectionCars.find({"electro": "true","conventionell": "false"}).toArray();
+            return data;
+        }
+        else if(_conven=="on"){
+            let data: any[] = await collectionCars.find({"electro": "false","conventionell": "true"}).toArray();
+            return data;
+        }
+        else{
+            let data: any[] = await collectionCars.find({"electro": "true","conventionell": "true"}).toArray();
+            return data;
+        }  
     }
 
     async function bookCar(_carid:string): Promise<Car>{
