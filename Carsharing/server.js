@@ -294,6 +294,7 @@ var Carsharing;
         let data = await collectionCars.find().toArray();
         let potentialcar = [];
         let carsavailable = [];
+        let finalcars = [];
         for (let i = 0; i < data.length; i++) {
             let start = parseInt((data[i].fnut).replace(":", ""));
             let end = parseInt((data[i].lnut).replace(":", ""));
@@ -320,9 +321,9 @@ var Carsharing;
             // no cars available
         }
         else {
-            for (let i = 0; i < potentialcar.length; i++) {
+            for (let x = 0; x < potentialcar.length; x++) {
                 let time = {
-                    carid: potentialcar[i],
+                    carid: potentialcar[x],
                     date: _date,
                     starttime: _start,
                     endtime: _end,
@@ -331,45 +332,17 @@ var Carsharing;
                 let checkcaravailable = await checkavailable(time);
                 //console.log(time);
                 if (checkcaravailable == true) {
-                    carsavailable.push(potentialcar[i]);
+                    carsavailable.push(potentialcar[x]);
                 }
             }
         }
+        for (let y = 0; y < carsavailable.length; y++) {
+            let daten5 = await bookCar(carsavailable[y]);
+            finalcars.push(daten5);
+        }
         console.log("available car", carsavailable);
+        console.log("final car", finalcars);
         return data;
-        // for ( let i: number = 0; i < potentialcar.length; i++){
-        //     let data2: any[] = await collectionUseTimes.find({"carid": potentialcar[i]}).toArray();
-        //     //console.log("Data2",data2);
-        //     if (data2.length ==0){
-        //         carsavailable.push(potentialcar[i]);
-        //     }
-        //     for ( let x: number = 0; x < data2.length; x++){
-        //         if(data2[x].date ==_date){
-        //             console.log("Date is the same");
-        //             let start2: number = parseInt((data2[x].starttime).replace(":","")); 
-        //             let end2: number = parseInt((data2[x].endtime).replace(":",""));
-        //             if(start2 <=  wishstart&& wishstart<=end2){
-        //                 console.log("starttime is in between");
-        //             } 
-        //             else if(start2 <=  wishend&& wishend<=end2){
-        //                 console.log("endtime is in between");
-        //             }  
-        //             else if (wishstart<start2 && wishend>end2){
-        //                 console.log("time is crossing");
-        //             }
-        //             else{
-        //                 carsavailable.push(potentialcar[i]); 
-        //             }
-        //         }
-        //         else{
-        //             console.log("date is existiert noch nicht");
-        //             // add car to database because carid does not exist in database
-        //             carsavailable.push(potentialcar[i]); 
-        //         }       
-        //     }               
-        // }
-        // }
-        // return data;
     }
     async function bookCar(_carid) {
         console.log("Auto buchen");
