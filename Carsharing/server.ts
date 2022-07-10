@@ -157,7 +157,7 @@ export namespace Carsharing {
                 else if (parameter.filter == "b"){
                     console.log(parameter.electro);
                     console.log(parameter.conventionell);
-                    if(parameter.electro == undefined,parameter.conventionell == undefined){
+                    if(parameter.electro == undefined && parameter.conventionell == undefined){
                         console.log("no box checked");
                         _response.write("Bitte füllen sie mindestens eine Box");
 
@@ -169,9 +169,18 @@ export namespace Carsharing {
                     }    
                 }
                 else{
+                    console.log("Date",parameter.date);
+                    console.log("Time",parameter.time);
+                    console.log("Duration",parameter.duration);
+                    if (parameter.date == undefined || parameter.time == undefined || parameter.duration == undefined){
+                        console.log("fields empty");
+                        _response.write("Bitte füllen sie mindestens eine Box");
+                    }
+                    else{
+                        console.log("filter time");
 
-                }
-                
+                    }
+                }  
             }
 
             else if(q.pathname=="/bookcars.html"){

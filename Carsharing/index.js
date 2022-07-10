@@ -38,13 +38,48 @@ var Carsharing;
             filterformelement.appendChild(filtersubmitButton);
         }
         else {
-            let filterurl = "https://softwaredesign.herokuapp.com/index.html?filter=c";
-            localStorage.setItem("url", filterurl);
+            let filterformelement = document.createElement("form");
+            filterformelement.id = "optionForm";
+            document.getElementById("filteroptions").appendChild(filterformelement);
+            let filterdate = document.createElement("input");
+            filterdate.type = "date";
+            filterdate.name = "date";
+            let filtertime = document.createElement("input");
+            filtertime.type = "time";
+            filtertime.name = "time";
+            let filterduration = document.createElement("input");
+            filterduration.type = "number";
+            filterduration.min = "30";
+            filterduration.step = "15";
+            filterduration.name = "duration";
+            let filterlabel = document.createElement("label");
+            filterlabel.innerHTML = "Zeit Buchen";
+            let filterlabel1 = document.createElement("label");
+            filterlabel1.innerHTML = "von";
+            let filterlabel2 = document.createElement("label");
+            filterlabel2.innerHTML = "Dauer in Minuten";
+            let filtersubmitButton = document.createElement("button");
+            filtersubmitButton.addEventListener("click", filtertimebutton);
+            filtersubmitButton.innerHTML = "submit";
+            filterformelement.appendChild(filterlabel);
+            filterlabel.appendChild(filterdate);
+            filterformelement.appendChild(filterlabel1);
+            filterlabel1.appendChild(filtertime);
+            filterformelement.appendChild(filterlabel2);
+            filterlabel2.appendChild(filterduration);
+            filterformelement.appendChild(filtersubmitButton);
         }
         let url = localStorage.getItem("url");
         let response = await fetch(url);
         let responseText = await response.text();
-        try {
+        //console.log("Respons",responseText);
+        if (responseText == "Bitte füllen sie mindestens eine Box") {
+            console.log("no answer");
+            let answer = document.createElement("p");
+            document.getElementById("showData").appendChild(answer);
+            answer.innerHTML = responseText;
+        }
+        else {
             let responseTextJson = JSON.parse(responseText);
             console.log(responseTextJson);
             console.log(Object.keys(responseTextJson).length);
@@ -108,12 +143,6 @@ var Carsharing;
                 tabl.appendChild(tablerow);
             }
         }
-        catch {
-            let responseTextJson = JSON.parse(responseText);
-            let answer = document.createElement("p");
-            document.getElementById("showData").appendChild(answer);
-            answer.innerHTML = responseTextJson;
-        }
         let amountButton = document.getElementById("submit");
         amountButton.addEventListener("click", amountbutton);
         let filterButton = document.getElementById("filterbutton");
@@ -137,6 +166,18 @@ var Carsharing;
         //localStorage.removeItem("filter");
         localStorage.setItem("filter", (query.toString()).substring(7));
         showData();
+    }
+    async function filtertimebutton(_event) {
+        console.log("filtersubmit click");
+        let optionForm = document.getElementById("optionForm");
+        let formData = new FormData(optionForm);
+        let query = new URLSearchParams(formData);
+        console.log("Query", query.toString());
+        let timeurl = "https://softwaredesign.herokuapp.com/index.html?filter=c";
+        localStorage.setItem("url", timeurl);
+        timeurl = timeurl + "&" + query.toString();
+        console.log("Query", query.toString());
+        localStorage.setItem("url", timeurl);
     }
     async function filtersubmitbutton(_event) {
         console.log("filtersubmit click");
