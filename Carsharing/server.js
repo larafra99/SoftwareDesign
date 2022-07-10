@@ -243,7 +243,7 @@ var Carsharing;
         console.log("Filter", _electro, _conven);
         if (_electro == "on") {
             console.log("electro car");
-            let data = await collectionCars.find({ "electro": true, "conventionell": false }).toArray();
+            let data = await collectionCars.find({ "conventionell": false }).toArray();
             return data;
         }
         else if (_conven == "on") {
