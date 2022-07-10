@@ -159,11 +159,14 @@ export namespace Carsharing {
                     console.log(parameter.conventionell);
                     if(parameter.electro == undefined,parameter.conventionell == undefined){
                         console.log("no box checked")
+                        _response.write("Bitte füllen sie mindestens eine Box")
 
                     }
-                    console.log("filter car types")
-                    let listCars:Car[] = await filterCar(parameter.electro as string,parameter.conventionell as string);
-                    _response.write( JSON.stringify(listCars) )
+                    else{
+                        console.log("filter car types")
+                        let listCars:Car[] = await filterCar(parameter.electro as string,parameter.conventionell as string);
+                        _response.write( JSON.stringify(listCars))
+                    }    
                 }
                 else{
 
