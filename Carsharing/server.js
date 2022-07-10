@@ -112,8 +112,10 @@ var Carsharing;
             }
             else if (q.pathname == "/index.html") {
                 console.log("get Data");
-                let listCars = await showData();
-                _response.write(JSON.stringify(listCars));
+                if (parameter.filter = "a") {
+                    let listCars = await showData();
+                    _response.write(JSON.stringify(listCars));
+                }
             }
             else if (q.pathname == "/bookcars.html") {
                 console.log("book car");

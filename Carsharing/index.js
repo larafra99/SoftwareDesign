@@ -1,14 +1,26 @@
 "use strict";
 var Carsharing;
 (function (Carsharing) {
-    showData("10");
-    async function showData(caramount) {
+    showData();
+    async function showData() {
         document.getElementById("showData").innerHTML = "";
-        let url = "https://softwaredesign.herokuapp.com/index.html";
+        let filter = localStorage.getItem("filter");
+        if (filter == "a" || filter == null) {
+            let filterurl = "https://softwaredesign.herokuapp.com/index.html?filter=a";
+            localStorage.setItem("url", filterurl);
+        }
+        else if (filter == "b") {
+            let filterurl = "https://softwaredesign.herokuapp.com/index.html?filter=b";
+            localStorage.setItem("url", filterurl);
+        }
+        else {
+            let filterurl = "https://softwaredesign.herokuapp.com/index.html?filter=c";
+            localStorage.setItem("url", filterurl);
+        }
+        let url = localStorage.getItem("url");
         let response = await fetch(url);
         let responseText = await response.text();
         let responseTextJson = JSON.parse(responseText);
-        //console.log(response);
         console.log(responseTextJson);
         console.log(Object.keys(responseTextJson).length);
         let tabledescription = ["Auto Bezeichnung", "Antriebsart", "frühste Nutzungsuhrzeit", "späteste Nutzungsuhrzeit", "maximale Nutzungdauer", "pauschale Nutzungspreis", "Preis pro Minute", "Buchen"];
@@ -19,11 +31,14 @@ var Carsharing;
             tableheader.innerHTML = tabledescription[i];
             tabl.appendChild(tableheader);
         }
+        let caramount = localStorage.getItem("amount");
         let amount;
-        if (caramount == "all") {
-            amount = Object.keys(responseTextJson).length;
+        if (caramount == null) {
+            amount = 10;
         }
-        amount = parseInt(caramount);
+        else {
+            amount = parseInt(caramount);
+        }
         if (Object.keys(responseTextJson).length < amount || caramount == "all") {
             amount = Object.keys(responseTextJson).length;
         }
@@ -78,21 +93,24 @@ var Carsharing;
         let amountForm = document.getElementById("amountForm");
         let formData = new FormData(amountForm);
         let query = new URLSearchParams(formData);
-        console.log("Query", query.toString());
-        console.log((query.toString()).substring(9));
-        showData((query.toString()).substring(9));
+        localStorage.setItem("amount", (query.toString()).substring(9));
+        showData();
     }
     async function filterbutton(_event) {
-        let filterelement = document.createElement("p");
-        filterelement.innerHTML = "hi";
-        document.getElementById("filteroptions").appendChild(filterelement);
         console.log("filter click");
+        let filterForm = document.getElementById("filterForm");
+        let formData = new FormData(filterForm);
+        let query = new URLSearchParams(formData);
+        console.log("Query", query.toString());
+        console.log((query.toString()).substring(7));
+        localStorage.removeItem("filter");
+        //localStorage.setItem("filter",(query.toString()).substring(7));
+        showData();
     }
     async function bookcar(_event) {
         console.log("click");
         let dataId = _event.target.id;
         console.log(dataId);
-        localStorage.removeItem("dataId");
         localStorage.setItem("dataId", dataId);
         window.location.replace("bookcar.html");
     }

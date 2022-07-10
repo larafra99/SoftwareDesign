@@ -1,5 +1,5 @@
 namespace Carsharing{
-    showData("10");
+    showData();
 
     interface Car{
         id: string;
@@ -13,15 +13,28 @@ namespace Carsharing{
         ppmin: string;
     }
 
-    async function showData(caramount:string): Promise<void> {
+    async function showData(): Promise<void> {
         document.getElementById("showData").innerHTML="";
-        let url: string = "https://softwaredesign.herokuapp.com/index.html";
+        let filter: string = localStorage.getItem("filter");
+        if(filter =="a" || filter== null){
+            let filterurl: string = "https://softwaredesign.herokuapp.com/index.html?filter=a";
+            localStorage.setItem("url",filterurl);   
+        }
+        else if (filter =="b"){
+            let filterurl: string = "https://softwaredesign.herokuapp.com/index.html?filter=b";
+            localStorage.setItem("url",filterurl);   
+        }
+        else{
+            let filterurl: string = "https://softwaredesign.herokuapp.com/index.html?filter=c";
+            localStorage.setItem("url",filterurl);   
+        }
+        let url:string = localStorage.getItem("url");
         let response: Response = await fetch(url);
         let responseText: string = await response.text();
         let responseTextJson: Car[] = JSON.parse(responseText);
-        //console.log(response);
         console.log(responseTextJson);
         console.log(Object.keys(responseTextJson).length);
+        
         let tabledescription: string[]= ["Auto Bezeichnung","Antriebsart","frühste Nutzungsuhrzeit","späteste Nutzungsuhrzeit","maximale Nutzungdauer","pauschale Nutzungspreis","Preis pro Minute","Buchen"]
         
         let tabl: HTMLElement = document.createElement("table");
@@ -31,15 +44,20 @@ namespace Carsharing{
             tableheader.innerHTML = tabledescription[i];
             tabl.appendChild(tableheader);
         }
+        let caramount: string = localStorage.getItem("amount");
         let amount: number;
-        if (caramount=="all"){
-            amount=Object.keys(responseTextJson).length
-
+    
+        if(caramount==null){
+            amount= 10;
         }
-        amount = parseInt(caramount);
+        else{
+            amount = parseInt(caramount);
+        }
+        
         if (Object.keys(responseTextJson).length< amount||caramount=="all"){
             amount=Object.keys(responseTextJson).length
         }
+
             
         for ( let i: number = 0; i < amount; i++) {
 
@@ -92,28 +110,33 @@ namespace Carsharing{
         let filterButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("filterbutton");
         filterButton.addEventListener("click", filterbutton);      
     }
+
     async function amountbutton(_event:Event):Promise<void> {
         console.log("amount click");
         let amountForm: HTMLFormElement = <HTMLFormElement>document.getElementById("amountForm");
         let formData: FormData = new FormData(amountForm);
         let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
-        console.log("Query", query.toString());
-        console.log((query.toString()).substring(9));
-        showData((query.toString()).substring(9)); 
-        
+        localStorage.setItem("amount",(query.toString()).substring(9));
+        showData();    
     }
+
     async function filterbutton(_event:Event):Promise<void>{
-        let filterelement: HTMLElement = document.createElement("p");
-        filterelement.innerHTML="hi";
-        document.getElementById("filteroptions").appendChild(filterelement);
         console.log("filter click");
+        let filterForm: HTMLFormElement = <HTMLFormElement>document.getElementById("filterForm");
+        let formData: FormData = new FormData(filterForm);
+        let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
+        console.log("Query", query.toString());
+        console.log((query.toString()).substring(7));
+        localStorage.removeItem("filter");
+        //localStorage.setItem("filter",(query.toString()).substring(7));
+        showData();
+        
     } 
      
     async function bookcar(_event: Event): Promise<void> {
         console.log("click");
         let dataId: string = (_event.target as HTMLImageElement).id;
         console.log(dataId);
-        localStorage.removeItem("dataId");
         localStorage.setItem("dataId",dataId);
         window.location.replace("bookcar.html");
     }    
