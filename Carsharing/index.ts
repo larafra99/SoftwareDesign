@@ -22,11 +22,11 @@ namespace Carsharing{
         //console.log(response);
         console.log(responseTextJson);
         console.log(Object.keys(responseTextJson).length);
-        let tabledescription: string[]= ["Auto Id","Auto Bezeichnung","Antriebsart","frühste Nutzungsuhrzeit","späteste Nutzungsuhrzeit","maximale Nutzungdauer","pauschale Nutzungspreis","Preis pro Minute","Buchen"]
+        let tabledescription: string[]= ["Auto Bezeichnung","Antriebsart","frühste Nutzungsuhrzeit","späteste Nutzungsuhrzeit","maximale Nutzungdauer","pauschale Nutzungspreis","Preis pro Minute","Buchen"]
         
         let tabl: HTMLElement = document.createElement("table");
         document.getElementById("showData").appendChild(tabl);
-        for ( let i: number = 0; i <= 8; i++) {
+        for ( let i: number = 0; i <= 7; i++) {
             let tableheader: HTMLElement = document.createElement("th");
             tableheader.innerHTML = tabledescription[i];
             tabl.appendChild(tableheader);
@@ -51,11 +51,10 @@ namespace Carsharing{
             let tableelement5: HTMLElement = document.createElement("td");
             let tableelement6: HTMLElement = document.createElement("td");
             let tableelement7: HTMLElement = document.createElement("td");
-            let tableelement8: HTMLElement = document.createElement("td");
-            let tableelement9: HTMLElement = document.createElement("button");
+            let tableelement8: HTMLElement = document.createElement("button");
 
-            tableelement9.addEventListener("click", bookcar);
-            tableelement9.id = responseTextJson[i].id;
+            tableelement8.addEventListener("click", bookcar);
+            tableelement8.id = responseTextJson[i].id;
             
             let betriebsart: string ="";
             if(responseTextJson[i].electronic == true && responseTextJson[i].conventionell == false){
@@ -69,15 +68,14 @@ namespace Carsharing{
                 betriebsart = "Hybrid";
             }
 
-            tableelement1.innerHTML = responseTextJson[i].id; 
-            tableelement2.innerHTML = responseTextJson[i].name; 
-            tableelement3.innerHTML = betriebsart; 
-            tableelement4.innerHTML = responseTextJson[i].fnut + " Uhr"; 
-            tableelement5.innerHTML = responseTextJson[i].lnut + " Uhr"; 
-            tableelement6.innerHTML = responseTextJson[i].max + " Min";
-            tableelement7.innerHTML = responseTextJson[i].pnd + " €"; 
-            tableelement8.innerHTML = responseTextJson[i].ppmin + " €";
-            tableelement9.innerHTML = "buchen";
+            tableelement1.innerHTML = responseTextJson[i].name; 
+            tableelement2.innerHTML = betriebsart; 
+            tableelement3.innerHTML = responseTextJson[i].fnut + " Uhr"; 
+            tableelement4.innerHTML = responseTextJson[i].lnut + " Uhr"; 
+            tableelement5.innerHTML = responseTextJson[i].max + " Min";
+            tableelement6.innerHTML = responseTextJson[i].pnd + " €"; 
+            tableelement7.innerHTML = responseTextJson[i].ppmin + " €";
+            tableelement8.innerHTML = "näher ansehen";
             
             tablerow.appendChild(tableelement1);
             tablerow.appendChild(tableelement2);
@@ -87,11 +85,12 @@ namespace Carsharing{
             tablerow.appendChild(tableelement6);
             tablerow.appendChild(tableelement7);
             tablerow.appendChild(tableelement8);
-            tablerow.appendChild(tableelement9);
             tabl.appendChild(tablerow);
         }
         let amountButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("submit");
-        amountButton.addEventListener("click", amountbutton);       
+        amountButton.addEventListener("click", amountbutton);   
+        let filterButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("filterbutton");
+        filterButton.addEventListener("click", filterbutton);      
     }
     async function amountbutton(_event:Event):Promise<void> {
         console.log("amount click");
@@ -102,6 +101,12 @@ namespace Carsharing{
         console.log((query.toString()).substring(9));
         showData((query.toString()).substring(9)); 
         
+    }
+    async function filterbutton(_event:Event):Promise<void>{
+        let filterelement: HTMLElement = document.createElement("p");
+        filterelement.innerHTML="hi";
+        document.getElementById("filteroptions").appendChild(filterelement);
+        console.log("filter click");
     } 
      
     async function bookcar(_event: Event): Promise<void> {

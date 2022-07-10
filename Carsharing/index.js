@@ -11,10 +11,10 @@ var Carsharing;
         //console.log(response);
         console.log(responseTextJson);
         console.log(Object.keys(responseTextJson).length);
-        let tabledescription = ["Auto Id", "Auto Bezeichnung", "Antriebsart", "frühste Nutzungsuhrzeit", "späteste Nutzungsuhrzeit", "maximale Nutzungdauer", "pauschale Nutzungspreis", "Preis pro Minute", "Buchen"];
+        let tabledescription = ["Auto Bezeichnung", "Antriebsart", "frühste Nutzungsuhrzeit", "späteste Nutzungsuhrzeit", "maximale Nutzungdauer", "pauschale Nutzungspreis", "Preis pro Minute", "Buchen"];
         let tabl = document.createElement("table");
         document.getElementById("showData").appendChild(tabl);
-        for (let i = 0; i <= 8; i++) {
+        for (let i = 0; i <= 7; i++) {
             let tableheader = document.createElement("th");
             tableheader.innerHTML = tabledescription[i];
             tabl.appendChild(tableheader);
@@ -36,10 +36,9 @@ var Carsharing;
             let tableelement5 = document.createElement("td");
             let tableelement6 = document.createElement("td");
             let tableelement7 = document.createElement("td");
-            let tableelement8 = document.createElement("td");
-            let tableelement9 = document.createElement("button");
-            tableelement9.addEventListener("click", bookcar);
-            tableelement9.id = responseTextJson[i].id;
+            let tableelement8 = document.createElement("button");
+            tableelement8.addEventListener("click", bookcar);
+            tableelement8.id = responseTextJson[i].id;
             let betriebsart = "";
             if (responseTextJson[i].electronic == true && responseTextJson[i].conventionell == false) {
                 console.log("elektonik");
@@ -51,15 +50,14 @@ var Carsharing;
             else {
                 betriebsart = "Hybrid";
             }
-            tableelement1.innerHTML = responseTextJson[i].id;
-            tableelement2.innerHTML = responseTextJson[i].name;
-            tableelement3.innerHTML = betriebsart;
-            tableelement4.innerHTML = responseTextJson[i].fnut + " Uhr";
-            tableelement5.innerHTML = responseTextJson[i].lnut + " Uhr";
-            tableelement6.innerHTML = responseTextJson[i].max + " Min";
-            tableelement7.innerHTML = responseTextJson[i].pnd + " €";
-            tableelement8.innerHTML = responseTextJson[i].ppmin + " €";
-            tableelement9.innerHTML = "buchen";
+            tableelement1.innerHTML = responseTextJson[i].name;
+            tableelement2.innerHTML = betriebsart;
+            tableelement3.innerHTML = responseTextJson[i].fnut + " Uhr";
+            tableelement4.innerHTML = responseTextJson[i].lnut + " Uhr";
+            tableelement5.innerHTML = responseTextJson[i].max + " Min";
+            tableelement6.innerHTML = responseTextJson[i].pnd + " €";
+            tableelement7.innerHTML = responseTextJson[i].ppmin + " €";
+            tableelement8.innerHTML = "näher ansehen";
             tablerow.appendChild(tableelement1);
             tablerow.appendChild(tableelement2);
             tablerow.appendChild(tableelement3);
@@ -68,11 +66,12 @@ var Carsharing;
             tablerow.appendChild(tableelement6);
             tablerow.appendChild(tableelement7);
             tablerow.appendChild(tableelement8);
-            tablerow.appendChild(tableelement9);
             tabl.appendChild(tablerow);
         }
         let amountButton = document.getElementById("submit");
         amountButton.addEventListener("click", amountbutton);
+        let filterButton = document.getElementById("filterbutton");
+        filterButton.addEventListener("click", filterbutton);
     }
     async function amountbutton(_event) {
         console.log("amount click");
@@ -82,6 +81,12 @@ var Carsharing;
         console.log("Query", query.toString());
         console.log((query.toString()).substring(9));
         showData((query.toString()).substring(9));
+    }
+    async function filterbutton(_event) {
+        let filterelement = document.createElement("p");
+        filterelement.innerHTML = "hi";
+        document.getElementById("filteroptions").appendChild(filterelement);
+        console.log("filter click");
     }
     async function bookcar(_event) {
         console.log("click");

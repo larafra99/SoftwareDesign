@@ -50,4 +50,8 @@ button:hover{
     background-color:black;
     cursor: pointer;
 }
+#filterbutton{
+    float: right;
+    
+}
 
