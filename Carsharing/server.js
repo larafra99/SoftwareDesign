@@ -309,11 +309,13 @@ var Carsharing;
             }
             else {
                 // standart parameter fits
-                console.log("potential id", data[i].id);
                 potentialcar.push(data[i].id);
             }
         }
         console.log(potentialcar);
+        if (potentialcar.length == 0) {
+            console.log("no car available");
+        }
         // transfer string to integer for comparision
         // 
         // check availability

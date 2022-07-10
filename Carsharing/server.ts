@@ -348,8 +348,6 @@ export namespace Carsharing {
             // console.log("datenstart",start);
             // console.log("datenend",end);
             // console.log("carid",data[i].id);
-
-
             if(wishstart<start){
                 //start is too early
             }
@@ -361,12 +359,13 @@ export namespace Carsharing {
             }
             else{
                 // standart parameter fits
-                console.log("potential id",data[i].id)
                 potentialcar.push(data[i].id);
             }
-
         }
         console.log(potentialcar);
+        if(potentialcar.length == 0){
+            console.log("no car available");
+        }
 
         // transfer string to integer for comparision
         
