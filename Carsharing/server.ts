@@ -298,7 +298,8 @@ export namespace Carsharing {
         }
         else if(_conven=="on"){
             console.log("benzin car");
-            let data: any[] = await collectionCars.find({"electro": false,"conventionell": true}).toArray();
+            // let data: any[] = await collectionCars.find({"electro": false,"conventionell": true}).toArray();
+            let data: any[] = await collectionCars.find({"electro": false}).toArray();
             return data;
         }
         else{
