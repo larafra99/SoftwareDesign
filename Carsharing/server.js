@@ -118,6 +118,8 @@ var Carsharing;
                     _response.write(JSON.stringify(listCars));
                 }
                 else if (parameter.filter = "b") {
+                    let listCars = await filterCar(parameter.electro, parameter.conventionell);
+                    _response.write(JSON.stringify(listCars));
                 }
                 else {
                 }
@@ -232,6 +234,11 @@ var Carsharing;
     }
     async function showData() {
         // get all Cars in an array
+        let data = await collectionCars.find().toArray();
+        return data;
+    }
+    async function filterCar(_electro, _conven) {
+        console.log(_electro, _conven);
         let data = await collectionCars.find().toArray();
         return data;
     }

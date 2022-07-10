@@ -154,6 +154,12 @@ export namespace Carsharing {
                     _response.write( JSON.stringify(listCars) )
                 }
                 else if (parameter.filter = "b"){
+                        let listCars:Car[] = await filterCar(parameter.electro as string,parameter.conventionell as string);
+                        _response.write( JSON.stringify(listCars) )
+                       
+
+                    
+                    
 
                 }
                 else{
@@ -284,6 +290,13 @@ export namespace Carsharing {
         // get all Cars in an array
         let data: any[] = await collectionCars.find().toArray();
         return data;
+    }
+    async function filterCar(_electro:string, _conven:string): Promise<Car[]> {
+        console.log(_electro, _conven);
+        let data: any[] = await collectionCars.find().toArray();
+        return data;
+
+        
     }
 
     async function bookCar(_carid:string): Promise<Car>{

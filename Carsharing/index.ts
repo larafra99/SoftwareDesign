@@ -27,6 +27,9 @@ namespace Carsharing{
             let filterformelement:HTMLElement = document.createElement("form");
             filterformelement.id = "optionForm";
             document.getElementById("filteroptions").appendChild(filterformelement);
+            let filterinformelement:HTMLElement = document.createElement("p");
+            filterinformelement.innerHTML = "falls ein Hybrid Auto gewünscht ist, klicken sie beide Boxen";
+            document.getElementById("filteroptions").appendChild(filterinformelement);
             let filterelement: HTMLInputElement = document.createElement("input");
             filterelement.type = "checkbox";
             filterelement.name = "conventionell";
@@ -51,7 +54,7 @@ namespace Carsharing{
             let filterurl: string = "https://softwaredesign.herokuapp.com/index.html?filter=c";
             localStorage.setItem("url",filterurl);   
         }
-        
+
         let url:string = localStorage.getItem("url");
         let response: Response = await fetch(url);
         let responseText: string = await response.text();
