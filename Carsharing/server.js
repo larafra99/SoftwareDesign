@@ -119,6 +119,10 @@ var Carsharing;
                     _response.write(JSON.stringify(listCars));
                 }
                 else if (parameter.filter == "b") {
+                    console.log(parameter.electro);
+                    console.log(parameter.conventionell);
+                    // if(parameter.electro as string,parameter.conventionell as string){
+                    // }
                     console.log("filter car types");
                     let listCars = await filterCar(parameter.electro, parameter.conventionell);
                     _response.write(JSON.stringify(listCars));
