@@ -169,7 +169,7 @@ export namespace Carsharing {
                     let usetime:UseTimes={
                         carid: parameter.carid as string,
                         date: parameter.booktime as string,
-                        starttime:parameter.starttime as string,
+                        starttime:start.toString(),
                         endtime: end.toString(),
                         user:parameter.username as string,
                     }
@@ -181,7 +181,7 @@ export namespace Carsharing {
                     else{
                         console.log("check if car is booked")
                         let time: boolean = await checkavailable(usetime);
-                        console.log(time);
+                        _response.write(time);
 
                     }
                 }
@@ -269,6 +269,7 @@ export namespace Carsharing {
             return true;  
         }   
     }
+
     async function showData(): Promise<Car[]> {
         // get all Cars in an array
         let data: any[] = await collectionCars.find().toArray();
@@ -281,6 +282,7 @@ export namespace Carsharing {
         let daten3: any = await collectionCars.findOne({"id": _carid});
         return daten3;
     } 
+
     async function checktime(_time:UseTimes,_duration:number):Promise<string> {
         console.log("Auto check time");
         // get Car by id
@@ -289,7 +291,6 @@ export namespace Carsharing {
         let start: number = parseInt((daten4.fnut).replace(":",""));
         let wishstart: number = parseInt((_time.starttime).replace(":",""));
         let end: number = parseInt((daten4.lnut).replace(":",""));
-        
         if(wishstart<start){
             //start is too early
             return "das Auto ist nicht so früh nutzbar, erst nutzbar ab "+(daten4.fnut).toString()
@@ -307,27 +308,22 @@ export namespace Carsharing {
             return "true"; 
         }      
     }
+
     async function checkavailable(_usetime:UseTimes):Promise<boolean> {
         console.log("Auto check time");
+        // search for the carid
         let data5: any[] = await collectionUseTimes.find({"carid": _usetime.carid}).toArray();
         let wishend: number = parseInt(_usetime.endtime);
-        let wishstart: number = parseInt((_usetime.starttime).replace(":",""));
-        console.log("DataArray", data5);
-        console.log("Data",data5[0]);
+        let wishstart: number = parseInt((_usetime.starttime));
+        // if array is empty car id is not in database
         if (data5[0] != undefined) {
             console.log("Auto existiert schon");
             // carid exist in database
-            
             for ( let i: number = 0; i < data5.length; i++){
                 if(data5[i].date ==_usetime.date){
                     console.log("Date is the same");
-                    
                     let start: number = parseInt((data5[i].starttime).replace(":","")); 
                     let end: number = parseInt((data5[i].endtime).replace(":",""));
-                    console.log("starttime",start);
-                    console.log("endtime",end);
-                    console.log("InterfaceStarttime",wishstart);
-                    console.log("InterfaceEndtime",wishend);
                     if(start <=  wishstart&& wishstart<=end){
                         console.log("starttime is in between");
                         return false;
@@ -347,10 +343,9 @@ export namespace Carsharing {
             //add car to database because date for car does not exist in database
             return false;   
         }
-
         else{
             await collectionUseTimes.insertOne(_usetime);
-            console.log("auto eingefügt");
+            console.log("auto existiert noch nicht");
             // add car to database because carid does not exist in database
             return true;  
         }  

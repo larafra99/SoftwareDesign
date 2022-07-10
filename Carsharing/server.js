@@ -129,7 +129,7 @@ var Carsharing;
                     let usetime = {
                         carid: parameter.carid,
                         date: parameter.booktime,
-                        starttime: parameter.starttime,
+                        starttime: start.toString(),
                         endtime: end.toString(),
                         user: parameter.username,
                     };
@@ -140,7 +140,7 @@ var Carsharing;
                     else {
                         console.log("check if car is booked");
                         let time = await checkavailable(usetime);
-                        console.log(time);
+                        _response.write(time);
                     }
                 }
                 else {
@@ -261,11 +261,11 @@ var Carsharing;
     }
     async function checkavailable(_usetime) {
         console.log("Auto check time");
+        // search for the carid
         let data5 = await collectionUseTimes.find({ "carid": _usetime.carid }).toArray();
         let wishend = parseInt(_usetime.endtime);
-        let wishstart = parseInt((_usetime.starttime).replace(":", ""));
-        console.log("DataArray", data5);
-        console.log("Data", data5[0]);
+        let wishstart = parseInt((_usetime.starttime));
+        // if array is empty car id is not in database
         if (data5[0] != undefined) {
             console.log("Auto existiert schon");
             // carid exist in database
@@ -274,10 +274,6 @@ var Carsharing;
                     console.log("Date is the same");
                     let start = parseInt((data5[i].starttime).replace(":", ""));
                     let end = parseInt((data5[i].endtime).replace(":", ""));
-                    console.log("starttime", start);
-                    console.log("endtime", end);
-                    console.log("InterfaceStarttime", wishstart);
-                    console.log("InterfaceEndtime", wishend);
                     if (start <= wishstart && wishstart <= end) {
                         console.log("starttime is in between");
                         return false;
@@ -299,7 +295,7 @@ var Carsharing;
         }
         else {
             await collectionUseTimes.insertOne(_usetime);
-            console.log("auto eingefügt");
+            console.log("auto existiert noch nicht");
             // add car to database because carid does not exist in database
             return true;
         }
