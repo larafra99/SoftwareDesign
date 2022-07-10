@@ -112,13 +112,13 @@ var Carsharing;
             }
             else if (q.pathname == "/index.html") {
                 console.log("get Data");
-                if (parameter.filter = "a") {
+                if (parameter.filter == "a") {
                     console.log("get all cars");
                     // get all cars
                     let listCars = await showData();
                     _response.write(JSON.stringify(listCars));
                 }
-                else if (parameter.filter = "b") {
+                else if (parameter.filter == "b") {
                     console.log("filter car types");
                     let listCars = await filterCar(parameter.electro, parameter.conventionell);
                     _response.write(JSON.stringify(listCars));
