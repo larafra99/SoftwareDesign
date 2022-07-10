@@ -4,14 +4,35 @@ var Carsharing;
     showData();
     async function showData() {
         document.getElementById("showData").innerHTML = "";
+        document.getElementById("filteroptions").innerHTML = "";
         let filter = localStorage.getItem("filter");
         if (filter == "a" || filter == null) {
             let filterurl = "https://softwaredesign.herokuapp.com/index.html?filter=a";
             localStorage.setItem("url", filterurl);
         }
         else if (filter == "b") {
-            let filterurl = "https://softwaredesign.herokuapp.com/index.html?filter=b";
-            localStorage.setItem("url", filterurl);
+            console.log("Filter antriebsart");
+            let filterformelement = document.createElement("form");
+            filterformelement.id = "optionForm";
+            document.getElementById("filteroptions").appendChild(filterformelement);
+            let filterelement = document.createElement("input");
+            filterelement.type = "checkbox";
+            filterelement.name = "conventionell";
+            let filterelement2 = document.createElement("label");
+            filterelement2.innerHTML = "Konventionell";
+            let filterelement3 = document.createElement("input");
+            filterelement3.type = "checkbox";
+            filterelement3.name = "electro";
+            let filterelement4 = document.createElement("label");
+            filterelement4.innerHTML = "Elektro";
+            let filtersubmitButton = document.createElement("button");
+            filtersubmitButton.addEventListener("click", filtersubmitbutton);
+            filtersubmitButton.innerHTML = "submit";
+            filterformelement.appendChild(filterelement);
+            filterformelement.appendChild(filterelement2);
+            filterformelement.appendChild(filterelement3);
+            filterformelement.appendChild(filterelement4);
+            filterformelement.appendChild(filtersubmitButton);
         }
         else {
             let filterurl = "https://softwaredesign.herokuapp.com/index.html?filter=c";
@@ -56,7 +77,6 @@ var Carsharing;
             tableelement8.id = responseTextJson[i].id;
             let betriebsart = "";
             if (responseTextJson[i].electronic == true && responseTextJson[i].conventionell == false) {
-                console.log("elektonik");
                 betriebsart = "E-Auto";
             }
             else if (responseTextJson[i].conventionell == true && responseTextJson[i].electronic == false) {
@@ -103,9 +123,19 @@ var Carsharing;
         let query = new URLSearchParams(formData);
         console.log("Query", query.toString());
         console.log((query.toString()).substring(7));
-        localStorage.removeItem("filter");
-        //localStorage.setItem("filter",(query.toString()).substring(7));
+        //localStorage.removeItem("filter");
+        localStorage.setItem("filter", (query.toString()).substring(7));
         showData();
+    }
+    async function filtersubmitbutton(_event) {
+        console.log("filtersubmit click");
+        let optionForm = document.getElementById("optionForm");
+        let formData = new FormData(optionForm);
+        let query = new URLSearchParams(formData);
+        let filterurl = "https://softwaredesign.herokuapp.com/index.html?filter=b";
+        filterurl = filterurl + "&" + query.toString();
+        console.log("Query", query.toString());
+        localStorage.setItem("url", filterurl);
     }
     async function bookcar(_event) {
         console.log("click");

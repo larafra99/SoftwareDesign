@@ -149,8 +149,15 @@ export namespace Carsharing {
             else if(q.pathname =="/index.html"){
                 console.log("get Data");
                 if (parameter.filter = "a"){
+                    // get all cars
                     let listCars: Car[] = await showData();
                     _response.write( JSON.stringify(listCars) )
+                }
+                else if (parameter.filter = "b"){
+
+                }
+                else{
+
                 }
                 
             }
