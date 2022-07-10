@@ -121,8 +121,9 @@ var Carsharing;
                 else if (parameter.filter == "b") {
                     console.log(parameter.electro);
                     console.log(parameter.conventionell);
-                    // if(parameter.electro as string,parameter.conventionell as string){
-                    // }
+                    if (parameter.electro == undefined, parameter.conventionell == undefined) {
+                        console.log("no box checked");
+                    }
                     console.log("filter car types");
                     let listCars = await filterCar(parameter.electro, parameter.conventionell);
                     _response.write(JSON.stringify(listCars));
