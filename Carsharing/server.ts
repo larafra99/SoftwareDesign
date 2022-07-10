@@ -160,7 +160,6 @@ export namespace Carsharing {
                     if(parameter.electro == undefined && parameter.conventionell == undefined){
                         console.log("no box checked");
                         _response.write("Bitte füllen sie mindestens eine Box");
-
                     }
                     else{
                         console.log("filter car types")
@@ -177,6 +176,11 @@ export namespace Carsharing {
                         _response.write("Bitte füllen sie mindestens eine Box");
                     }
                     else{
+                        let duration: number = parseInt(parameter.duration as string );
+                        let start: number = parseInt((parameter.time as string).replace(":",""));
+                        let end: number =Math.floor(duration /60)*100 + duration%60 + start;
+                        let listCars:Car[] = await filtertimeCar(parameter.date as string,start.toString(), end.toString());
+                        _response.write( JSON.stringify(listCars));
                         console.log("filter time");
 
                     }
@@ -325,6 +329,15 @@ export namespace Carsharing {
             let data: any[] = await collectionCars.find({"electronic": true,"conventionell": true}).toArray();
             return data;
         }  
+    }
+    async function filtertimeCar(_date:string,_start:string,_end:string): Promise<Car[]>{
+        console.log("date",_date);
+        console.log("start",_start);
+        console.log("end",_end);
+
+        let data: any[] = await collectionCars.find({"conventionell": false}).toArray();
+        return data;
+
     }
 
     async function bookCar(_carid:string): Promise<Car>{

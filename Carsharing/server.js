@@ -140,6 +140,11 @@ var Carsharing;
                         _response.write("Bitte füllen sie mindestens eine Box");
                     }
                     else {
+                        let duration = parseInt(parameter.duration);
+                        let start = parseInt(parameter.time.replace(":", ""));
+                        let end = Math.floor(duration / 60) * 100 + duration % 60 + start;
+                        let listCars = await filtertimeCar(parameter.date, start.toString(), end.toString());
+                        _response.write(JSON.stringify(listCars));
                         console.log("filter time");
                     }
                 }
@@ -275,6 +280,13 @@ var Carsharing;
             let data = await collectionCars.find({ "electronic": true, "conventionell": true }).toArray();
             return data;
         }
+    }
+    async function filtertimeCar(_date, _start, _end) {
+        console.log("date", _date);
+        console.log("start", _start);
+        console.log("end", _end);
+        let data = await collectionCars.find({ "conventionell": false }).toArray();
+        return data;
     }
     async function bookCar(_carid) {
         console.log("Auto buchen");
