@@ -304,7 +304,7 @@ export namespace Carsharing {
         }
         else{
             console.log("hybrid car");
-            let data: any[] = await collectionCars.find({"electro": true,"conventionell": true}).toArray();
+            let data: any[] = await collectionCars.find({"electronic": true,"conventionell": true}).toArray();
             return data;
         }  
     }
