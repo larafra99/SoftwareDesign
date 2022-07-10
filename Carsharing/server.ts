@@ -340,14 +340,14 @@ export namespace Carsharing {
         
         //erstmal duartion start und endzeit checken => carid nehmen Autos die in frage kommen
         let data: any[] = await collectionCars.find().toArray();
-        let potentialcar: Car[];
+        let potentialcar: Car[]= [];
         
         for ( let i: number = 0; i < data.length; i++){
             let start: number = parseInt((data[i].fnut).replace(":",""));
             let end: number = parseInt((data[i].lnut).replace(":",""));
-            console.log("datenstart",start);
-            console.log("datenend",end);
-            console.log("carid",data[i].id);
+            // console.log("datenstart",start);
+            // console.log("datenend",end);
+            // console.log("carid",data[i].id);
 
 
             if(wishstart<start){
