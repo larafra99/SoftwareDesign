@@ -1,4 +1,5 @@
 namespace Carsharing{
+    //localStorage.removeItem("filter");
     showData();
 
     interface Car{
@@ -196,9 +197,9 @@ namespace Carsharing{
         console.log((query.toString()).substring(7));
         //localStorage.removeItem("filter");
         localStorage.setItem("filter",(query.toString()).substring(7));
-        showData();
-        
+        showData();   
     }
+
     async function filtertimebutton(_event:Event): Promise<void>{
         console.log("filtersubmit click");
         let optionForm: HTMLFormElement = <HTMLFormElement>document.getElementById("optionForm");
@@ -210,8 +211,8 @@ namespace Carsharing{
         timeurl = timeurl + "&" + query.toString();
         console.log("Query", query.toString());
         localStorage.setItem("url",timeurl); 
-
     }
+
     async function filtersubmitbutton(_event:Event): Promise<void> {
         console.log("filtersubmit click");
         let optionForm: HTMLFormElement = <HTMLFormElement>document.getElementById("optionForm");
@@ -220,8 +221,7 @@ namespace Carsharing{
         let filterurl: string = "https://softwaredesign.herokuapp.com/index.html?filter=b";
         filterurl = filterurl + "&" + query.toString();
         console.log("Query", query.toString());
-        localStorage.setItem("url",filterurl); 
-        
+        localStorage.setItem("url",filterurl);    
     } 
      
     async function bookcar(_event: Event): Promise<void> {

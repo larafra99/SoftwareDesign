@@ -172,7 +172,7 @@ export namespace Carsharing {
                     console.log("Date",parameter.date);
                     console.log("Time",parameter.time);
                     console.log("Duration",parameter.duration);
-                    if (parameter.date == undefined || parameter.time == undefined || parameter.duration == undefined){
+                    if (parameter.date == '' || parameter.time == '' || parameter.duration == ''){
                         console.log("fields empty");
                         _response.write("Bitte füllen sie mindestens eine Box");
                     }

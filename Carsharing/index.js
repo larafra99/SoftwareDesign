@@ -1,6 +1,7 @@
 "use strict";
 var Carsharing;
 (function (Carsharing) {
+    //localStorage.removeItem("filter");
     showData();
     async function showData() {
         document.getElementById("showData").innerHTML = "";
