@@ -242,14 +242,17 @@ var Carsharing;
     async function filterCar(_electro, _conven) {
         console.log("Filter", _electro, _conven);
         if (_electro == "on") {
+            console.log("electro car");
             let data = await collectionCars.find({ "electro": "true", "conventionell": "false" }).toArray();
             return data;
         }
         else if (_conven == "on") {
+            console.log("benzin car");
             let data = await collectionCars.find({ "electro": "false", "conventionell": "true" }).toArray();
             return data;
         }
         else {
+            console.log("hybrid car");
             let data = await collectionCars.find({ "electro": "true", "conventionell": "true" }).toArray();
             return data;
         }
