@@ -336,7 +336,7 @@ export namespace Carsharing {
                         console.log("endtime is in between");
                         return false;
                     }  
-                    else if (wishstart>start && wishend>end){
+                    else if (wishstart<start && wishend>end){
                         console.log("time is crossing");
                         return false;
                     }   
