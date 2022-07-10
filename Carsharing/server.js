@@ -286,9 +286,13 @@ var Carsharing;
                         console.log("endtime is in between");
                         return false;
                     }
+                    else if (wishstart > start && wishend > end) {
+                        console.log("time is crossing");
+                        return false;
+                    }
                 }
             }
-            await collectionUseTimes.insertOne(_usetime);
+            //await collectionUseTimes.insertOne(_usetime);
             console.log("auto eingefügt");
             //add car to database because date for car does not exist in database
             return false;
