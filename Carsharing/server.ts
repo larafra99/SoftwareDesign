@@ -361,6 +361,7 @@ export namespace Carsharing {
             }
             else{
                 // standart parameter fits
+                console.log("potential id",data[i].id)
                 potentialcar.push(data[i].id);
             }
 
