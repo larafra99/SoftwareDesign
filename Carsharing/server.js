@@ -269,7 +269,7 @@ var Carsharing;
         if (data5[0] != undefined) {
             console.log("Auto existiert schon");
             // carid exist in database
-            for (let i = 0; i <= data5.length; i++) {
+            for (let i = 0; i < data5.length; i++) {
                 if (data5[i].date == _usetime.date) {
                     console.log("Date is the same");
                     let start = parseInt((data5[i].starttime).replace(":", ""));
