@@ -184,9 +184,9 @@ export namespace Carsharing {
                 }  
             }
 
-            else if(q.pathname=="/bookcars.html"){
+            else if(q.pathname=="/bookCar.html"){
                 console.log("book car");
-                let car: Car = await bookCar(parameter.dataID as string);
+                let car: Car = await findCar(parameter.dataID as string);
 
                 _response.write(JSON.stringify(car));
             }
@@ -370,13 +370,13 @@ export namespace Carsharing {
             }
         }
         for ( let y: number = 0; y < carsavailable.length; y++){
-            let daten5: any = await bookCar(carsavailable[y]);
+            let daten5: any = await findCar(carsavailable[y]);
             finalcars.push(daten5);
         }
         return finalcars;
     }
 
-    async function bookCar(_carid:string): Promise<Car>{
+    async function findCar(_carid:string): Promise<Car>{
         console.log("Auto buchen");
         // get Car by id
         let daten3: any = await collectionCars.findOne({"id": _carid});
