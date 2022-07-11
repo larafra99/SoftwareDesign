@@ -194,40 +194,26 @@ namespace Carsharing{
             filterlabel2.appendChild(filterduration);
             timefilterformelement.appendChild(timeButton);
         }
-        async function booktime(_event: Event): Promise<void> {
-            let user: string =localStorage.getItem("user");
-            if (user == null){
-                console.log("user not logged in");
-                localStorage.setItem("lastmove","bookcar.html")
-                window.location.replace("login.html");
-            }
-            else{
-                console.log("click");
-                let timeForm: HTMLFormElement = <HTMLFormElement>document.getElementById("time");
-                let formData: FormData = new FormData(timeForm);
-                let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
-                console.log(query.toString());
-                let timeurl: string = "https://softwaredesign.herokuapp.com/checktime.html";
         
-                timeurl = timeurl + "?" + query.toString()+"&"+user+"&"+"carid="+responseTextJson.id;
-                console.log(timeurl);
-                let response: Response = await fetch(timeurl);
-                let responseText: string = await response.text();
-                console.log(response);
-                console.log(responseText);
-                document.getElementById("response").innerHTML="";
-                let booktext: HTMLElement = document.createElement("p");
-                document.getElementById("response").appendChild(booktext);
-                booktext.innerHTML = responseText;  
-            }
-
+            
+    } 
+    async function booktime(_event: Event): Promise<void> {
+        let user: string =localStorage.getItem("user");
+        let carid:string = localStorage.getItem("dataId");
+        if (user == null){
+            console.log("user not logged in");
+            localStorage.setItem("lastmove","bookcar.html")
+            window.location.replace("login.html");
         }
-        async function bookcar(_event: Event): Promise<void> {
-            let user: string =localStorage.getItem("user");
-            let query: string =localStorage.getItem("query");
+        else{
+            console.log("click");
+            let timeForm: HTMLFormElement = <HTMLFormElement>document.getElementById("time");
+            let formData: FormData = new FormData(timeForm);
+            let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
+            console.log(query.toString());
             let timeurl: string = "https://softwaredesign.herokuapp.com/checktime.html";
-        
-            timeurl = timeurl + "?" + query+"&"+user+"&"+"carid="+responseTextJson.id;
+    
+            timeurl = timeurl + "?" + query.toString()+"&"+user+"&"+"carid="+carid;
             console.log(timeurl);
             let response: Response = await fetch(timeurl);
             let responseText: string = await response.text();
@@ -236,9 +222,26 @@ namespace Carsharing{
             document.getElementById("response").innerHTML="";
             let booktext: HTMLElement = document.createElement("p");
             document.getElementById("response").appendChild(booktext);
-            booktext.innerHTML = responseText; 
-
+            booktext.innerHTML = responseText;  
         }
-            
-    } 
+
+    }
+    async function bookcar(_event: Event): Promise<void> {
+        let user: string =localStorage.getItem("user");
+        let query: string =localStorage.getItem("query");
+        let carid:string = localStorage.getItem("dataId");
+        let timeurl: string = "https://softwaredesign.herokuapp.com/checktime.html";
+    
+        timeurl = timeurl + "?" + query+"&"+user+"&"+"carid="+carid;
+        console.log(timeurl);
+        let response: Response = await fetch(timeurl);
+        let responseText: string = await response.text();
+        console.log(response);
+        console.log(responseText);
+        document.getElementById("response").innerHTML="";
+        let booktext: HTMLElement = document.createElement("p");
+        document.getElementById("response").appendChild(booktext);
+        booktext.innerHTML = responseText; 
+
+    }
 }

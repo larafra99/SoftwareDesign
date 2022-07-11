@@ -163,37 +163,23 @@ var Carsharing;
             filterlabel2.appendChild(filterduration);
             timefilterformelement.appendChild(timeButton);
         }
-        async function booktime(_event) {
-            let user = localStorage.getItem("user");
-            if (user == null) {
-                console.log("user not logged in");
-                localStorage.setItem("lastmove", "bookcar.html");
-                window.location.replace("login.html");
-            }
-            else {
-                console.log("click");
-                let timeForm = document.getElementById("time");
-                let formData = new FormData(timeForm);
-                let query = new URLSearchParams(formData);
-                console.log(query.toString());
-                let timeurl = "https://softwaredesign.herokuapp.com/checktime.html";
-                timeurl = timeurl + "?" + query.toString() + "&" + user + "&" + "carid=" + responseTextJson.id;
-                console.log(timeurl);
-                let response = await fetch(timeurl);
-                let responseText = await response.text();
-                console.log(response);
-                console.log(responseText);
-                document.getElementById("response").innerHTML = "";
-                let booktext = document.createElement("p");
-                document.getElementById("response").appendChild(booktext);
-                booktext.innerHTML = responseText;
-            }
+    }
+    async function booktime(_event) {
+        let user = localStorage.getItem("user");
+        let carid = localStorage.getItem("dataId");
+        if (user == null) {
+            console.log("user not logged in");
+            localStorage.setItem("lastmove", "bookcar.html");
+            window.location.replace("login.html");
         }
-        async function bookcar(_event) {
-            let user = localStorage.getItem("user");
-            let query = localStorage.getItem("query");
+        else {
+            console.log("click");
+            let timeForm = document.getElementById("time");
+            let formData = new FormData(timeForm);
+            let query = new URLSearchParams(formData);
+            console.log(query.toString());
             let timeurl = "https://softwaredesign.herokuapp.com/checktime.html";
-            timeurl = timeurl + "?" + query + "&" + user + "&" + "carid=" + responseTextJson.id;
+            timeurl = timeurl + "?" + query.toString() + "&" + user + "&" + "carid=" + carid;
             console.log(timeurl);
             let response = await fetch(timeurl);
             let responseText = await response.text();
@@ -204,6 +190,22 @@ var Carsharing;
             document.getElementById("response").appendChild(booktext);
             booktext.innerHTML = responseText;
         }
+    }
+    async function bookcar(_event) {
+        let user = localStorage.getItem("user");
+        let query = localStorage.getItem("query");
+        let carid = localStorage.getItem("dataId");
+        let timeurl = "https://softwaredesign.herokuapp.com/checktime.html";
+        timeurl = timeurl + "?" + query + "&" + user + "&" + "carid=" + carid;
+        console.log(timeurl);
+        let response = await fetch(timeurl);
+        let responseText = await response.text();
+        console.log(response);
+        console.log(responseText);
+        document.getElementById("response").innerHTML = "";
+        let booktext = document.createElement("p");
+        document.getElementById("response").appendChild(booktext);
+        booktext.innerHTML = responseText;
     }
 })(Carsharing || (Carsharing = {}));
 //# sourceMappingURL=bookcar.js.map
