@@ -1,5 +1,7 @@
     import {navibar} from "./function/flexnavi.js";
+    localStorage.setItem("lastmove","admin.html");
     navibar();
+    
 
     let carForm: HTMLFormElement = <HTMLFormElement>document.getElementById("addcar");
     let carButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("buttonaddcar");

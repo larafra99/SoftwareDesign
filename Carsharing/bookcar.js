@@ -1,5 +1,3 @@
-"use strict";
-//import{Car}from "./interfaces/interface.js";
 showData();
 async function showData() {
     let url = "https://softwaredesign.herokuapp.com/bookcars.html";
@@ -196,4 +194,5 @@ async function bookcar(_event) {
     document.getElementById("response").appendChild(booktext);
     booktext.innerHTML = responseText;
 }
+export {};
 //# sourceMappingURL=bookcar.js.map

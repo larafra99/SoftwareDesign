@@ -1,7 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const flexnavi_js_1 = require("./function/flexnavi.js");
-(0, flexnavi_js_1.navibar)();
+import { navibar } from "./function/flexnavi.js";
+localStorage.setItem("lastmove", "admin.html");
+navibar();
 let carForm = document.getElementById("addcar");
 let carButton = document.getElementById("buttonaddcar");
 carButton.addEventListener("click", addcar);

@@ -1,10 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Carsharing = void 0;
-const Http = require("http");
-const Url = require("url");
-const Mongo = require("mongodb");
-var Carsharing;
+import * as Http from "http";
+import * as Url from "url";
+import * as Mongo from "mongodb";
+export var Carsharing;
 (function (Carsharing) {
     let collection;
     let collectionCars;
@@ -401,5 +398,5 @@ var Carsharing;
             return true;
         }
     }
-})(Carsharing = exports.Carsharing || (exports.Carsharing = {}));
+})(Carsharing || (Carsharing = {}));
 //# sourceMappingURL=server.js.map

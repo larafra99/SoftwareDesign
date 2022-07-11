@@ -1,19 +1,5 @@
-//import{Car}from "./interfaces/interface.js";
+import{Car}from "./interfaces/interface.js";
 showData();
-//localStorage.removeItem("user");
-//localStorage.removeItem("lastmove");
-
-interface Car{
-    id: string;
-    name: string;
-    electronic: boolean;
-    conventionell: boolean;
-    fnut: string;
-    lnut: string;
-    max: string;
-    pnd: string;
-    ppmin: string;
-}
 
 async function showData(): Promise<void> {
     let url: string = "https://softwaredesign.herokuapp.com/bookcars.html";

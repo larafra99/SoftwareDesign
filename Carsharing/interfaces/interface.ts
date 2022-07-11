@@ -9,6 +9,21 @@ interface Car{
     pnd: string;
     ppmin: string;
 }
+interface User {
+    username: string;
+    password: string;
+    status: boolean;
+    admin: boolean;   
+}
+interface UseTimes{
+    carid:string;
+    date: string;
+    starttime: string;
+    endtime: string;
+    user: string;
+}
 export{
     Car,
+    User,
+    UseTimes,
 }

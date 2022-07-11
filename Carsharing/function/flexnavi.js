@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.navibar = void 0;
-function navibar() {
+export function navibar() {
     console.log("start navibar");
     if (localStorage.getItem("user") != undefined) {
         let logoutbutton = document.createElement("button");
@@ -10,12 +7,23 @@ function navibar() {
         logoutbutton.id = "logoutbutton";
         logoutbutton.addEventListener("click", logout);
         if (localStorage.getItem("user") == "username=admin") {
-            let navliadmin = document.createElement("li");
-            let adminlink1 = document.createElement("a");
-            adminlink1.href = "admin.html";
-            adminlink1.innerHTML = "Autos anlegen";
-            document.getElementById("navi").appendChild(navliadmin);
-            navliadmin.appendChild(adminlink1);
+            if (localStorage.getItem("lastmove") == "admin.html") {
+                let navliadmin = document.createElement("li");
+                let adminlink1 = document.createElement("a");
+                adminlink1.href = "index.html";
+                adminlink1.innerHTML = "Autos aussuchen";
+                document.getElementById("navi").appendChild(navliadmin);
+                navliadmin.appendChild(adminlink1);
+                localStorage.removeItem("lastmove");
+            }
+            else {
+                let navliadmin = document.createElement("li");
+                let adminlink1 = document.createElement("a");
+                adminlink1.href = "admin.html";
+                adminlink1.innerHTML = "Autos anlegen";
+                document.getElementById("navi").appendChild(navliadmin);
+                navliadmin.appendChild(adminlink1);
+            }
         }
     }
     else {
@@ -33,7 +41,6 @@ function navibar() {
         navli2.appendChild(link2);
     }
 }
-exports.navibar = navibar;
 async function logout(_event) {
     localStorage.clear();
 }

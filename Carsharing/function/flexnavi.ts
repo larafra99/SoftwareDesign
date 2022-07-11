@@ -7,12 +7,27 @@ export function navibar(): void{
         logoutbutton.id ="logoutbutton";
         logoutbutton.addEventListener("click", logout);
         if(localStorage.getItem("user")=="username=admin"){
-            let navliadmin:HTMLElement = document.createElement("li");
-            let adminlink1:HTMLAnchorElement = document.createElement("a");
-            adminlink1.href="admin.html";
-            adminlink1.innerHTML="Autos anlegen";
-            document.getElementById("navi").appendChild(navliadmin);
-            navliadmin.appendChild(adminlink1);
+            if(localStorage.getItem("lastmove")=="admin.html"){
+                let navliadmin:HTMLElement = document.createElement("li");
+                let adminlink1:HTMLAnchorElement = document.createElement("a");
+                adminlink1.href="index.html";
+                adminlink1.innerHTML="Autos aussuchen";
+                document.getElementById("navi").appendChild(navliadmin);
+                navliadmin.appendChild(adminlink1);
+                localStorage.removeItem("lastmove");
+
+
+            }
+            else{
+                let navliadmin:HTMLElement = document.createElement("li");
+                let adminlink1:HTMLAnchorElement = document.createElement("a");
+                adminlink1.href="admin.html";
+                adminlink1.innerHTML="Autos anlegen";
+                document.getElementById("navi").appendChild(navliadmin);
+                navliadmin.appendChild(adminlink1);
+
+            }
+            
         }
     }
     
