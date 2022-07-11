@@ -145,7 +145,7 @@ var Carsharing;
                     }
                 }
             }
-            else if (q.pathname == "/bookCar.html") {
+            else if (q.pathname == "/bookcars.html") {
                 console.log("book car");
                 let car = await findCar(parameter.dataID);
                 _response.write(JSON.stringify(car));

@@ -184,7 +184,7 @@ export namespace Carsharing {
                 }  
             }
 
-            else if(q.pathname=="/bookCar.html"){
+            else if(q.pathname=="/bookcars.html"){
                 console.log("book car");
                 let car: Car = await findCar(parameter.dataID as string);
 
