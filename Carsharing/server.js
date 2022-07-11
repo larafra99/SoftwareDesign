@@ -178,11 +178,6 @@ var Carsharing;
                     _response.write("bitte füllen Sie alle Felder aus");
                 }
             }
-            // else if(q.pathname=="/logincheck.html"){
-            //     console.log("check if user is logged in");
-            //     let status: boolean = await checkuser(parameter.username as string);
-            //     console.log(status);
-            // }
         }
         _response.end();
     }
@@ -403,14 +398,5 @@ var Carsharing;
             return true;
         }
     }
-    // async function checkuser(_checkuser: string):Promise<boolean> {
-    //     console.log("User",_checkuser);
-    //     let daten4: any = await collection.findOne({"username": _checkuser} );
-    //     console.log(daten4);
-    //     if (daten4.status == "true"){
-    //         console.log("eingeloogt");
-    //     }
-    //     return true;
-    // }
 })(Carsharing = exports.Carsharing || (exports.Carsharing = {}));
 //# sourceMappingURL=server.js.map
