@@ -1,7 +1,20 @@
-    import{Car}from "./interfaces/interface.js";
+    
     import {navibar} from "./function/flexnavi.js";
     navibar();
+
     showallData();
+
+    interface Car{
+        id: string;
+        name: string;
+        electronic: boolean;
+        conventionell: boolean;
+        fnut: string;
+        lnut: string;
+        max: string;
+        pnd: string;
+        ppmin: string;
+    }
 
     async function showallData(): Promise<void> {
         document.getElementById("showData").innerHTML="";
