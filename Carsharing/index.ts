@@ -234,7 +234,7 @@ async function bookonecar(_event: Event): Promise<void> {
     localStorage.setItem("dataId",dataId);
     window.location.replace("bookcar.html");
 }
-async function logout(_event: Event): Promise<void>{
-    localStorage.clear();
-    showallData();
-}    
+// async function logout(_event: Event): Promise<void>{
+//     localStorage.clear();
+//     showallData();
+// }    

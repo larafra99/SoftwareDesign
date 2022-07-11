@@ -198,8 +198,8 @@ async function bookonecar(_event) {
     localStorage.setItem("dataId", dataId);
     window.location.replace("bookcar.html");
 }
-async function logout(_event) {
-    localStorage.clear();
-    showallData();
-}
+// async function logout(_event: Event): Promise<void>{
+//     localStorage.clear();
+//     showallData();
+// }    
 //# sourceMappingURL=index.js.map
