@@ -183,7 +183,7 @@ async function amountbutton(_event) {
     let formData = new FormData(amountForm);
     let query = new URLSearchParams(formData);
     localStorage.setItem("amount", (query.toString()).substring(9));
-    showData();
+    showallData();
 }
 async function filterbutton(_event) {
     console.log("filter click");
@@ -195,7 +195,7 @@ async function filterbutton(_event) {
     //localStorage.removeItem("filter");
     localStorage.setItem("filter", (query.toString()).substring(7));
     localStorage.setItem("bookoption", "a");
-    showData();
+    showallData();
 }
 async function filtertimebutton(_event) {
     console.log("filtersubmit click");

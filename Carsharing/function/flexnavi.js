@@ -34,4 +34,7 @@ function navibar() {
     }
 }
 exports.navibar = navibar;
+async function logout(_event) {
+    localStorage.clear();
+}
 //# sourceMappingURL=flexnavi.js.map

@@ -184,7 +184,7 @@ async function bookcar(_event) {
     let user = localStorage.getItem("user");
     let query = localStorage.getItem("query");
     let carid = localStorage.getItem("dataId");
-    let timeurl = "https://softwaredesign.herokuapp.com/checktime.html";
+    let timeurl = "https://softwaredesign.herokuapp.com/booktime.html";
     timeurl = timeurl + "?" + query + "&" + user + "&" + "carid=" + carid;
     console.log(timeurl);
     let response = await fetch(timeurl);

@@ -219,8 +219,12 @@ export namespace Carsharing {
                 else{
                     // time field empty
                     _response.write("bitte füllen Sie alle Felder aus");
-                }    
-            }       
+                }   
+            } 
+            else if(q.pathname=="booktime.html"){
+                console.log("book that car");
+                    
+            }      
         }
         _response.end();
     }

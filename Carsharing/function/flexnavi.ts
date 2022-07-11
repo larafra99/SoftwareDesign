@@ -32,3 +32,6 @@ export function navibar(): void{
     }
 
 }
+async function logout(_event: Event): Promise<void>{
+    localStorage.clear();
+}
