@@ -211,6 +211,8 @@ namespace Carsharing{
         localStorage.setItem("url",timeurl);
         timeurl = timeurl + "&" + query.toString();
         console.log("Query", query.toString());
+        localStorage.setItem("bookoption","b"); 
+        localStorage.setItem("query",query.toString());   
         localStorage.setItem("url",timeurl); 
          
     }
@@ -223,8 +225,7 @@ namespace Carsharing{
         let filterurl: string = "https://softwaredesign.herokuapp.com/index.html?filter=b";
         filterurl = filterurl + "&" + query.toString();
         console.log("Query", query.toString());
-        localStorage.setItem("bookoption","b"); 
-        localStorage.setItem("url",filterurl);    
+        localStorage.setItem("url",filterurl);  
     } 
      
     async function bookcar(_event: Event): Promise<void> {
