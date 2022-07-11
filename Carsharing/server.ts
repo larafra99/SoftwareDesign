@@ -2,36 +2,9 @@ import * as Http from "http";
 import * as Url from "url";
 import * as Mongo from "mongodb";
 import { ParsedUrlQuery } from "querystring";
+import {Car,User,UseTimes} from "./interfaces/interface";
 
 export namespace Carsharing {
-    
-    interface User {
-        username: string;
-        password: string;
-        status: boolean;
-        admin: boolean;   
-    }
-
-    interface Car{
-        id: string;
-        name: string;
-        electronic: boolean;
-        conventionell: boolean;
-        fnut: string;
-        lnut: string;
-        max: string;
-        pnd: string;
-        ppmin: string;
-    }
-
-    interface UseTimes{
-        carid:string;
-        date: string;
-        starttime: string;
-        endtime: string;
-        user: string;
-    }
-
     let collection: Mongo.Collection;
     let collectionCars: Mongo.Collection;
     let collectionUseTimes: Mongo.Collection;
