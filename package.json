@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Carsharing Website",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node Carsharing/server.js remote",
     "test": "jest",
@@ -26,6 +27,7 @@
     "@types/node": "^18.0.3",
     "@types/prompts": "^2.0.14"
   },
+
   "repository": {
     "type": "git",
     "url": "Softwaredesign"
