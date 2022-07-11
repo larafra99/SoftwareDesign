@@ -166,6 +166,7 @@ var Carsharing;
         console.log((query.toString()).substring(7));
         //localStorage.removeItem("filter");
         localStorage.setItem("filter", (query.toString()).substring(7));
+        localStorage.setItem("bookoption", "a");
         showData();
     }
     async function filtertimebutton(_event) {
@@ -188,6 +189,7 @@ var Carsharing;
         let filterurl = "https://softwaredesign.herokuapp.com/index.html?filter=b";
         filterurl = filterurl + "&" + query.toString();
         console.log("Query", query.toString());
+        localStorage.setItem("bookoption", "b");
         localStorage.setItem("url", filterurl);
     }
     async function bookcar(_event) {

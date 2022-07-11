@@ -197,6 +197,7 @@ namespace Carsharing{
         console.log((query.toString()).substring(7));
         //localStorage.removeItem("filter");
         localStorage.setItem("filter",(query.toString()).substring(7));
+        localStorage.setItem("bookoption","a");
         showData();   
     }
 
@@ -211,6 +212,7 @@ namespace Carsharing{
         timeurl = timeurl + "&" + query.toString();
         console.log("Query", query.toString());
         localStorage.setItem("url",timeurl); 
+         
     }
 
     async function filtersubmitbutton(_event:Event): Promise<void> {
@@ -221,6 +223,7 @@ namespace Carsharing{
         let filterurl: string = "https://softwaredesign.herokuapp.com/index.html?filter=b";
         filterurl = filterurl + "&" + query.toString();
         console.log("Query", query.toString());
+        localStorage.setItem("bookoption","b"); 
         localStorage.setItem("url",filterurl);    
     } 
      

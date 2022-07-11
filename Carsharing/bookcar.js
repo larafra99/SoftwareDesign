@@ -58,6 +58,8 @@ var Carsharing;
         tablerow.appendChild(tableelement7);
         tablerow.appendChild(tableelement8);
         tabl.appendChild(tablerow);
+        let filter = localStorage.getItem("bookoption");
+        console.log("bookoption", filter);
         let timeForm = document.getElementById("time");
         let timeButton = document.getElementById("timebutton");
         timeButton.addEventListener("click", booktime);

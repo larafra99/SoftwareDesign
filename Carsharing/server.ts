@@ -131,11 +131,9 @@ export namespace Carsharing {
                     ppmin: parameter.ppmin as string,
                 }
                 if (parameter.electric == "on"){
-                    console.log("Elektronisches Auto");
                     car.electronic= true;
                 }
                 if(parameter.conventionell =="on"){
-                    console.log("Konventionelles Auto");
                     car.conventionell= true;
                 }
                 let resultcar: boolean = await addcar(car);
@@ -155,8 +153,6 @@ export namespace Carsharing {
                     _response.write( JSON.stringify(listCars));
                 }
                 else if (parameter.filter == "b"){
-                    console.log(parameter.electro);
-                    console.log(parameter.conventionell);
                     if(parameter.electro == undefined && parameter.conventionell == undefined){
                         console.log("no box checked");
                         _response.write("Bitte füllen sie mindestens eine Box");
@@ -168,21 +164,19 @@ export namespace Carsharing {
                     }    
                 }
                 else{
-                    console.log("Date",parameter.date);
-                    console.log("Time",parameter.time);
-                    console.log("Duration",parameter.duration);
                     if (parameter.date == '' || parameter.time == '' || parameter.duration == ''){
                         console.log("fields empty");
                         _response.write("Bitte füllen sie mindestens eine Box");
                     }
                     else{
+                        console.log("filter time");
                         let duration: number = parseInt(parameter.duration as string );
                         let start: number = parseInt((parameter.time as string).replace(":",""));
                         let end: number =Math.floor(duration /60)*100 + duration%60 + start;
                         let listCars:Car[] = await filtertimeCar(parameter.date as string,start.toString(), end.toString(), duration);
                         //TODO listcar.length = 0;kein Auto verfügbar
                         _response.write( JSON.stringify(listCars));
-                        console.log("filter time");
+                        
                     }
                 }  
             }
@@ -311,7 +305,6 @@ export namespace Carsharing {
     }
 
     async function filterCar(_electro:string, _conven:string): Promise<Car[]> {
-        console.log("Filter",_electro, _conven);
         if(_electro =="on" && _conven== undefined){
             console.log("electro car");
             let data: any[] = await collectionCars.find({"conventionell": false}).toArray();
@@ -355,7 +348,6 @@ export namespace Carsharing {
                 potentialcar.push(data[i].id);
             }
         }
-        console.log(potentialcar);
         if(potentialcar.length == 0){
             // no cars available
         }
@@ -369,7 +361,6 @@ export namespace Carsharing {
                     user: null,
                 }
                 let checkcaravailable:boolean = await checkavailable(time);
-                //console.log(time);
                 if (checkcaravailable== true){
                     carsavailable.push(potentialcar[x]);
                 }

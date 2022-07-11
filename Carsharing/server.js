@@ -95,11 +95,9 @@ var Carsharing;
                     ppmin: parameter.ppmin,
                 };
                 if (parameter.electric == "on") {
-                    console.log("Elektronisches Auto");
                     car.electronic = true;
                 }
                 if (parameter.conventionell == "on") {
-                    console.log("Konventionelles Auto");
                     car.conventionell = true;
                 }
                 let resultcar = await addcar(car);
@@ -119,8 +117,6 @@ var Carsharing;
                     _response.write(JSON.stringify(listCars));
                 }
                 else if (parameter.filter == "b") {
-                    console.log(parameter.electro);
-                    console.log(parameter.conventionell);
                     if (parameter.electro == undefined && parameter.conventionell == undefined) {
                         console.log("no box checked");
                         _response.write("Bitte füllen sie mindestens eine Box");
@@ -132,21 +128,18 @@ var Carsharing;
                     }
                 }
                 else {
-                    console.log("Date", parameter.date);
-                    console.log("Time", parameter.time);
-                    console.log("Duration", parameter.duration);
                     if (parameter.date == '' || parameter.time == '' || parameter.duration == '') {
                         console.log("fields empty");
                         _response.write("Bitte füllen sie mindestens eine Box");
                     }
                     else {
+                        console.log("filter time");
                         let duration = parseInt(parameter.duration);
                         let start = parseInt(parameter.time.replace(":", ""));
                         let end = Math.floor(duration / 60) * 100 + duration % 60 + start;
                         let listCars = await filtertimeCar(parameter.date, start.toString(), end.toString(), duration);
                         //TODO listcar.length = 0;kein Auto verfügbar
                         _response.write(JSON.stringify(listCars));
-                        console.log("filter time");
                     }
                 }
             }
@@ -264,7 +257,6 @@ var Carsharing;
         return data;
     }
     async function filterCar(_electro, _conven) {
-        console.log("Filter", _electro, _conven);
         if (_electro == "on" && _conven == undefined) {
             console.log("electro car");
             let data = await collectionCars.find({ "conventionell": false }).toArray();
@@ -306,7 +298,6 @@ var Carsharing;
                 potentialcar.push(data[i].id);
             }
         }
-        console.log(potentialcar);
         if (potentialcar.length == 0) {
             // no cars available
         }
@@ -320,7 +311,6 @@ var Carsharing;
                     user: null,
                 };
                 let checkcaravailable = await checkavailable(time);
-                //console.log(time);
                 if (checkcaravailable == true) {
                     carsavailable.push(potentialcar[x]);
                 }

@@ -78,6 +78,9 @@ namespace Carsharing{
         tablerow.appendChild(tableelement8); 
         tabl.appendChild(tablerow);
 
+        let filter: string = localStorage.getItem("bookoption");
+        console.log("bookoption",filter);
+
         let timeForm: HTMLFormElement = <HTMLFormElement>document.getElementById("time");
         let timeButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("timebutton");
         timeButton.addEventListener("click", booktime);
