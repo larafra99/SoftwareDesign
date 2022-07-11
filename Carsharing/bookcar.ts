@@ -21,15 +21,11 @@ namespace Carsharing{
         let url: string = "https://softwaredesign.herokuapp.com/bookcars.html";
         let dataId: string =localStorage.getItem("dataId");
         url = url + "?" + "&dataID=" + dataId;
-        //console.log(url);
         let response: Response = await fetch(url);
         let responseText: string = await response.text();
         let responseTextJson: Car = JSON.parse(responseText);
-        //console.log(response);
-        //console.log(responseTextJson);
 
         let filter: string = localStorage.getItem("bookoption");
-        console.log("bookoption",filter);
         if(filter =="b"){
             let param:string = localStorage.getItem("query");
             let parts:string[] = param.split("&");
@@ -214,7 +210,7 @@ namespace Carsharing{
             let timeurl: string = "https://softwaredesign.herokuapp.com/checktime.html";
     
             timeurl = timeurl + "?" + query.toString()+"&"+user+"&"+"carid="+carid;
-            console.log(timeurl);
+            console.log("Zeit checken",timeurl);
             let response: Response = await fetch(timeurl);
             let responseText: string = await response.text();
             console.log(response);

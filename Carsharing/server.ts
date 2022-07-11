@@ -8,7 +8,8 @@ export namespace Carsharing {
     interface User {
         username: string;
         password: string;
-        status: boolean;   
+        status: boolean;
+        admin: boolean;   
     }
 
     interface Car{
@@ -88,7 +89,8 @@ export namespace Carsharing {
                 let user: User = {
                     username: parameter.username as string,
                     password: parameter.password as string,
-                    status: false
+                    status: false,
+                    admin:false,
                 };
                 let result: boolean =  await einloggen(user);
                 console.log("Login:", result);
@@ -105,7 +107,8 @@ export namespace Carsharing {
                 let users: User = {
                     username: parameter.username as string,
                     password: parameter.password as string,
-                    status: false
+                    status: false,
+                    admin: false,
                 };
                 let resultreg: boolean = await registerien(users);
                 if (resultreg) {
@@ -265,12 +268,15 @@ export namespace Carsharing {
             // if username exists
             if (daten2.password== _client.password){
                 // right password for the username
-                await collection.updateOne({"username": _client.username}, {$set: { "status": "true"} }); 
-            return true;
+                await collection.updateOne({"username": _client.username}, {$set: { "status": "true"} });
+                if(_client.username=="admin"){
+                    await collection.updateOne({"username": _client.username}, {$set: { "admin": "true"} });
+                } 
+                return true;
             }
             else{
                 // password is wrong
-            return false
+                return false
             }  
         }  
     }

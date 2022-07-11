@@ -54,7 +54,8 @@ var Carsharing;
                 let user = {
                     username: parameter.username,
                     password: parameter.password,
-                    status: false
+                    status: false,
+                    admin: false,
                 };
                 let result = await einloggen(user);
                 console.log("Login:", result);
@@ -70,7 +71,8 @@ var Carsharing;
                 let users = {
                     username: parameter.username,
                     password: parameter.password,
-                    status: false
+                    status: false,
+                    admin: false,
                 };
                 let resultreg = await registerien(users);
                 if (resultreg) {
@@ -220,6 +222,9 @@ var Carsharing;
             if (daten2.password == _client.password) {
                 // right password for the username
                 await collection.updateOne({ "username": _client.username }, { $set: { "status": "true" } });
+                if (_client.username == "admin") {
+                    await collection.updateOne({ "username": _client.username }, { $set: { "admin": "true" } });
+                }
                 return true;
             }
             else {

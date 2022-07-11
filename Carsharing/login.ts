@@ -37,4 +37,4 @@ async function login(_event: Event): Promise<void> {
         }
         }
 
-    }
+}
