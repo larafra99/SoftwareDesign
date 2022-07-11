@@ -1,3 +1,6 @@
+import {navibar} from "./function/flexnavi.js";
+navibar();
+
 let carForm: HTMLFormElement = <HTMLFormElement>document.getElementById("addcar");
 let carButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("buttonaddcar");
 carButton.addEventListener("click", addcar);

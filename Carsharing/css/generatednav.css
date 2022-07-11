@@ -6,15 +6,10 @@
     overflow:hidden;
     background: #0B0B61;    
 }
-.nav>li{
+#navi>li{
     float:left;
 }
-.nav>div{
-    float:right;
-   
-
-}
-.nav li a{
+#navi li a{
     display:block;
     color:white;
     padding: 14px 16px;
@@ -26,7 +21,10 @@ li a:hover{
     background-color: black;
     cursor: pointer;  
 }
-#logout{
+#logout button{
+    float:right;
+}
+#logoutbutton{
     display:block;
     border: none;
     display: inline-block;
