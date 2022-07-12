@@ -10,43 +10,58 @@ async function showstatistic() {
     let response = await fetch(url);
     let responseText = await response.text();
     let responseTextJson = JSON.parse(responseText);
-    console.log("statistic", responseTextJson);
     let tabledescription = ["Auto Bezeichnung", "Datum", "Startnutzung", "Endnutzung", "Nutzungspreis"];
     let tabl = document.createElement("table");
+    let overallprice = 0;
     document.getElementById("fullstatistic").appendChild(tabl);
-    for (let i = 0; i <= 4; i++) {
+    for (let i = 0; i < tabledescription.length; i++) {
         let tableheader = document.createElement("th");
         tableheader.innerHTML = tabledescription[i];
         tabl.appendChild(tableheader);
     }
-    // for ( let i: number = 0; i < amount; i++) {
-    //     let tablerow: HTMLElement = document.createElement("tr");
-    //     let tableelement1: HTMLElement = document.createElement("td");
-    //     let tableelement2: HTMLElement = document.createElement("td");
-    //     let tableelement3: HTMLElement = document.createElement("td");
-    //     let tableelement4: HTMLElement = document.createElement("td");
-    //     let tableelement5: HTMLElement = document.createElement("td");
-    //     let tableelement6: HTMLElement = document.createElement("td");
-    //     let tableelement7: HTMLElement = document.createElement("td");
-    //     let tableelement8: HTMLElement = document.createElement("button");
-    //     tableelement8.addEventListener("click", bookonecar);
-    //     tableelement8.id = responseTextJson[i].id;
-    //     tableelement1.innerHTML = responseTextJson[i].name; 
-    //     tableelement2.innerHTML = betriebsart; 
-    //     tableelement3.innerHTML = responseTextJson[i].fnut + " Uhr"; 
-    //     tableelement4.innerHTML = responseTextJson[i].lnut + " Uhr"; 
-    //     tableelement5.innerHTML = responseTextJson[i].max + " Min";
-    //     tableelement6.innerHTML = responseTextJson[i].pnd + " €"; 
-    //     tableelement7.innerHTML = responseTextJson[i].ppmin + " €";
-    //     tableelement8.innerHTML = "näher ansehen";
-    //     tablerow.appendChild(tableelement1);
-    //     tablerow.appendChild(tableelement2);
-    //     tablerow.appendChild(tableelement3);
-    //     tablerow.appendChild(tableelement4);
-    //     tablerow.appendChild(tableelement5);
-    //     tablerow.appendChild(tableelement6);
-    //     tablerow.appendChild(tableelement7);
-    //     tablerow.appendChild(tableelement8);
-    //     tabl.appendChild(tablerow);
+    for (let i = 0; i < Object.keys(responseTextJson).length; i++) {
+        let starttime;
+        let endtime;
+        overallprice = overallprice + parseFloat(responseTextJson[i].price);
+        if (responseTextJson[i].starttime.length == 3) {
+            starttime = "0" + (responseTextJson[i].starttime).slice(0, 1) + ":" + (responseTextJson[i].starttime).slice(1);
+        }
+        else {
+            starttime = (responseTextJson[i].starttime).slice(0, 2) + ":" + (responseTextJson[i].starttime).slice(2);
+        }
+        if (responseTextJson[i].endtime.length == 3) {
+            endtime = "0" + (responseTextJson[i].endtime).slice(0, 1) + ":" + (responseTextJson[i].endtime).slice(1);
+        }
+        else {
+            endtime = (responseTextJson[i].endtime).slice(0, 2) + ":" + (responseTextJson[i].endtime).slice(2);
+        }
+        let tablerow = document.createElement("tr");
+        let tableelement1 = document.createElement("td");
+        let tableelement2 = document.createElement("td");
+        let tableelement3 = document.createElement("td");
+        let tableelement4 = document.createElement("td");
+        let tableelement5 = document.createElement("td");
+        tableelement1.innerHTML = responseTextJson[i].carid;
+        tableelement2.innerHTML = responseTextJson[i].date;
+        tableelement3.innerHTML = starttime + " Uhr";
+        tableelement4.innerHTML = endtime + " Uhr";
+        tableelement5.innerHTML = responseTextJson[i].price + " €";
+        tablerow.appendChild(tableelement1);
+        tablerow.appendChild(tableelement2);
+        tablerow.appendChild(tableelement3);
+        tablerow.appendChild(tableelement4);
+        tablerow.appendChild(tableelement5);
+        tabl.appendChild(tablerow);
+    }
+    let averageprice = overallprice / Object.keys(responseTextJson).length;
+    let stats = document.createElement("p");
+    let stats2 = document.createElement("p");
+    let stats3 = document.createElement("p");
+    document.getElementById("statistic").appendChild(stats);
+    document.getElementById("statistic").appendChild(stats2);
+    document.getElementById("statistic").appendChild(stats3);
+    stats.innerHTML = "Gesamtkosten aller Fahrten:  " + overallprice + " €";
+    stats2.innerHTML = "Anzahl an Fahrten:  " + Object.keys(responseTextJson).length;
+    stats3.innerHTML = "Durchschnitskosten Ihrer Fahrten:  " + averageprice + " €";
 }
 //# sourceMappingURL=statstic.js.map

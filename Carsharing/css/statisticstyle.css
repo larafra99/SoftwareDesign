@@ -1,0 +1,14 @@
+p{
+    font-weight: bold;
+}
+table{
+    width:100%;
+}
+td{
+    padding: 15px;
+    padding-left: 20px;
+    border-bottom: 1px solid #ddd;
+}
+tr{
+    height:20px;
+}
