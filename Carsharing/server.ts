@@ -3,6 +3,7 @@ import * as Url from "url";
 import * as Mongo from "mongodb";
 import { ParsedUrlQuery } from "querystring";
 import {Car,User,UseTimes} from "./interfaces/interface";
+import{endtime}from"./function/timecalculation";
 
 export namespace Carsharing {
     let collection: Mongo.Collection;
@@ -148,11 +149,10 @@ export namespace Carsharing {
                         console.log("filter time");
                         let duration: number = parseInt(parameter.duration as string );
                         let start: number = parseInt((parameter.time as string).replace(":",""));
-                        let end: number =Math.floor(duration /60)*100 + duration%60 + start;
+                        let end: number =endtime(parameter.time as string,parameter.duration as string)
                         let listCars:Car[] = await filtertimeCar(parameter.date as string,start.toString(), end.toString(), duration);
                         //TODO listcar.length = 0;kein Auto verfügbar
-                        _response.write( JSON.stringify(listCars));
-                        
+                        _response.write( JSON.stringify(listCars)); 
                     }
                 }  
             }
@@ -214,9 +214,8 @@ export namespace Carsharing {
                     _response.write("Error"); 
                 }
                 else{
-                    _response.write("Car is booked");
-                }
-                    
+                    _response.write("Auto erfolgreich gebucht");
+                }    
             }      
         }
         _response.end();

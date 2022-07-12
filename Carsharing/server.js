@@ -1,6 +1,7 @@
 import * as Http from "http";
 import * as Url from "url";
 import * as Mongo from "mongodb";
+import { endtime } from "./function/timecalculation";
 export var Carsharing;
 (function (Carsharing) {
     let collection;
@@ -135,7 +136,7 @@ export var Carsharing;
                         console.log("filter time");
                         let duration = parseInt(parameter.duration);
                         let start = parseInt(parameter.time.replace(":", ""));
-                        let end = Math.floor(duration / 60) * 100 + duration % 60 + start;
+                        let end = endtime(parameter.time, parameter.duration);
                         let listCars = await filtertimeCar(parameter.date, start.toString(), end.toString(), duration);
                         //TODO listcar.length = 0;kein Auto verfügbar
                         _response.write(JSON.stringify(listCars));
@@ -196,7 +197,7 @@ export var Carsharing;
                     _response.write("Error");
                 }
                 else {
-                    _response.write("Car is booked");
+                    _response.write("Auto erfolgreich gebucht");
                 }
             }
         }
