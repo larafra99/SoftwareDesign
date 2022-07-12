@@ -225,7 +225,7 @@ export namespace Carsharing {
             }
             else if(q.pathname=="/getstatistc.html"){
                 console.log("get Statistic");
-                let stat: UseTimes = await statistic(parameter.username as string);
+                let stat: UseTimes[] = await statistic(parameter.username as string);
 
                 _response.write(JSON.stringify(stat));
             }     
@@ -459,10 +459,10 @@ export namespace Carsharing {
             return true;  
         }  
     }
-    async function statistic(_user:string):Promise<UseTimes> {
+    async function statistic(_user:string):Promise<UseTimes[]> {
         console.log("find statistic");
         // get Car by id
-        let daten: any = await collectionUseTimes.findOne({"user": _user});
+        let daten: any = await collectionUseTimes.find({"user": _user}).toArray();;
         return daten;
     }
 }

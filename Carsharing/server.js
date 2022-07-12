@@ -434,7 +434,8 @@ export var Carsharing;
     async function statistic(_user) {
         console.log("find statistic");
         // get Car by id
-        let daten = await collectionUseTimes.findOne({ "user": _user });
+        let daten = await collectionUseTimes.find({ "user": _user }).toArray();
+        ;
         return daten;
     }
 })(Carsharing || (Carsharing = {}));
