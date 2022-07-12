@@ -207,6 +207,8 @@ export var Carsharing;
             }
             else if (q.pathname == "/getstatistc.html") {
                 console.log("get Statistic");
+                let stat = await statistic(parameter.username);
+                _response.write(JSON.stringify(stat));
             }
         }
         _response.end();
@@ -428,6 +430,12 @@ export var Carsharing;
             // add car to database because carid does not exist in database
             return true;
         }
+    }
+    async function statistic(_user) {
+        console.log("find statistic");
+        // get Car by id
+        let daten = await collectionUseTimes.findOne({ "user": _user });
+        return daten;
     }
 })(Carsharing || (Carsharing = {}));
 //# sourceMappingURL=server.js.map
