@@ -9,20 +9,22 @@ async function showstatistic():Promise<void> {
     let url: string = "https://softwaredesign.herokuapp.com/getstatistc.html";
     let user: string =localStorage.getItem("user");
     url = url + "?" + "&" + user;
+    // get statistics from server
     let response: Response = await fetch(url);
     let responseText: string = await response.text();
     let responseTextJson: UseTimes[] = JSON.parse(responseText);
-
+    // create table for all booking events
     let tabledescription: string[]= ["Auto Bezeichnung","Datum","Startnutzung","Endnutzung","Nutzungspreis"]       
     let tabl: HTMLElement = document.createElement("table");
     let overallprice:number = 0;
     document.getElementById("fullstatistic").appendChild(tabl);
+    // create table header
     for ( let i: number = 0; i < tabledescription.length; i++) {
         let tableheader: HTMLElement = document.createElement("th");
         tableheader.innerHTML = tabledescription[i];
         tabl.appendChild(tableheader);
     }
-    
+    // create table elements with serverresponse
     for ( let i: number = 0; i < Object.keys(responseTextJson).length; i++) {
         let starttime:string;
         let endtime: string;
@@ -60,6 +62,7 @@ async function showstatistic():Promise<void> {
         tablerow.appendChild(tableelement5);
         tabl.appendChild(tablerow);
     }
+    // create Text for average costs and overall costs
     let averageprice:number =overallprice/Object.keys(responseTextJson).length;
     let stats: HTMLElement = document.createElement("p");
     let stats2: HTMLElement = document.createElement("p");
