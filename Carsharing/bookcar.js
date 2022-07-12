@@ -1,10 +1,12 @@
 import { navibar } from "./function/flexnavi.js";
+import { checkformdata } from "./function/formdata.js";
 //import{endtime}from"./function/timecalculation";
 localStorage.setItem("lastmove", "bookcar.html");
 navibar();
 showData();
 async function showData() {
-    console.log("user", localStorage.getItem("user"));
+    document.getElementById("showCar").innerHTML = "";
+    document.getElementById("book").innerHTML = "";
     let url = "https://softwaredesign.herokuapp.com/bookcars.html";
     let dataId = localStorage.getItem("dataId");
     url = url + "?" + "&dataID=" + dataId;
@@ -126,6 +128,9 @@ async function showData() {
         tablerow.appendChild(tableelement7);
         tabl.appendChild(tablerow);
         let timefilterformelement = document.createElement("form");
+        timefilterformelement.onsubmit = function () {
+            return false;
+        };
         timefilterformelement.id = "time";
         document.getElementById("book").appendChild(timefilterformelement);
         let filterdate = document.createElement("input");
@@ -167,13 +172,23 @@ async function booktime(_event) {
     }
     else {
         console.log("click");
-        // let timeForm: HTMLFormElement = <HTMLFormElement>document.getElementById("time");
-        // let formData: FormData = new FormData(timeForm);
-        // let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
-        // console.log(query.toString());
-        // localStorage.setItem("query",query.toString());
-        // localStorage.setItem("bookoption","b");
-        // showData();   
+        let timeForm = document.getElementById("time");
+        let formData = new FormData(timeForm);
+        let query = new URLSearchParams(formData);
+        let check = checkformdata(formData, 3);
+        console.log(check);
+        console.log(query.toString());
+        if (check == true) {
+            localStorage.setItem("query", query.toString());
+            localStorage.setItem("bookoption", "b");
+            showData();
+        }
+        else {
+            document.getElementById("response").innerHTML = "";
+            let booktext = document.createElement("p");
+            document.getElementById("response").appendChild(booktext);
+            booktext.innerHTML = "Bitte füllen Sie alle Felder aus";
+        }
     }
 }
 async function bookcar(_event) {
@@ -182,23 +197,25 @@ async function bookcar(_event) {
     let query = localStorage.getItem("query");
     let carid = localStorage.getItem("dataId");
     let price = localStorage.getItem("price");
+    console.log("Hier");
+    console.log(user);
     if (user == null) {
         console.log("user not logged in");
         localStorage.setItem("lastmove", "bookcar.html");
         window.location.replace("login.html");
     }
-    // else{
-    //     let timeurl: string = "https://softwaredesign.herokuapp.com/booktime.html";
-    //     timeurl = timeurl + "?" + query+"&"+user+"&carid="+carid+"&price="+price;
-    //     console.log(timeurl);
-    //     let response: Response = await fetch(timeurl);
-    //     let responseText: string = await response.text();
-    //     console.log(response);
-    //     console.log(responseText);
-    //     document.getElementById("response").innerHTML="";
-    //     let booktext: HTMLElement = document.createElement("p");
-    //     document.getElementById("response").appendChild(booktext);
-    //     booktext.innerHTML = responseText; 
-    // }
+    else {
+        let timeurl = "https://softwaredesign.herokuapp.com/booktime.html";
+        timeurl = timeurl + "?" + query + "&" + user + "&carid=" + carid + "&price=" + price;
+        console.log(timeurl);
+        let response = await fetch(timeurl);
+        let responseText = await response.text();
+        console.log(response);
+        console.log(responseText);
+        document.getElementById("response").innerHTML = "";
+        let booktext = document.createElement("p");
+        document.getElementById("response").appendChild(booktext);
+        booktext.innerHTML = responseText;
+    }
 }
 //# sourceMappingURL=bookcar.js.map

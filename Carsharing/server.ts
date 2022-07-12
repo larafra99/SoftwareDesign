@@ -207,14 +207,21 @@ export namespace Carsharing {
                     user:parameter.username as string,
                     price: parameter.price as string,
                 }
-                let availableresponse:boolean = await checkavailable(bookcar);
-                console.log(availableresponse);
-                if( availableresponse!= true){
-                    _response.write("Error"); 
+                let available:string=await checktime(bookcar, duration);
+
+                if( available!="true"){
+                    _response.write(available); 
                 }
                 else{
-                    _response.write("Auto erfolgreich gebucht");
-                }    
+                    console.log("check if car is booked")
+                    let time: boolean = await checkavailable(bookcar);
+                    if( time!= true){
+                        _response.write("Error"); 
+                    }
+                    else{
+                        _response.write("Auto erfolgreich gebucht");
+                    }  
+                }      
             }      
         }
         _response.end();

@@ -1,12 +1,14 @@
 import{Car}from "./interfaces/interface.js";
 import {navibar} from "./function/flexnavi.js";
+import { checkformdata} from "./function/formdata.js"
 //import{endtime}from"./function/timecalculation";
 localStorage.setItem("lastmove","bookcar.html");
 navibar();
 showData();
 
 async function showData(): Promise<void> {
-    console.log("user",localStorage.getItem("user"));
+    document.getElementById("showCar").innerHTML="";
+    document.getElementById("book").innerHTML="";
     let url: string = "https://softwaredesign.herokuapp.com/bookcars.html";
     let dataId: string =localStorage.getItem("dataId");
     url = url + "?" + "&dataID=" + dataId;
@@ -141,6 +143,9 @@ async function showData(): Promise<void> {
         tabl.appendChild(tablerow);
 
         let timefilterformelement:HTMLElement = document.createElement("form");
+        timefilterformelement.onsubmit = function(){
+            return false;
+        };
         timefilterformelement.id = "time";
         document.getElementById("book").appendChild(timefilterformelement);
         let filterdate: HTMLInputElement = document.createElement("input");
@@ -183,39 +188,49 @@ async function booktime(_event: Event): Promise<void> {
     }
     else{
         console.log("click");
-        // let timeForm: HTMLFormElement = <HTMLFormElement>document.getElementById("time");
-        // let formData: FormData = new FormData(timeForm);
-        // let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
-        // console.log(query.toString());
-        // localStorage.setItem("query",query.toString());
-        // localStorage.setItem("bookoption","b");
-        // showData();   
-    }
+        let timeForm: HTMLFormElement = <HTMLFormElement>document.getElementById("time");
+        let formData: FormData = new FormData(timeForm);
+        let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
+        let check: boolean = checkformdata(formData,3);
+        console.log(check);
+        console.log(query.toString());
+        if (check ==true){
+            localStorage.setItem("query",query.toString());
+            localStorage.setItem("bookoption","b");
+            showData();
+        }
+        else{
+            document.getElementById("response").innerHTML="";
+            let booktext: HTMLElement = document.createElement("p");
+            document.getElementById("response").appendChild(booktext);
+            booktext.innerHTML = "Bitte füllen Sie alle Felder aus"; 
+        } 
+    }            
 }
 async function bookcar(_event: Event): Promise<void> {
     console.log("book that car");
-    
     let user: string =localStorage.getItem("user");
     let query: string =localStorage.getItem("query");
     let carid:string = localStorage.getItem("dataId");
     let price: string = localStorage.getItem("price");
+    console.log("Hier");
+    console.log(user);
     if (user == null){
         console.log("user not logged in");
         localStorage.setItem("lastmove","bookcar.html");
         window.location.replace("login.html");
     }
-    // else{
-    //     let timeurl: string = "https://softwaredesign.herokuapp.com/booktime.html";
-    //     timeurl = timeurl + "?" + query+"&"+user+"&carid="+carid+"&price="+price;
-    //     console.log(timeurl);
-    //     let response: Response = await fetch(timeurl);
-    //     let responseText: string = await response.text();
-    //     console.log(response);
-    //     console.log(responseText);
-    //     document.getElementById("response").innerHTML="";
-    //     let booktext: HTMLElement = document.createElement("p");
-    //     document.getElementById("response").appendChild(booktext);
-    //     booktext.innerHTML = responseText; 
-    // }
-    
+    else{
+        let timeurl: string = "https://softwaredesign.herokuapp.com/booktime.html";
+        timeurl = timeurl + "?" + query+"&"+user+"&carid="+carid+"&price="+price;
+        console.log(timeurl);
+        let response: Response = await fetch(timeurl);
+        let responseText: string = await response.text();
+        console.log(response);
+        console.log(responseText);
+        document.getElementById("response").innerHTML="";
+        let booktext: HTMLElement = document.createElement("p");
+        document.getElementById("response").appendChild(booktext);
+        booktext.innerHTML = responseText; 
+    } 
 }

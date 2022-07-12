@@ -190,13 +190,19 @@ export var Carsharing;
                     user: parameter.username,
                     price: parameter.price,
                 };
-                let availableresponse = await checkavailable(bookcar);
-                console.log(availableresponse);
-                if (availableresponse != true) {
-                    _response.write("Error");
+                let available = await checktime(bookcar, duration);
+                if (available != "true") {
+                    _response.write(available);
                 }
                 else {
-                    _response.write("Auto erfolgreich gebucht");
+                    console.log("check if car is booked");
+                    let time = await checkavailable(bookcar);
+                    if (time != true) {
+                        _response.write("Error");
+                    }
+                    else {
+                        _response.write("Auto erfolgreich gebucht");
+                    }
                 }
             }
         }
