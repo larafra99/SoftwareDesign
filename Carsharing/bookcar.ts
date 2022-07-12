@@ -31,6 +31,7 @@ async function showData(): Promise<void> {
         }
 
         let price: number = parseInt(responseTextJson.pnd)+ duration*parseFloat(responseTextJson.ppmin);
+        localStorage.setItem("price",price.toString());
         let tabledescription: string[]= ["Auto Bezeichnung","Antriebsart","Tag","Startzeit","Endzeit","gewünschte Nutzdauer","pauschale Nutzungspreis","Preis pro Minute","Preis insgesamt","Buchen"]
         let tabl: HTMLElement = document.createElement("table");
         document.getElementById("showCar").appendChild(tabl);
@@ -204,6 +205,7 @@ async function bookcar(_event: Event): Promise<void> {
     let user: string =localStorage.getItem("user");
     let query: string =localStorage.getItem("query");
     let carid:string = localStorage.getItem("dataId");
+    let price: string = localStorage.getItem("price");
     if (user == null){
         console.log("user not logged in");
         localStorage.setItem("lastmove","bookcar.html");
@@ -211,7 +213,7 @@ async function bookcar(_event: Event): Promise<void> {
     }
     else{
         let timeurl: string = "https://softwaredesign.herokuapp.com/booktime.html";
-        timeurl = timeurl + "?" + query+"&"+user+"&"+"carid="+carid;
+        timeurl = timeurl + "?" + query+"&"+user+"&carid="+carid+"&price="+price;
         console.log(timeurl);
         let response: Response = await fetch(timeurl);
         let responseText: string = await response.text();

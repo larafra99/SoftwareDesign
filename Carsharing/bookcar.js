@@ -27,6 +27,7 @@ async function showData() {
             endtime = endtime.slice(0, 2) + ":" + endtime.slice(2);
         }
         let price = parseInt(responseTextJson.pnd) + duration * parseFloat(responseTextJson.ppmin);
+        localStorage.setItem("price", price.toString());
         let tabledescription = ["Auto Bezeichnung", "Antriebsart", "Tag", "Startzeit", "Endzeit", "gewünschte Nutzdauer", "pauschale Nutzungspreis", "Preis pro Minute", "Preis insgesamt", "Buchen"];
         let tabl = document.createElement("table");
         document.getElementById("showCar").appendChild(tabl);
@@ -185,6 +186,7 @@ async function bookcar(_event) {
     let user = localStorage.getItem("user");
     let query = localStorage.getItem("query");
     let carid = localStorage.getItem("dataId");
+    let price = localStorage.getItem("price");
     if (user == null) {
         console.log("user not logged in");
         localStorage.setItem("lastmove", "bookcar.html");
@@ -192,7 +194,7 @@ async function bookcar(_event) {
     }
     else {
         let timeurl = "https://softwaredesign.herokuapp.com/booktime.html";
-        timeurl = timeurl + "?" + query + "&" + user + "&" + "carid=" + carid;
+        timeurl = timeurl + "?" + query + "&" + user + "&carid=" + carid + "&price=" + price;
         console.log(timeurl);
         let response = await fetch(timeurl);
         let responseText = await response.text();

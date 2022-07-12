@@ -170,13 +170,14 @@ export namespace Carsharing {
                     let duration: number = parseInt(parameter.duration as string );
                     let start: number = parseInt((parameter.starttime as string).replace(":",""));
                     let end: number =Math.floor(duration /60)*100 + duration%60 + start;
-
+                    //TODO checktime price 
                     let usetime:UseTimes={
                         carid: parameter.carid as string,
                         date: parameter.booktime as string,
                         starttime:start.toString(),
                         endtime: end.toString(),
                         user:parameter.username as string,
+                        price: null,
                     }
                     let available:string=await checktime(usetime, duration);
 
@@ -204,7 +205,8 @@ export namespace Carsharing {
                     date: parameter.date as string,
                     starttime:start.toString(),
                     endtime: end.toString(),
-                    user:parameter.username as string
+                    user:parameter.username as string,
+                    price: parameter.price as string,
                 }
                 console.log(bookcar);
                     
@@ -346,6 +348,7 @@ export namespace Carsharing {
                     starttime: _start,
                     endtime: _end,
                     user: null,
+                    price: null,
                 }
                 let checkcaravailable:boolean = await checkavailable(time);
                 if (checkcaravailable== true){

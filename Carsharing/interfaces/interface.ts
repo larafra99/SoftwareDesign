@@ -21,6 +21,7 @@ interface UseTimes{
     starttime: string;
     endtime: string;
     user: string;
+    price: string;
 }
 export{
     Car,

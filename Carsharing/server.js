@@ -153,12 +153,14 @@ export var Carsharing;
                     let duration = parseInt(parameter.duration);
                     let start = parseInt(parameter.starttime.replace(":", ""));
                     let end = Math.floor(duration / 60) * 100 + duration % 60 + start;
+                    //TODO checktime price 
                     let usetime = {
                         carid: parameter.carid,
                         date: parameter.booktime,
                         starttime: start.toString(),
                         endtime: end.toString(),
                         user: parameter.username,
+                        price: null,
                     };
                     let available = await checktime(usetime, duration);
                     if (available != "true") {
@@ -185,7 +187,8 @@ export var Carsharing;
                     date: parameter.date,
                     starttime: start.toString(),
                     endtime: end.toString(),
-                    user: parameter.username
+                    user: parameter.username,
+                    price: parameter.price,
                 };
                 console.log(bookcar);
             }
@@ -320,6 +323,7 @@ export var Carsharing;
                     starttime: _start,
                     endtime: _end,
                     user: null,
+                    price: null,
                 };
                 let checkcaravailable = await checkavailable(time);
                 if (checkcaravailable == true) {
