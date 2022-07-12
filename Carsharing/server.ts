@@ -149,7 +149,7 @@ export namespace Carsharing {
                         console.log("filter time");
                         let duration: number = parseInt(parameter.duration as string );
                         let start: number = parseInt((parameter.time as string).replace(":",""));
-                        let end: number =endtime(parameter.time as string,parameter.duration as string)
+                        let end: number =Math.floor(duration /60)*100 + duration%60 + start;
                         let listCars:Car[] = await filtertimeCar(parameter.date as string,start.toString(), end.toString(), duration);
                         //TODO listcar.length = 0;kein Auto verfügbar
                         _response.write( JSON.stringify(listCars)); 
