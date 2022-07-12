@@ -192,8 +192,6 @@ async function booktime(_event: Event): Promise<void> {
         let formData: FormData = new FormData(timeForm);
         let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
         let check: boolean = checkformdata(formData,3);
-        console.log(check);
-        console.log(query.toString());
         if (check ==true){
             localStorage.setItem("query",query.toString());
             localStorage.setItem("bookoption","b");

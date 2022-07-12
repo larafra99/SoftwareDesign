@@ -1,7 +1,9 @@
 import {navibar} from "./function/flexnavi.js";
 import {Car} from "./interfaces/interface";
+localStorage.setItem("lastmove","index.html");
 navibar();
 showallData();
+
 
 
 async function showallData(): Promise<void> {

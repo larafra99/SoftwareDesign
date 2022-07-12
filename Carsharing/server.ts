@@ -162,38 +162,38 @@ export namespace Carsharing {
 
                 _response.write(JSON.stringify(car));
             }
-            else if(q.pathname=="/checktime.html"){
-                console.log("check if car is available");
+            // else if(q.pathname=="/checktime.html"){
+            //     console.log("check if car is available");
                 
-                if (parameter.booktime!= "" && parameter.starttime!= ""&& parameter.duration!= ""){
-                    let duration: number = parseInt(parameter.duration as string );
-                    let start: number = parseInt((parameter.starttime as string).replace(":",""));
-                    let end: number =Math.floor(duration /60)*100 + duration%60 + start;
-                    //TODO checktime price 
-                    let usetime:UseTimes={
-                        carid: parameter.carid as string,
-                        date: parameter.booktime as string,
-                        starttime:start.toString(),
-                        endtime: end.toString(),
-                        user:parameter.username as string,
-                        price: null,
-                    }
-                    let available:string=await checktime(usetime, duration);
+            //     if (parameter.booktime!= "" && parameter.starttime!= ""&& parameter.duration!= ""){
+            //         let duration: number = parseInt(parameter.duration as string );
+            //         let start: number = parseInt((parameter.starttime as string).replace(":",""));
+            //         let end: number =Math.floor(duration /60)*100 + duration%60 + start;
+            //         //TODO checktime price 
+            //         let usetime:UseTimes={
+            //             carid: parameter.carid as string,
+            //             date: parameter.booktime as string,
+            //             starttime:start.toString(),
+            //             endtime: end.toString(),
+            //             user:parameter.username as string,
+            //             price: null,
+            //         }
+            //         let available:string=await checktime(usetime, duration);
 
-                    if( available!="true"){
-                        _response.write(available); 
-                    }
-                    else{
-                        console.log("check if car is booked")
-                        let time: boolean = await checkavailable(usetime);
-                        _response.write(time);
-                    }
-                }
-                else{
-                    // time field empty
-                    _response.write("bitte füllen Sie alle Felder aus");
-                }   
-            } 
+            //         if( available!="true"){
+            //             _response.write(available); 
+            //         }
+            //         else{
+            //             console.log("check if car is booked")
+            //             let time: boolean = await checkavailable(usetime);
+            //             _response.write(time);
+            //         }
+            //     }
+            //     else{
+            //         // time field empty
+            //         _response.write("bitte füllen Sie alle Felder aus");
+            //     }   
+            // } 
             else if(q.pathname=="/booktime.html"){
                 console.log("book that car");
                 let duration: number = parseInt(parameter.duration as string );
@@ -222,7 +222,10 @@ export namespace Carsharing {
                         _response.write("Auto erfolgreich gebucht");
                     }  
                 }      
-            }      
+            }
+            else if(q.pathname=="/getstatistc.html"){
+                console.log("get Statistic");
+            }     
         }
         _response.end();
     }

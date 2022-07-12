@@ -9,11 +9,17 @@ export function navibar(): void{
         if(localStorage.getItem("user")=="username=admin"){
             if(localStorage.getItem("lastmove")=="admin.html"){
                 let navliadmin:HTMLElement = document.createElement("li");
+                let navli2:HTMLElement = document.createElement("li");
                 let adminlink1:HTMLAnchorElement = document.createElement("a");
+                let link2:HTMLAnchorElement = document.createElement("a");
                 adminlink1.href="index.html";
                 adminlink1.innerHTML="Autos aussuchen";
                 document.getElementById("navi").appendChild(navliadmin);
                 navliadmin.appendChild(adminlink1);
+                link2.href="statistic.html";
+                link2.innerHTML="Nutzerstatistik";
+                document.getElementById("navi").appendChild(navli2);
+                navli2.appendChild(link2);
                 localStorage.removeItem("lastmove");
             }
             else{
@@ -27,9 +33,33 @@ export function navibar(): void{
         }
         if(localStorage.getItem("lastmove")=="bookcar.html"){
             let navli:HTMLElement = document.createElement("li");
+            let navli2:HTMLElement = document.createElement("li");
+            let link:HTMLAnchorElement = document.createElement("a");
+            let link2:HTMLAnchorElement = document.createElement("a");
+            link.href="index.html";
+            link.innerHTML="Zurück zur Autoauswahl";
+            document.getElementById("navi").appendChild(navli);
+            navli.appendChild(link);
+            link2.href="statistic.html";
+            link2.innerHTML="Nutzerstatistik";
+            document.getElementById("navi").appendChild(navli2);
+            navli2.appendChild(link2);
+            localStorage.removeItem("lastmove");
+        }
+        else if(localStorage.getItem("lastmove")=="statistic.html"){
+            let navli:HTMLElement = document.createElement("li");
             let link:HTMLAnchorElement = document.createElement("a");
             link.href="index.html";
-            link.innerHTML="Zurück";
+            link.innerHTML="Zurück zur Autoauswahl";
+            document.getElementById("navi").appendChild(navli);
+            navli.appendChild(link);
+            // localStorage.removeItem("lastmove");
+        }
+        else if(localStorage.getItem("lastmove")=="index.html"){
+            let navli:HTMLElement = document.createElement("li");
+            let link:HTMLAnchorElement = document.createElement("a");
+            link.href="statistic.html";
+            link.innerHTML="Nutzerstatistik";
             document.getElementById("navi").appendChild(navli);
             navli.appendChild(link);
             localStorage.removeItem("lastmove");
@@ -62,5 +92,6 @@ export function navibar(): void{
 }
 async function logout(_event: Event): Promise<void>{
     localStorage.clear();
-    window.location.reload();
+    // window.location.reload();
+    window.location.replace("login.html");
 }

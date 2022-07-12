@@ -176,8 +176,6 @@ async function booktime(_event) {
         let formData = new FormData(timeForm);
         let query = new URLSearchParams(formData);
         let check = checkformdata(formData, 3);
-        console.log(check);
-        console.log(query.toString());
         if (check == true) {
             localStorage.setItem("query", query.toString());
             localStorage.setItem("bookoption", "b");

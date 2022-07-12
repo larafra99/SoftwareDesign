@@ -1,4 +1,5 @@
 import { navibar } from "./function/flexnavi.js";
+localStorage.setItem("lastmove", "index.html");
 navibar();
 showallData();
 async function showallData() {
