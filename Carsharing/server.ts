@@ -208,7 +208,9 @@ export namespace Carsharing {
                     user:parameter.username as string,
                     price: parameter.price as string,
                 }
-                console.log(bookcar);
+                let response:boolean = await checkavailable(bookcar);
+                console.log(response);
+                _response.write(response);
                     
             }      
         }
@@ -428,7 +430,6 @@ export namespace Carsharing {
             if (_usetime.user!=null){
                 await collectionUseTimes.insertOne(_usetime);
             }
-            
             console.log("auto eingefügt");
             //add car to database because date for car does not exist in database
             return true;   
