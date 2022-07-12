@@ -3,7 +3,6 @@ import * as Url from "url";
 import * as Mongo from "mongodb";
 import { ParsedUrlQuery } from "querystring";
 import {Car,User,UseTimes} from "./interfaces/interface";
-import{endtime}from"./function/timecalculation";
 
 export namespace Carsharing {
     let collection: Mongo.Collection;

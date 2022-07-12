@@ -161,7 +161,7 @@ async function showData(): Promise<void> {
         filterlabel2.innerHTML="Dauer in Minuten";
         let timeButton: HTMLButtonElement = document.createElement("button");
         timeButton.addEventListener("click", booktime);
-        timeButton.innerHTML="jetzt Buchen";
+        timeButton.innerHTML="näher ansehen";
         timefilterformelement.appendChild(filterlabel);
         filterlabel.appendChild(filterdate);
         timefilterformelement.appendChild(filterlabel1);
@@ -174,7 +174,6 @@ async function showData(): Promise<void> {
 
 async function booktime(_event: Event): Promise<void> {
     let user: string =localStorage.getItem("user");
-    let carid:string = localStorage.getItem("dataId");
     if (user == null){
         console.log("user not logged in");
         localStorage.setItem("lastmove","bookcar.html");
@@ -186,18 +185,10 @@ async function booktime(_event: Event): Promise<void> {
         let formData: FormData = new FormData(timeForm);
         let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
         console.log(query.toString());
-        let timeurl: string = "https://softwaredesign.herokuapp.com/checktime.html";
-
-        timeurl = timeurl + "?" + query.toString()+"&"+user+"&"+"carid="+carid;
-        console.log("Zeit checken",timeurl);
-        let response: Response = await fetch(timeurl);
-        let responseText: string = await response.text();
-        console.log(response);
-        console.log(responseText);
-        document.getElementById("response").innerHTML="";
-        let booktext: HTMLElement = document.createElement("p");
-        document.getElementById("response").appendChild(booktext);
-        booktext.innerHTML = responseText;  
+        localStorage.setItem("query",query.toString());
+        localStorage.setItem("bookoption","b");
+        showData();
+        
     }
 
 }

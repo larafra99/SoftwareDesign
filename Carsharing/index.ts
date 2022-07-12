@@ -9,10 +9,12 @@ async function showallData(): Promise<void> {
     document.getElementById("filteroptions").innerHTML="";
     let filter: string = localStorage.getItem("filter");
     if(filter =="a" || filter== null){
+        localStorage.removeItem("bookoption");
         let filterurl: string = "https://softwaredesign.herokuapp.com/index.html?filter=a";
         localStorage.setItem("url",filterurl);   
     }
     else if (filter =="b"){
+        localStorage.removeItem("bookoption");
         console.log("Filter antriebsart"); 
         let filterformelement:HTMLElement = document.createElement("form");
         filterformelement.id = "optionForm";

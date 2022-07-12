@@ -6,10 +6,12 @@ async function showallData() {
     document.getElementById("filteroptions").innerHTML = "";
     let filter = localStorage.getItem("filter");
     if (filter == "a" || filter == null) {
+        localStorage.removeItem("bookoption");
         let filterurl = "https://softwaredesign.herokuapp.com/index.html?filter=a";
         localStorage.setItem("url", filterurl);
     }
     else if (filter == "b") {
+        localStorage.removeItem("bookoption");
         console.log("Filter antriebsart");
         let filterformelement = document.createElement("form");
         filterformelement.id = "optionForm";
