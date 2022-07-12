@@ -177,6 +177,17 @@ export var Carsharing;
             }
             else if (q.pathname == "/booktime.html") {
                 console.log("book that car");
+                let duration = parseInt(parameter.duration);
+                let start = parseInt(parameter.time.replace(":", ""));
+                let end = Math.floor(duration / 60) * 100 + duration % 60 + start;
+                let bookcar = {
+                    carid: parameter.carid,
+                    date: parameter.date,
+                    starttime: start.toString(),
+                    endtime: end.toString(),
+                    user: parameter.username
+                };
+                console.log(bookcar);
             }
         }
         _response.end();

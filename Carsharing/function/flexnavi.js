@@ -25,6 +25,15 @@ export function navibar() {
                 navliadmin.appendChild(adminlink1);
             }
         }
+        if (localStorage.getItem("lastmove") == "bookcar.html") {
+            let navli = document.createElement("li");
+            let link = document.createElement("a");
+            link.href = "index.html";
+            link.innerHTML = "Zurück";
+            document.getElementById("navi").appendChild(navli);
+            navli.appendChild(link);
+            localStorage.removeItem("lastmove");
+        }
     }
     else {
         let navli1 = document.createElement("li");
@@ -39,9 +48,19 @@ export function navibar() {
         navli1.appendChild(link1);
         document.getElementById("navi").appendChild(navli2);
         navli2.appendChild(link2);
+        if (localStorage.getItem("lastmove") == "bookcar.html") {
+            let navli = document.createElement("li");
+            let link = document.createElement("a");
+            link.href = "index.html";
+            link.innerHTML = "Zurück";
+            document.getElementById("navi").appendChild(navli);
+            navli.appendChild(link);
+            localStorage.removeItem("lastmove");
+        }
     }
 }
 async function logout(_event) {
     localStorage.clear();
+    window.location.reload();
 }
 //# sourceMappingURL=flexnavi.js.map

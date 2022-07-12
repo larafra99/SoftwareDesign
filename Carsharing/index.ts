@@ -1,7 +1,6 @@
 import {navibar} from "./function/flexnavi.js";
 import {Car} from "./interfaces/interface";
 navibar();
-
 showallData();
 
 

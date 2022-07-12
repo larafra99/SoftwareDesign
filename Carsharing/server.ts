@@ -196,6 +196,17 @@ export namespace Carsharing {
             } 
             else if(q.pathname=="/booktime.html"){
                 console.log("book that car");
+                let duration: number = parseInt(parameter.duration as string );
+                let start: number = parseInt((parameter.time as string).replace(":",""));
+                let end: number =Math.floor(duration /60)*100 + duration%60 + start;
+                let bookcar:UseTimes={
+                    carid: parameter.carid as string,
+                    date: parameter.date as string,
+                    starttime:start.toString(),
+                    endtime: end.toString(),
+                    user:parameter.username as string
+                }
+                console.log(bookcar);
                     
             }      
         }

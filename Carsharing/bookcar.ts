@@ -1,4 +1,7 @@
 import{Car}from "./interfaces/interface.js";
+import {navibar} from "./function/flexnavi.js";
+localStorage.setItem("lastmove","bookcar.html");
+navibar();
 showData();
 
 async function showData(): Promise<void> {
@@ -83,9 +86,9 @@ async function showData(): Promise<void> {
         tablerow.appendChild(tableelement8);
         tablerow.appendChild(tableelement9);
         tablerow.appendChild(bookbutton); 
-        tabl.appendChild(tablerow);
-        
+        tabl.appendChild(tablerow);    
     }
+
     else{
         let tabledescription: string[]= ["Auto Bezeichnung","Antriebsart","frühste Nutzungsuhrzeit","späteste Nutzungsuhrzeit","maximale Nutzungdauer","pauschale Nutzungspreis","Preis pro Minute"]
     
@@ -172,7 +175,7 @@ async function booktime(_event: Event): Promise<void> {
     let carid:string = localStorage.getItem("dataId");
     if (user == null){
         console.log("user not logged in");
-        localStorage.setItem("lastmove","bookcar.html")
+        localStorage.setItem("lastmove","bookcar.html");
         window.location.replace("login.html");
     }
     else{
@@ -197,20 +200,27 @@ async function booktime(_event: Event): Promise<void> {
 
 }
 async function bookcar(_event: Event): Promise<void> {
+    
     let user: string =localStorage.getItem("user");
     let query: string =localStorage.getItem("query");
     let carid:string = localStorage.getItem("dataId");
-    let timeurl: string = "https://softwaredesign.herokuapp.com/booktime.html";
-
-    timeurl = timeurl + "?" + query+"&"+user+"&"+"carid="+carid;
-    console.log(timeurl);
-    let response: Response = await fetch(timeurl);
-    let responseText: string = await response.text();
-    console.log(response);
-    console.log(responseText);
-    document.getElementById("response").innerHTML="";
-    let booktext: HTMLElement = document.createElement("p");
-    document.getElementById("response").appendChild(booktext);
-    booktext.innerHTML = responseText; 
-
+    if (user == null){
+        console.log("user not logged in");
+        localStorage.setItem("lastmove","bookcar.html");
+        window.location.replace("login.html");
+    }
+    else{
+        let timeurl: string = "https://softwaredesign.herokuapp.com/booktime.html";
+        timeurl = timeurl + "?" + query+"&"+user+"&"+"carid="+carid;
+        console.log(timeurl);
+        let response: Response = await fetch(timeurl);
+        let responseText: string = await response.text();
+        console.log(response);
+        console.log(responseText);
+        document.getElementById("response").innerHTML="";
+        let booktext: HTMLElement = document.createElement("p");
+        document.getElementById("response").appendChild(booktext);
+        booktext.innerHTML = responseText; 
+    }
+    
 }

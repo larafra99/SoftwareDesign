@@ -1,3 +1,6 @@
+import { navibar } from "./function/flexnavi.js";
+localStorage.setItem("lastmove", "bookcar.html");
+navibar();
 showData();
 async function showData() {
     let url = "https://softwaredesign.herokuapp.com/bookcars.html";
@@ -182,17 +185,23 @@ async function bookcar(_event) {
     let user = localStorage.getItem("user");
     let query = localStorage.getItem("query");
     let carid = localStorage.getItem("dataId");
-    let timeurl = "https://softwaredesign.herokuapp.com/booktime.html";
-    timeurl = timeurl + "?" + query + "&" + user + "&" + "carid=" + carid;
-    console.log(timeurl);
-    let response = await fetch(timeurl);
-    let responseText = await response.text();
-    console.log(response);
-    console.log(responseText);
-    document.getElementById("response").innerHTML = "";
-    let booktext = document.createElement("p");
-    document.getElementById("response").appendChild(booktext);
-    booktext.innerHTML = responseText;
+    if (user == null) {
+        console.log("user not logged in");
+        localStorage.setItem("lastmove", "bookcar.html");
+        window.location.replace("login.html");
+    }
+    else {
+        let timeurl = "https://softwaredesign.herokuapp.com/booktime.html";
+        timeurl = timeurl + "?" + query + "&" + user + "&" + "carid=" + carid;
+        console.log(timeurl);
+        let response = await fetch(timeurl);
+        let responseText = await response.text();
+        console.log(response);
+        console.log(responseText);
+        document.getElementById("response").innerHTML = "";
+        let booktext = document.createElement("p");
+        document.getElementById("response").appendChild(booktext);
+        booktext.innerHTML = responseText;
+    }
 }
-export {};
 //# sourceMappingURL=bookcar.js.map

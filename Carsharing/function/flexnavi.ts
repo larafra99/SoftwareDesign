@@ -15,8 +15,6 @@ export function navibar(): void{
                 document.getElementById("navi").appendChild(navliadmin);
                 navliadmin.appendChild(adminlink1);
                 localStorage.removeItem("lastmove");
-
-
             }
             else{
                 let navliadmin:HTMLElement = document.createElement("li");
@@ -25,9 +23,16 @@ export function navibar(): void{
                 adminlink1.innerHTML="Autos anlegen";
                 document.getElementById("navi").appendChild(navliadmin);
                 navliadmin.appendChild(adminlink1);
-
-            }
-            
+            }   
+        }
+        if(localStorage.getItem("lastmove")=="bookcar.html"){
+            let navli:HTMLElement = document.createElement("li");
+            let link:HTMLAnchorElement = document.createElement("a");
+            link.href="index.html";
+            link.innerHTML="Zurück";
+            document.getElementById("navi").appendChild(navli);
+            navli.appendChild(link);
+            localStorage.removeItem("lastmove");
         }
     }
     
@@ -44,9 +49,18 @@ export function navibar(): void{
         navli1.appendChild(link1);
         document.getElementById("navi").appendChild(navli2);
         navli2.appendChild(link2);
+        if(localStorage.getItem("lastmove")=="bookcar.html"){
+            let navli:HTMLElement = document.createElement("li");
+            let link:HTMLAnchorElement = document.createElement("a");
+            link.href="index.html";
+            link.innerHTML="Zurück";
+            document.getElementById("navi").appendChild(navli);
+            navli.appendChild(link);
+            localStorage.removeItem("lastmove");
+        }
     }
-
 }
 async function logout(_event: Event): Promise<void>{
     localStorage.clear();
+    window.location.reload();
 }
