@@ -208,9 +208,9 @@ export namespace Carsharing {
                     user:parameter.username as string,
                     price: parameter.price as string,
                 }
-                let response:boolean = await checkavailable(bookcar);
-                console.log(response);
-                _response.write(response);
+                let availableresponse:boolean = await checkavailable(bookcar);
+                console.log(availableresponse);
+                _response.write(availableresponse);
                     
             }      
         }
