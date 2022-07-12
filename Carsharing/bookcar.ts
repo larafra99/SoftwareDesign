@@ -6,6 +6,7 @@ navibar();
 showData();
 
 async function showData(): Promise<void> {
+    console.log("user",localStorage.getItem("user"));
     let url: string = "https://softwaredesign.herokuapp.com/bookcars.html";
     let dataId: string =localStorage.getItem("dataId");
     url = url + "?" + "&dataID=" + dataId;
@@ -174,6 +175,7 @@ async function showData(): Promise<void> {
 
 async function booktime(_event: Event): Promise<void> {
     let user: string =localStorage.getItem("user");
+    console.log("user",localStorage.getItem("user"));
     if (user == null){
         console.log("user not logged in");
         localStorage.setItem("lastmove","bookcar.html");
@@ -181,18 +183,17 @@ async function booktime(_event: Event): Promise<void> {
     }
     else{
         console.log("click");
-        let timeForm: HTMLFormElement = <HTMLFormElement>document.getElementById("time");
-        let formData: FormData = new FormData(timeForm);
-        let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
-        console.log(query.toString());
-        localStorage.setItem("query",query.toString());
-        localStorage.setItem("bookoption","b");
-        showData();
-        
+        // let timeForm: HTMLFormElement = <HTMLFormElement>document.getElementById("time");
+        // let formData: FormData = new FormData(timeForm);
+        // let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
+        // console.log(query.toString());
+        // localStorage.setItem("query",query.toString());
+        // localStorage.setItem("bookoption","b");
+        // showData();   
     }
-
 }
 async function bookcar(_event: Event): Promise<void> {
+    console.log("book that car");
     
     let user: string =localStorage.getItem("user");
     let query: string =localStorage.getItem("query");
@@ -203,18 +204,18 @@ async function bookcar(_event: Event): Promise<void> {
         localStorage.setItem("lastmove","bookcar.html");
         window.location.replace("login.html");
     }
-    else{
-        let timeurl: string = "https://softwaredesign.herokuapp.com/booktime.html";
-        timeurl = timeurl + "?" + query+"&"+user+"&carid="+carid+"&price="+price;
-        console.log(timeurl);
-        let response: Response = await fetch(timeurl);
-        let responseText: string = await response.text();
-        console.log(response);
-        console.log(responseText);
-        document.getElementById("response").innerHTML="";
-        let booktext: HTMLElement = document.createElement("p");
-        document.getElementById("response").appendChild(booktext);
-        booktext.innerHTML = responseText; 
-    }
+    // else{
+    //     let timeurl: string = "https://softwaredesign.herokuapp.com/booktime.html";
+    //     timeurl = timeurl + "?" + query+"&"+user+"&carid="+carid+"&price="+price;
+    //     console.log(timeurl);
+    //     let response: Response = await fetch(timeurl);
+    //     let responseText: string = await response.text();
+    //     console.log(response);
+    //     console.log(responseText);
+    //     document.getElementById("response").innerHTML="";
+    //     let booktext: HTMLElement = document.createElement("p");
+    //     document.getElementById("response").appendChild(booktext);
+    //     booktext.innerHTML = responseText; 
+    // }
     
 }
