@@ -192,7 +192,12 @@ export var Carsharing;
                 };
                 let availableresponse = await checkavailable(bookcar);
                 console.log(availableresponse);
-                _response.write(availableresponse);
+                if (availableresponse != true) {
+                    _response.write("Error");
+                }
+                else {
+                    _response.write("Car is booked");
+                }
             }
         }
         _response.end();
