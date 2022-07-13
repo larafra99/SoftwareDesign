@@ -62,7 +62,6 @@ export namespace Carsharing {
                 let user: User = {
                     username: parameter.username as string,
                     password: parameter.password as string,
-                    status: false,
                     admin:false,
                 };
                 let result: boolean =  await einloggen(user);
@@ -80,13 +79,11 @@ export namespace Carsharing {
                 let users: User = {
                     username: parameter.username as string,
                     password: parameter.password as string,
-                    status: false,
                     admin: false,
                 };
                 let resultreg: boolean = await registerien(users);
                 if (resultreg) {
                     _response.write("Nutzer wurde erstellt");
-                    users.status = true; 
                 }
                 else {
                     _response.write("username ist schon vergeben oder Felder sind leer");

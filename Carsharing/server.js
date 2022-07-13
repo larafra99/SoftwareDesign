@@ -51,7 +51,6 @@ export var Carsharing;
                 let user = {
                     username: parameter.username,
                     password: parameter.password,
-                    status: false,
                     admin: false,
                 };
                 let result = await einloggen(user);
@@ -68,13 +67,11 @@ export var Carsharing;
                 let users = {
                     username: parameter.username,
                     password: parameter.password,
-                    status: false,
                     admin: false,
                 };
                 let resultreg = await registerien(users);
                 if (resultreg) {
                     _response.write("Nutzer wurde erstellt");
-                    users.status = true;
                 }
                 else {
                     _response.write("username ist schon vergeben oder Felder sind leer");

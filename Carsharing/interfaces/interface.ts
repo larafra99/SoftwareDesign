@@ -12,7 +12,6 @@ interface Car{
 interface User {
     username: string;
     password: string;
-    status: boolean;
     admin: boolean;   
 }
 interface UseTimes{
