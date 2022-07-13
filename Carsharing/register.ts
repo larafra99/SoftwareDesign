@@ -19,7 +19,7 @@ async function register(_event: Event): Promise<void> {
     else{
         let url: string = "https://softwaredesign.herokuapp.com/register.html";
         url = url + "?" + query.toString();
-        //send registration to server
+        //send registration to serve
         let response: Response = await fetch(url);
         let responseText: string = await response.text();
         // displays server response
