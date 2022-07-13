@@ -12,9 +12,6 @@ async function addcar(_event) {
     // send request to add car to server
     let response = await fetch(url);
     let responseText = await response.text();
-    let registerText = document.createElement("p");
-    document.getElementById("response").innerHTML = "";
-    document.getElementById("response").appendChild(registerText);
-    registerText.innerHTML = responseText;
+    window.alert(responseText);
 }
 //# sourceMappingURL=admin.js.map

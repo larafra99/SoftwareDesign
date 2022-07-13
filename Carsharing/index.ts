@@ -84,16 +84,10 @@ async function showallData(): Promise<void> {
     let responseText: string = await response.text();
     //console.log("Respons",responseText);
     if (responseText =="Bitte füllen sie mindestens eine Box"){
-        console.log("no answer");
-        let answer: HTMLElement = document.createElement("p");
-        document.getElementById("showData").appendChild(answer);
-        answer.innerHTML=responseText;
+        window.alert(responseText);
     }
     else{
         let responseTextJson: Car[] = JSON.parse(responseText);
-        console.log(responseTextJson);
-        console.log(Object.keys(responseTextJson).length);
-        
         let tabledescription: string[]= ["Auto Bezeichnung","Antriebsart","frühste Nutzungsuhrzeit","späteste Nutzungsuhrzeit","maximale Nutzungdauer","pauschale Nutzungspreis","Preis pro Minute","Buchen"]
         
         let tabl: HTMLElement = document.createElement("table");
@@ -197,11 +191,9 @@ async function filtertimebutton(_event:Event): Promise<void>{
     let optionForm: HTMLFormElement = <HTMLFormElement>document.getElementById("optionForm");
     let formData: FormData = new FormData(optionForm);
     let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
-    console.log("Query", query.toString());
     let timeurl: string = "https://softwaredesign.herokuapp.com/index.html?filter=c";
     localStorage.setItem("url",timeurl);
     timeurl = timeurl + "&" + query.toString();
-    console.log("Query", query.toString());
     localStorage.setItem("bookoption","b"); 
     localStorage.setItem("query",query.toString());   
     localStorage.setItem("url",timeurl);        
@@ -214,18 +206,12 @@ async function filtersubmitbutton(_event:Event): Promise<void> {
     let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
     let filterurl: string = "https://softwaredesign.herokuapp.com/index.html?filter=b";
     filterurl = filterurl + "&" + query.toString();
-    console.log("Query", query.toString());
     localStorage.setItem("url",filterurl);  
 } 
     
 async function bookonecar(_event: Event): Promise<void> {
     console.log("click");
     let dataId: string = (_event.target as HTMLImageElement).id;
-    console.log(dataId);
     localStorage.setItem("dataId",dataId);
     window.location.replace("bookcar.html");
 }
-// async function logout(_event: Event): Promise<void>{
-//     localStorage.clear();
-//     showallData();
-// }    

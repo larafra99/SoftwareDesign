@@ -14,10 +14,7 @@ async function register(_event: Event): Promise<void> {
         let response: Response = await fetch(url);
         let responseText: string = await response.text();
         // displays server response
-        let registerText: HTMLElement = document.createElement("p");
-        document.getElementById("response").innerHTML="";
-        document.getElementById("response").appendChild(registerText);
-        registerText.innerHTML = responseText;
+        window.alert(responseText);
         if (responseText == "Nutzer wurde erstellt") {
             // if registration was a sucess, user send to login
             localStorage.setItem("lastmove","register.html");
@@ -27,10 +24,8 @@ async function register(_event: Event): Promise<void> {
 
     else{
         console.log(formData.get("username"));
-        let registerText: HTMLElement = document.createElement("p");
-        document.getElementById("response").innerHTML="";
-        document.getElementById("response").appendChild(registerText);
-        registerText.innerHTML = "Nutzernamen muss mit einem Buchstaben anfangen und darf Zahlen und Unterstriche enthalten und Password muss 4 bis 8 Zeichen haben";
+        // displays faild regular expression
+        window.alert("Nutzernamen muss mit einem Buchstaben anfangen und darf Zahlen und Unterstriche enthalten und das Password muss 4 bis 8 Zeichen haben");
     }
 
     

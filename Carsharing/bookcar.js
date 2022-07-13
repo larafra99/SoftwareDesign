@@ -182,10 +182,7 @@ async function booktime(_event) {
             showData();
         }
         else {
-            document.getElementById("response").innerHTML = "";
-            let booktext = document.createElement("p");
-            document.getElementById("response").appendChild(booktext);
-            booktext.innerHTML = "Bitte füllen Sie alle Felder aus";
+            window.alert("Bitte füllen Sie alle Felder aus");
         }
     }
 }
@@ -195,8 +192,6 @@ async function bookcar(_event) {
     let query = localStorage.getItem("query");
     let carid = localStorage.getItem("dataId");
     let price = localStorage.getItem("price");
-    console.log("Hier");
-    console.log(user);
     if (user == null) {
         console.log("user not logged in");
         localStorage.setItem("lastmove", "bookcar.html");
@@ -205,15 +200,9 @@ async function bookcar(_event) {
     else {
         let timeurl = "https://softwaredesign.herokuapp.com/booktime.html";
         timeurl = timeurl + "?" + query + "&" + user + "&carid=" + carid + "&price=" + price;
-        console.log(timeurl);
         let response = await fetch(timeurl);
         let responseText = await response.text();
-        console.log(response);
-        console.log(responseText);
-        document.getElementById("response").innerHTML = "";
-        let booktext = document.createElement("p");
-        document.getElementById("response").appendChild(booktext);
-        booktext.innerHTML = responseText;
+        window.alert(responseText);
     }
 }
 //# sourceMappingURL=bookcar.js.map

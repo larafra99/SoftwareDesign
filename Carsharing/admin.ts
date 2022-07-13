@@ -16,8 +16,6 @@
         // send request to add car to server
         let response: Response = await fetch(url);
         let responseText: string = await response.text();
-        let registerText: HTMLElement = document.createElement("p");
-        document.getElementById("response").innerHTML="";
-        document.getElementById("response").appendChild(registerText);
-        registerText.innerHTML = responseText;
+        window.alert(responseText);
+        
     }

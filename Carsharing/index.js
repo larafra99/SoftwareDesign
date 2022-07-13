@@ -76,15 +76,10 @@ async function showallData() {
     let responseText = await response.text();
     //console.log("Respons",responseText);
     if (responseText == "Bitte füllen sie mindestens eine Box") {
-        console.log("no answer");
-        let answer = document.createElement("p");
-        document.getElementById("showData").appendChild(answer);
-        answer.innerHTML = responseText;
+        window.alert(responseText);
     }
     else {
         let responseTextJson = JSON.parse(responseText);
-        console.log(responseTextJson);
-        console.log(Object.keys(responseTextJson).length);
         let tabledescription = ["Auto Bezeichnung", "Antriebsart", "frühste Nutzungsuhrzeit", "späteste Nutzungsuhrzeit", "maximale Nutzungdauer", "pauschale Nutzungspreis", "Preis pro Minute", "Buchen"];
         let tabl = document.createElement("table");
         document.getElementById("showData").appendChild(tabl);
@@ -175,11 +170,9 @@ async function filtertimebutton(_event) {
     let optionForm = document.getElementById("optionForm");
     let formData = new FormData(optionForm);
     let query = new URLSearchParams(formData);
-    console.log("Query", query.toString());
     let timeurl = "https://softwaredesign.herokuapp.com/index.html?filter=c";
     localStorage.setItem("url", timeurl);
     timeurl = timeurl + "&" + query.toString();
-    console.log("Query", query.toString());
     localStorage.setItem("bookoption", "b");
     localStorage.setItem("query", query.toString());
     localStorage.setItem("url", timeurl);
@@ -191,18 +184,12 @@ async function filtersubmitbutton(_event) {
     let query = new URLSearchParams(formData);
     let filterurl = "https://softwaredesign.herokuapp.com/index.html?filter=b";
     filterurl = filterurl + "&" + query.toString();
-    console.log("Query", query.toString());
     localStorage.setItem("url", filterurl);
 }
 async function bookonecar(_event) {
     console.log("click");
     let dataId = _event.target.id;
-    console.log(dataId);
     localStorage.setItem("dataId", dataId);
     window.location.replace("bookcar.html");
 }
-// async function logout(_event: Event): Promise<void>{
-//     localStorage.clear();
-//     showallData();
-// }    
 //# sourceMappingURL=index.js.map

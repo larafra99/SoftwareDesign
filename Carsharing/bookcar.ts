@@ -198,11 +198,8 @@ async function booktime(_event: Event): Promise<void> {
             showData();
         }
         else{
-            document.getElementById("response").innerHTML="";
-            let booktext: HTMLElement = document.createElement("p");
-            document.getElementById("response").appendChild(booktext);
-            booktext.innerHTML = "Bitte füllen Sie alle Felder aus"; 
-        } 
+            window.alert("Bitte füllen Sie alle Felder aus");
+        }
     }            
 }
 async function bookcar(_event: Event): Promise<void> {
@@ -211,8 +208,6 @@ async function bookcar(_event: Event): Promise<void> {
     let query: string =localStorage.getItem("query");
     let carid:string = localStorage.getItem("dataId");
     let price: string = localStorage.getItem("price");
-    console.log("Hier");
-    console.log(user);
     if (user == null){
         console.log("user not logged in");
         localStorage.setItem("lastmove","bookcar.html");
@@ -221,14 +216,8 @@ async function bookcar(_event: Event): Promise<void> {
     else{
         let timeurl: string = "https://softwaredesign.herokuapp.com/booktime.html";
         timeurl = timeurl + "?" + query+"&"+user+"&carid="+carid+"&price="+price;
-        console.log(timeurl);
         let response: Response = await fetch(timeurl);
         let responseText: string = await response.text();
-        console.log(response);
-        console.log(responseText);
-        document.getElementById("response").innerHTML="";
-        let booktext: HTMLElement = document.createElement("p");
-        document.getElementById("response").appendChild(booktext);
-        booktext.innerHTML = responseText; 
+        window.alert(responseText);
     } 
 }
