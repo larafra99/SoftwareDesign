@@ -3,7 +3,7 @@ const username = "username";
 const password = "abc123";
 describe("This is a RegEx", () => {
     test("Check for valid Username", () => {
-        expect(checkregex(username, "user")).toBe(true);
+        expect(checkregex(username, "username")).toBe(true);
     });
 });
 describe("This is a RegEx", () => {

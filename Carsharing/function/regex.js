@@ -1,6 +1,6 @@
 export function checkregex(checkString, checkFor) {
     if (checkFor == "username") {
-        const regExUser = /^[A-Za-z][A-Za-z0-9_]$/;
+        const regExUser = /^[A-Za-z][A-Za-z0-9_]/;
         if (regExUser.test(checkString) == true) {
             return true;
         }
