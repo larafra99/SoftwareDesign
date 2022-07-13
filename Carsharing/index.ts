@@ -4,8 +4,6 @@ localStorage.setItem("lastmove","index.html");
 navibar();
 showallData();
 
-
-
 async function showallData(): Promise<void> {
     document.getElementById("showData").innerHTML="";
     document.getElementById("filteroptions").innerHTML="";
