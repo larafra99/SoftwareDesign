@@ -1,14 +1,14 @@
-import { checkregex } from "../function/regex";
+import { checkRegex } from "../function/regex";
 const username = "username";
 const password = "abc123";
 describe("This is a RegEx", () => {
     test("Check for valid Username", () => {
-        expect(checkregex(username, "username")).toBe(true);
+        expect(checkRegex(username, "username")).toBe(true);
     });
 });
 describe("This is a RegEx", () => {
     test("Check for valid Password", () => {
-        expect(checkregex(password, "password")).toBe(true);
+        expect(checkRegex(password, "password")).toBe(true);
     });
 });
 //# sourceMappingURL=username.test.js.map

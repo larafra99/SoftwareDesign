@@ -1,3 +1,3 @@
 import {User}from "./class/user.js"
-
-User.startlogin();
+// gets Page content
+User.startLogin();

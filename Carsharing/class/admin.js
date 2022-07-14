@@ -1,19 +1,21 @@
 import { navibar } from "../function/flexnavi.js";
 export class Admin {
     static admin() {
-        let carForm = document.getElementById("addcar");
-        let carButton = document.getElementById("buttonaddcar");
-        carButton.addEventListener("click", async function () { Admin.addcar(event, carForm); });
+        // get Forminput from admin.html
+        let carform = document.getElementById("addcar");
+        let carbutton = document.getElementById("buttonaddcar");
+        carbutton.addEventListener("click", async function () { Admin.addCar(event, carform); });
     }
-    static async addcar(_event, carForm) {
-        let formData = new FormData(carForm);
+    // add car button
+    static async addCar(_event, form) {
+        let formData = new FormData(form);
         let query = new URLSearchParams(formData);
         let url = "https://softwaredesign.herokuapp.com/addcar.html";
         url = url + "?" + query.toString();
         // send request to add car to server
         let response = await fetch(url);
-        let responseText = await response.text();
-        window.alert(responseText);
+        let responsetext = await response.text();
+        window.alert(responsetext);
     }
 }
 localStorage.setItem("lastmove", "admin.html");

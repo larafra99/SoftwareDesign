@@ -1,4 +1,4 @@
-import { checkregex } from "../function/regex.js";
+import { checkRegex } from "../function/regex.js";
 export class User {
     username;
     password;
@@ -8,53 +8,56 @@ export class User {
         this.password = _password;
         this.admin = _admin;
     }
-    static startregister() {
-        let regForm = document.getElementById("regForm");
-        let regButton = document.getElementById("register");
-        regButton.addEventListener("click", async function () { User.register(event, regForm); });
+    // started from register.html
+    static startRegister() {
+        let regform = document.getElementById("regform");
+        let regbutton = document.getElementById("register");
+        regbutton.addEventListener("click", async function () { User.register(event, regform); });
     }
+    // user wants to register
     static async register(_event, regform) {
-        let formData = new FormData(regform);
-        let query = new URLSearchParams(formData);
-        console.log(checkregex(formData.get("password").toString(), "password") == true);
-        if (checkregex(formData.get("username").toString(), "username") == true && checkregex(formData.get("password").toString(), "password") == true) {
+        let formdata = new FormData(regform);
+        let query = new URLSearchParams(formdata);
+        // check with regular expression
+        if (checkRegex(formdata.get("username").toString(), "username") == true && checkRegex(formdata.get("password").toString(), "password") == true) {
             let url = "https://softwaredesign.herokuapp.com/register.html";
             url = url + "?" + query.toString();
             //send registration to serve
             let response = await fetch(url);
-            let responseText = await response.text();
+            let responsetext = await response.text();
             // displays server response
-            window.alert(responseText);
-            if (responseText == "Nutzer wurde erstellt") {
+            window.alert(responsetext);
+            if (responsetext == "Nutzer wurde erstellt") {
                 // if registration was a sucess, user send to login
                 localStorage.setItem("lastmove", "register.html");
                 window.location.replace("login.html");
             }
         }
         else {
-            console.log(formData.get("username"));
             // displays faild regular expression
             window.alert("Nutzernamen muss mit einem Buchstaben anfangen und darf Zahlen und Unterstriche enthalten und das Password muss 4 bis 8 Zeichen haben");
         }
     }
-    static startlogin() {
-        let logForm = document.getElementById("logForm");
-        let logButton = document.getElementById("login");
-        logButton.addEventListener("click", async function () { User.login(event, logForm); });
+    // started with login.html
+    static startLogin() {
+        let logform = document.getElementById("logForm");
+        let logbutton = document.getElementById("login");
+        logbutton.addEventListener("click", async function () { User.login(event, logform); });
         if (localStorage.getItem("lastmove") == "register.html") {
             // user just registered 
             window.alert("erfolgreich registriert bitte Login sie sich ein");
         }
     }
+    // user wants to login
     static async login(_event, logForm) {
-        let formData = new FormData(logForm);
-        let query = new URLSearchParams(formData);
+        let formdata = new FormData(logForm);
+        let query = new URLSearchParams(formdata);
         let url = "https://softwaredesign.herokuapp.com/login.html";
         url = url + "?" + query.toString();
         //server checked login
         let response = await fetch(url);
-        let responseText = await response.text();
-        if (responseText == "erfolgreich eingeloggt") {
+        let responsetext = await response.text();
+        if (responsetext == "erfolgreich eingeloggt") {
             //sucessfull login
             localStorage.setItem("user", ((query.toString()).split("&").shift()));
             if (localStorage.getItem("lastmove") == "bookcar.html") {
@@ -70,7 +73,7 @@ export class User {
         }
         else {
             //displays response from server if login failed
-            window.alert(responseText);
+            window.alert(responsetext);
         }
     }
 }

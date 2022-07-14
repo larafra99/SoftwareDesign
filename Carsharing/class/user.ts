@@ -1,4 +1,4 @@
-import {checkregex} from "../function/regex.js";
+import {checkRegex} from "../function/regex.js";
 
 export class User{
     username: string;
@@ -10,25 +10,26 @@ export class User{
         this.password=_password;
         this.admin=_admin;
     }
-    static startregister(){
-        let regForm: HTMLFormElement = <HTMLFormElement>document.getElementById("regForm");
-        let regButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("register");
-        regButton.addEventListener("click", async function (): Promise<void> {User.register(event,regForm)});
+    // started from register.html
+    static startRegister(){
+        let regform: HTMLFormElement = <HTMLFormElement>document.getElementById("regform");
+        let regbutton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("register");
+        regbutton.addEventListener("click", async function (): Promise<void> {User.register(event,regform)});
     }
-
+    // user wants to register
     static async register(_event: Event, regform: HTMLFormElement): Promise<void> {
-        let formData: FormData = new FormData(regform);
-        let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
-         console.log(checkregex(formData.get("password").toString(),"password")== true );
-        if(checkregex(formData.get("username").toString(),"username")== true &&checkregex(formData.get("password").toString(),"password")== true ){
+        let formdata: FormData = new FormData(regform);
+        let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formdata);
+        // check with regular expression
+        if(checkRegex(formdata.get("username").toString(),"username")== true &&checkRegex(formdata.get("password").toString(),"password")== true ){
             let url: string = "https://softwaredesign.herokuapp.com/register.html";
             url = url + "?" + query.toString();
             //send registration to serve
             let response: Response = await fetch(url);
-            let responseText: string = await response.text();
+            let responsetext: string = await response.text();
             // displays server response
-            window.alert(responseText);
-            if (responseText == "Nutzer wurde erstellt") {
+            window.alert(responsetext);
+            if (responsetext == "Nutzer wurde erstellt") {
                 // if registration was a sucess, user send to login
                 localStorage.setItem("lastmove","register.html");
                 window.location.replace("login.html");
@@ -36,34 +37,33 @@ export class User{
         }
     
         else{
-            console.log(formData.get("username"));
             // displays faild regular expression
             window.alert("Nutzernamen muss mit einem Buchstaben anfangen und darf Zahlen und Unterstriche enthalten und das Password muss 4 bis 8 Zeichen haben");
         }   
     }
-    static startlogin(){
-        let logForm: HTMLFormElement = <HTMLFormElement>document.getElementById("logForm");
-        let logButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("login");
-        logButton.addEventListener("click", async function (): Promise<void> {User.login(event,logForm)});
+    // started with login.html
+    static startLogin(){
+        let logform: HTMLFormElement = <HTMLFormElement>document.getElementById("logForm");
+        let logbutton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("login");
+        logbutton.addEventListener("click", async function (): Promise<void> {User.login(event,logform)});
         if(localStorage.getItem("lastmove")=="register.html"){
             // user just registered 
             window.alert("erfolgreich registriert bitte Login sie sich ein")
         }
     }
-
+    // user wants to login
     static async login(_event: Event,logForm: HTMLFormElement): Promise<void> {
-        let formData: FormData = new FormData(logForm);
-        let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
+        let formdata: FormData = new FormData(logForm);
+        let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formdata);
 
         let url: string = "https://softwaredesign.herokuapp.com/login.html";
         url = url + "?" + query.toString();
         //server checked login
         let response: Response = await fetch(url);
-        let responseText: string = await response.text();
-        if (responseText == "erfolgreich eingeloggt") {
+        let responsetext: string = await response.text();
+        if (responsetext == "erfolgreich eingeloggt") {
             //sucessfull login
-            localStorage.setItem("user", ((query.toString()).split("&").shift()));
-            
+            localStorage.setItem("user", ((query.toString()).split("&").shift()));     
             if(localStorage.getItem("lastmove")=="bookcar.html"){
                 // takes user back to the car they wanted to book before
                 let location: string= localStorage.getItem("lastmove");
@@ -77,7 +77,7 @@ export class User{
         }
         else{
             //displays response from server if login failed
-            window.alert(responseText)
+            window.alert(responsetext)
         }
     }    
 };

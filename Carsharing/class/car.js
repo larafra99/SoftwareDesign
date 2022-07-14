@@ -1,4 +1,4 @@
-import { checkformdata } from "../function/formdata.js";
+import { checkFormData } from "../function/formdata.js";
 export class Car {
     id;
     name;
@@ -20,15 +20,18 @@ export class Car {
         this.pnd = _pnd;
         this.ppmin = _ppmin;
     }
+    // show car selection
     static async showCarData() {
         document.getElementById("showData").innerHTML = "";
         document.getElementById("filteroptions").innerHTML = "";
         let filter = localStorage.getItem("filter");
+        // show all cars
         if (filter == "a" || filter == null) {
             localStorage.removeItem("bookoption");
             let filterurl = "https://softwaredesign.herokuapp.com/index.html?filter=a";
             localStorage.setItem("url", filterurl);
         }
+        // filter option car power variante
         else if (filter == "b") {
             localStorage.removeItem("bookoption");
             console.log("Filter antriebsart");
@@ -57,6 +60,7 @@ export class Car {
             filterformelement.appendChild(filterelement4);
             filterformelement.appendChild(filtersubmitButton);
         }
+        // filter option time window
         else {
             let filterformelement = document.createElement("form");
             filterformelement.id = "optionForm";
@@ -78,27 +82,29 @@ export class Car {
             filterlabel1.innerHTML = "von";
             let filterlabel2 = document.createElement("label");
             filterlabel2.innerHTML = "Dauer in Minuten";
-            let filtersubmitButton = document.createElement("button");
-            filtersubmitButton.addEventListener("click", async function () { Car.filterCarTime(event); });
-            filtersubmitButton.innerHTML = "submit";
+            let filtersubmitbutton = document.createElement("button");
+            filtersubmitbutton.addEventListener("click", async function () { Car.filterCarTime(event); });
+            filtersubmitbutton.innerHTML = "submit";
             filterformelement.appendChild(filterlabel);
             filterlabel.appendChild(filterdate);
             filterformelement.appendChild(filterlabel1);
             filterlabel1.appendChild(filtertime);
             filterformelement.appendChild(filterlabel2);
             filterlabel2.appendChild(filterduration);
-            filterformelement.appendChild(filtersubmitButton);
+            filterformelement.appendChild(filtersubmitbutton);
         }
         let url = localStorage.getItem("url");
         let response = await fetch(url);
-        let responseText = await response.text();
-        //console.log("Respons",responseText);
-        if (responseText == "Bitte füllen sie mindestens eine Box") {
-            window.alert(responseText);
+        let responsetext = await response.text();
+        // input missing to filter correctly
+        if (responsetext == "Bitte füllen sie mindestens eine Box") {
+            window.alert(responsetext);
         }
         else {
-            let responseTextJson = JSON.parse(responseText);
+            // create table with filtered/non filtered Cars
+            let responsetextjson = JSON.parse(responsetext);
             let tabledescription = ["Auto Bezeichnung", "Antriebsart", "frühste Nutzungsuhrzeit", "späteste Nutzungsuhrzeit", "maximale Nutzungdauer", "pauschale Nutzungspreis", "Preis pro Minute", "Buchen"];
+            // create table header
             let tabl = document.createElement("table");
             document.getElementById("showData").appendChild(tabl);
             for (let i = 0; i <= 7; i++) {
@@ -106,6 +112,7 @@ export class Car {
                 tableheader.innerHTML = tabledescription[i];
                 tabl.appendChild(tableheader);
             }
+            // get filter for car amount
             let caramount = localStorage.getItem("amount");
             let amount;
             if (caramount == null) {
@@ -114,8 +121,8 @@ export class Car {
             else {
                 amount = parseInt(caramount);
             }
-            if (Object.keys(responseTextJson).length < amount || caramount == "all") {
-                amount = Object.keys(responseTextJson).length;
+            if (Object.keys(responsetextjson).length < amount || caramount == "all") {
+                amount = Object.keys(responsetextjson).length;
             }
             for (let i = 0; i < amount; i++) {
                 let tablerow = document.createElement("tr");
@@ -127,25 +134,26 @@ export class Car {
                 let tableelement6 = document.createElement("td");
                 let tableelement7 = document.createElement("td");
                 let tableelement8 = document.createElement("button");
+                //button to get more info on one car
                 tableelement8.addEventListener("click", async function () { Car.bookOneCar(event); });
-                tableelement8.id = responseTextJson[i].id;
+                tableelement8.id = responsetextjson[i].id;
                 let betriebsart = "";
-                if (responseTextJson[i].electronic == true && responseTextJson[i].conventionell == false) {
+                if (responsetextjson[i].electronic == true && responsetextjson[i].conventionell == false) {
                     betriebsart = "E-Auto";
                 }
-                else if (responseTextJson[i].conventionell == true && responseTextJson[i].electronic == false) {
+                else if (responsetextjson[i].conventionell == true && responsetextjson[i].electronic == false) {
                     betriebsart = "Konventionell";
                 }
                 else {
                     betriebsart = "Hybrid";
                 }
-                tableelement1.innerHTML = responseTextJson[i].name;
+                tableelement1.innerHTML = responsetextjson[i].name;
                 tableelement2.innerHTML = betriebsart;
-                tableelement3.innerHTML = responseTextJson[i].fnut + " Uhr";
-                tableelement4.innerHTML = responseTextJson[i].lnut + " Uhr";
-                tableelement5.innerHTML = responseTextJson[i].max + " Min";
-                tableelement6.innerHTML = responseTextJson[i].pnd + " €";
-                tableelement7.innerHTML = responseTextJson[i].ppmin + " €";
+                tableelement3.innerHTML = responsetextjson[i].fnut + " Uhr";
+                tableelement4.innerHTML = responsetextjson[i].lnut + " Uhr";
+                tableelement5.innerHTML = responsetextjson[i].max + " Min";
+                tableelement6.innerHTML = responsetextjson[i].pnd + " €";
+                tableelement7.innerHTML = responsetextjson[i].ppmin + " €";
                 tableelement8.innerHTML = "näher ansehen";
                 tablerow.appendChild(tableelement1);
                 tablerow.appendChild(tableelement2);
@@ -158,36 +166,37 @@ export class Car {
                 tabl.appendChild(tablerow);
             }
         }
-        let amountButton = document.getElementById("submit");
-        amountButton.addEventListener("click", async function () { Car.carAmount(event); });
-        let filterButton = document.getElementById("filterbutton");
-        filterButton.addEventListener("click", async function () { Car.carFilter(event); });
+        // button to filter car amount
+        let amountbutton = document.getElementById("submit");
+        amountbutton.addEventListener("click", async function () { Car.carAmount(event); });
+        // button for filter options 
+        let filterbutton = document.getElementById("filterbutton");
+        filterbutton.addEventListener("click", async function () { Car.carFilter(event); });
     }
+    //sets car amount
     static async carAmount(_event) {
         console.log("amount click");
-        let amountForm = document.getElementById("amountForm");
-        let formData = new FormData(amountForm);
-        let query = new URLSearchParams(formData);
+        let amountform = document.getElementById("amountForm");
+        let formdata = new FormData(amountform);
+        let query = new URLSearchParams(formdata);
         localStorage.setItem("amount", (query.toString()).substring(9));
         Car.showCarData();
     }
+    // sets car filter
     static async carFilter(_event) {
         console.log("filter click");
-        let filterForm = document.getElementById("filterForm");
-        let formData = new FormData(filterForm);
-        let query = new URLSearchParams(formData);
-        console.log("Query", query.toString());
-        console.log((query.toString()).substring(7));
-        //localStorage.removeItem("filter");
+        let filterform = document.getElementById("filterForm");
+        let formdata = new FormData(filterform);
+        let query = new URLSearchParams(formdata);
         localStorage.setItem("filter", (query.toString()).substring(7));
         localStorage.setItem("bookoption", "a");
         Car.showCarData();
     }
+    // get Cars that are avaiable at wished time from server
     static async filterCarTime(_event) {
-        console.log("filtersubmit click");
-        let optionForm = document.getElementById("optionForm");
-        let formData = new FormData(optionForm);
-        let query = new URLSearchParams(formData);
+        let optionform = document.getElementById("optionForm");
+        let formdata = new FormData(optionform);
+        let query = new URLSearchParams(formdata);
         let timeurl = "https://softwaredesign.herokuapp.com/index.html?filter=c";
         localStorage.setItem("url", timeurl);
         timeurl = timeurl + "&" + query.toString();
@@ -195,40 +204,39 @@ export class Car {
         localStorage.setItem("query", query.toString());
         localStorage.setItem("url", timeurl);
     }
+    // get Cars that are with the wished engine from server
     static async filterCarPower(_event) {
         console.log("filtersubmit click");
-        let optionForm = document.getElementById("optionForm");
-        let formData = new FormData(optionForm);
-        let query = new URLSearchParams(formData);
+        let optionform = document.getElementById("optionForm");
+        let formdata = new FormData(optionform);
+        let query = new URLSearchParams(formdata);
         let filterurl = "https://softwaredesign.herokuapp.com/index.html?filter=b";
         filterurl = filterurl + "&" + query.toString();
         localStorage.setItem("url", filterurl);
     }
+    // get to the page to book one car   
     static async bookOneCar(_event) {
         console.log("click");
         let dataId = _event.target.id;
         localStorage.setItem("dataId", dataId);
         window.location.replace("bookcar.html");
     }
-    ////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////
+    // show Data for choosen car
     static async showData() {
         document.getElementById("showCar").innerHTML = "";
         document.getElementById("book").innerHTML = "";
         let url = "https://softwaredesign.herokuapp.com/bookcars.html";
         let dataId = localStorage.getItem("dataId");
         url = url + "?" + "&dataID=" + dataId;
+        //fetch data from server
         let response = await fetch(url);
-        let responseText = await response.text();
-        let responseTextJson = JSON.parse(responseText);
+        let responsetext = await response.text();
+        let responsetextjson = JSON.parse(responsetext);
+        // time is choosen before
         let filter = localStorage.getItem("bookoption");
         if (filter == "b") {
             let param = localStorage.getItem("query");
             let parts = param.split("&");
-            console.log(parts);
             let date = parts[0].substring(5);
             let start = (parts[1].substring(5)).replace("%3A", ":");
             let starttime = parseInt((parts[1].substring(5)).replace("%3A", ""));
@@ -241,7 +249,7 @@ export class Car {
             else {
                 endtime = endtime.slice(0, 2) + ":" + endtime.slice(2);
             }
-            let price = parseInt(responseTextJson.pnd) + duration * parseFloat(responseTextJson.ppmin);
+            let price = parseInt(responsetextjson.pnd) + duration * parseFloat(responsetextjson.ppmin);
             localStorage.setItem("price", price.toString());
             let tabledescription = ["Auto Bezeichnung", "Antriebsart", "Tag", "Startzeit", "Endzeit", "gewünschte Nutzdauer", "pauschale Nutzungspreis", "Preis pro Minute", "Preis insgesamt", "Buchen"];
             let tabl = document.createElement("table");
@@ -266,23 +274,23 @@ export class Car {
             bookbutton.innerHTML = "jetzt Buchen";
             document.getElementById("book").appendChild(bookbutton);
             let betriebsart = "";
-            if (responseTextJson.electronic == true && responseTextJson.conventionell == false) {
+            if (responsetextjson.electronic == true && responsetextjson.conventionell == false) {
                 betriebsart = "E-Auto";
             }
-            else if (responseTextJson.conventionell == true && responseTextJson.electronic == false) {
+            else if (responsetextjson.conventionell == true && responsetextjson.electronic == false) {
                 betriebsart = "Konventionell";
             }
             else {
                 betriebsart = "Hybrid";
             }
-            tableelement1.innerHTML = responseTextJson.name;
+            tableelement1.innerHTML = responsetextjson.name;
             tableelement2.innerHTML = betriebsart;
             tableelement3.innerHTML = date;
             tableelement4.innerHTML = start + " Uhr";
             tableelement5.innerHTML = endtime + " Uhr";
             tableelement6.innerHTML = duration + " Min";
-            tableelement7.innerHTML = responseTextJson.pnd + " €";
-            tableelement8.innerHTML = responseTextJson.ppmin + " €";
+            tableelement7.innerHTML = responsetextjson.pnd + " €";
+            tableelement8.innerHTML = responsetextjson.ppmin + " €";
             tableelement9.innerHTML = price + " €";
             tablerow.appendChild(tableelement1);
             tablerow.appendChild(tableelement2);
@@ -296,6 +304,7 @@ export class Car {
             tablerow.appendChild(bookbutton);
             tabl.appendChild(tablerow);
         }
+        // time is not choosen beforehand
         else {
             let tabledescription = ["Auto Bezeichnung", "Antriebsart", "frühste Nutzungsuhrzeit", "späteste Nutzungsuhrzeit", "maximale Nutzungdauer", "pauschale Nutzungspreis", "Preis pro Minute"];
             let tabl = document.createElement("table");
@@ -314,22 +323,22 @@ export class Car {
             let tableelement6 = document.createElement("td");
             let tableelement7 = document.createElement("td");
             let betriebsart = "";
-            if (responseTextJson.electronic == true && responseTextJson.conventionell == false) {
+            if (responsetextjson.electronic == true && responsetextjson.conventionell == false) {
                 betriebsart = "E-Auto";
             }
-            else if (responseTextJson.conventionell == true && responseTextJson.electronic == false) {
+            else if (responsetextjson.conventionell == true && responsetextjson.electronic == false) {
                 betriebsart = "Konventionell";
             }
             else {
                 betriebsart = "Hybrid";
             }
-            tableelement1.innerHTML = responseTextJson.name;
+            tableelement1.innerHTML = responsetextjson.name;
             tableelement2.innerHTML = betriebsart;
-            tableelement3.innerHTML = responseTextJson.fnut + " Uhr";
-            tableelement4.innerHTML = responseTextJson.lnut + " Uhr";
-            tableelement5.innerHTML = responseTextJson.max + " Min";
-            tableelement6.innerHTML = responseTextJson.pnd + " €";
-            tableelement7.innerHTML = responseTextJson.ppmin + " €";
+            tableelement3.innerHTML = responsetextjson.fnut + " Uhr";
+            tableelement4.innerHTML = responsetextjson.lnut + " Uhr";
+            tableelement5.innerHTML = responsetextjson.max + " Min";
+            tableelement6.innerHTML = responsetextjson.pnd + " €";
+            tableelement7.innerHTML = responsetextjson.ppmin + " €";
             tablerow.appendChild(tableelement1);
             tablerow.appendChild(tableelement2);
             tablerow.appendChild(tableelement3);
@@ -361,21 +370,21 @@ export class Car {
             filterlabel1.innerHTML = "von";
             let filterlabel2 = document.createElement("label");
             filterlabel2.innerHTML = "Dauer in Minuten";
-            let timeButton = document.createElement("button");
-            timeButton.addEventListener("click", async function () { Car.bookCarTime(event); });
-            timeButton.innerHTML = "näher ansehen";
+            let timebutton = document.createElement("button");
+            timebutton.addEventListener("click", async function () { Car.bookCarTime(event); });
+            timebutton.innerHTML = "näher ansehen";
             timefilterformelement.appendChild(filterlabel);
             filterlabel.appendChild(filterdate);
             timefilterformelement.appendChild(filterlabel1);
             filterlabel1.appendChild(filtertime);
             timefilterformelement.appendChild(filterlabel2);
             filterlabel2.appendChild(filterduration);
-            timefilterformelement.appendChild(timeButton);
+            timefilterformelement.appendChild(timebutton);
         }
     }
+    // check if Car is available with server
     static async bookCarTime(_event) {
         let user = localStorage.getItem("user");
-        console.log("user", localStorage.getItem("user"));
         if (user == null) {
             console.log("user not logged in");
             localStorage.setItem("lastmove", "bookcar.html");
@@ -386,7 +395,7 @@ export class Car {
             let timeForm = document.getElementById("time");
             let formData = new FormData(timeForm);
             let query = new URLSearchParams(formData);
-            let check = checkformdata(formData, 3);
+            let check = checkFormData(formData, 3);
             if (check == true) {
                 localStorage.setItem("query", query.toString());
                 localStorage.setItem("bookoption", "b");
@@ -397,6 +406,7 @@ export class Car {
             }
         }
     }
+    // book that car
     static async bookCar(_event) {
         console.log("book that car");
         let user = localStorage.getItem("user");

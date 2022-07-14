@@ -1,13 +1,14 @@
-export function checkformdata(formData: FormData, length: number): boolean {
-    let formFilled:number = 0;
+export function checkFormData(formData: FormData, length: number): boolean {
+  // checks if form is filled out
+    let formfilled:number = 0;
 
     for (const entry of formData.values()) {
       if (entry != "") {
-        formFilled++;
+        formfilled++;
       }
     }
 
-    if (formFilled == length) {
+    if (formfilled == length) {
       return true;
     }
 

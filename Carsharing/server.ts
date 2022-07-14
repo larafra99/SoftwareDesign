@@ -5,22 +5,23 @@ import { ParsedUrlQuery } from "querystring";
 import {CarData,User,UseTimes} from "./interfaces/interface";
 
 export namespace Carsharing {
+    //define collections
     let collection: Mongo.Collection;
-    let collectionCars: Mongo.Collection;
-    let collectionUseTimes: Mongo.Collection;
-    
+    let collectioncars: Mongo.Collection;
+    let collectionusetimes: Mongo.Collection;
+    // get server port 
     let port: number = Number(process.env.PORT); 
     if (!port) {
         port = 8100; 
     }
-
-    let dataBaseUrl: string = "mongodb+srv://SoftwareReader:1234@gisws20-21.a07b1.mongodb.net/Carsharing?retryWrites=true&w=majority";
+    // acess to database
+    let databaseurl: string = "mongodb+srv://SoftwareReader:1234@gisws20-21.a07b1.mongodb.net/Carsharing?retryWrites=true&w=majority";
     console.log("Starting server");
 
     //starting server and connection to database
     startServer(port);
-    connectToDatabase(dataBaseUrl);
-
+    connectToDatabase(databaseurl);
+    // start server
     function startServer(_port: number | string): void {
         let server: Http.Server = Http.createServer();
         console.log("starting server requests") 
@@ -28,43 +29,44 @@ export namespace Carsharing {
         server.addListener("listening", handleListen); 
         server.listen(_port); 
     }
-
+    // connect to databse and collections
     async function connectToDatabase(_url: string): Promise<void> {
-        //let options: Mongo.MongoClientOptions = {useNewUrlParser: true, useUnifiedTopology: true};
-        // let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url, options);
-        let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url);
-        await mongoClient.connect();
-        collection = mongoClient.db("Carsharing").collection("User");
-        collectionCars =  mongoClient.db("Carsharing").collection("Cars");
-        collectionUseTimes =  mongoClient.db("Carsharing").collection("Dates");
+        let mongoclient: Mongo.MongoClient = new Mongo.MongoClient(_url);
+        await mongoclient.connect();
+        collection = mongoclient.db("Carsharing").collection("User");
+        collectioncars =  mongoclient.db("Carsharing").collection("Cars");
+        collectionusetimes =  mongoclient.db("Carsharing").collection("Dates");
         console.log("Database connection user sucessfull ", collection != undefined);
-        console.log("Database connection Cars sucessfull ", collectionCars != undefined);
-        console.log("Database connection Dates sucessfull ", collectionUseTimes != undefined);
+        console.log("Database connection Cars sucessfull ", collectioncars != undefined);
+        console.log("Database connection Dates sucessfull ", collectionusetimes != undefined);
     }
-
+    // listen for incoming requests
     function handleListen(): void {
         console.log("listening"); 
     }
-
+    // handle incoming requests
     async function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): Promise<void> {
         console.log("I hear voices!"); 
         _response.setHeader("content-type", "text/html; charset=utf-8"); 
         _response.setHeader("Access-Control-Allow-Origin", "*"); 
 
         if (_request.url) {
+            // get request url
             let q: Url.UrlWithParsedQuery = Url.parse(_request.url, true);  
             console.log("q", q);
+            // get request parameter
             let parameter: ParsedUrlQuery = q.query;
             console.log("parameter", parameter);
 
             if (q.pathname == "/login.html") {
-                console.log("einloggen");
+                // check if login is correct
+                console.log("logIn");
                 let user: User = {
                     username: parameter.username as string,
                     password: parameter.password as string,
                     admin:false,
                 };
-                let result: boolean =  await einloggen(user);
+                let result: boolean =  await logIn(user);
                 console.log("Login:", result);
                 if (result) {
                     _response.write("erfolgreich eingeloggt");
@@ -75,13 +77,14 @@ export namespace Carsharing {
             }
 
             else if (q.pathname == "/register.html") {
+                // check if username is already taken
                 console.log("registieren");
                 let users: User = {
                     username: parameter.username as string,
                     password: parameter.password as string,
                     admin: false,
                 };
-                let resultreg: boolean = await registerien(users);
+                let resultreg: boolean = await register(users);
                 if (resultreg) {
                     _response.write("Nutzer wurde erstellt");
                 }
@@ -91,6 +94,7 @@ export namespace Carsharing {
             } 
 
             else if(q.pathname =="/addcar.html"){
+                // add car to collection
                 console.log("Add Car");
                 let car:CarData ={
                     id: parameter.carid as string,
@@ -109,7 +113,7 @@ export namespace Carsharing {
                 if(parameter.conventionell =="on"){
                     car.conventionell= true;
                 }
-                let resultcar: boolean = await addcar(car);
+                let resultcar: boolean = await addCar(car);
                 if(resultcar){
                     _response.write("Auto wurde angelegt");
                 }
@@ -118,6 +122,7 @@ export namespace Carsharing {
                 }            
             }
             else if(q.pathname =="/index.html"){
+                // get cars based on filter used
                 console.log("get Data");
                 if (parameter.filter == "a"){
                     console.log("get all cars")
@@ -126,7 +131,9 @@ export namespace Carsharing {
                     _response.write( JSON.stringify(listCars));
                 }
                 else if (parameter.filter == "b"){
+                    // get cars based on chossen engine
                     if(parameter.electro == undefined && parameter.conventionell == undefined){
+                        //if no boxed is checked
                         console.log("no box checked");
                         _response.write("Bitte füllen sie mindestens eine Box");
                     }
@@ -137,7 +144,9 @@ export namespace Carsharing {
                     }    
                 }
                 else{
+                    // get cars that are available at choosen time
                     if (parameter.date == '' || parameter.time == '' || parameter.duration == ''){
+                        // fields are empty
                         console.log("fields empty");
                         _response.write("Bitte füllen sie mindestens eine Box");
                     }
@@ -146,7 +155,7 @@ export namespace Carsharing {
                         let duration: number = parseInt(parameter.duration as string );
                         let start: number = parseInt((parameter.time as string).replace(":",""));
                         let end: number =Math.floor(duration /60)*100 + duration%60 + start;
-                        let listCars:CarData[] = await filtertimeCar(parameter.date as string,start.toString(), end.toString(), duration);
+                        let listCars:CarData[] = await filterTimeCar(parameter.date as string,start.toString(), end.toString(), duration);
                         //TODO listcar.length = 0;kein Auto verfügbar
                         _response.write( JSON.stringify(listCars)); 
                     }
@@ -154,44 +163,14 @@ export namespace Carsharing {
             }
 
             else if(q.pathname=="/bookcars.html"){
+                // get car information
                 console.log("book car");
                 let car: CarData = await findCar(parameter.dataID as string);
-
                 _response.write(JSON.stringify(car));
             }
-            // else if(q.pathname=="/checktime.html"){
-            //     console.log("check if car is available");
-                
-            //     if (parameter.booktime!= "" && parameter.starttime!= ""&& parameter.duration!= ""){
-            //         let duration: number = parseInt(parameter.duration as string );
-            //         let start: number = parseInt((parameter.starttime as string).replace(":",""));
-            //         let end: number =Math.floor(duration /60)*100 + duration%60 + start;
-            //         //TODO checktime price 
-            //         let usetime:UseTimes={
-            //             carid: parameter.carid as string,
-            //             date: parameter.booktime as string,
-            //             starttime:start.toString(),
-            //             endtime: end.toString(),
-            //             user:parameter.username as string,
-            //             price: null,
-            //         }
-            //         let available:string=await checktime(usetime, duration);
 
-            //         if( available!="true"){
-            //             _response.write(available); 
-            //         }
-            //         else{
-            //             console.log("check if car is booked")
-            //             let time: boolean = await checkavailable(usetime);
-            //             _response.write(time);
-            //         }
-            //     }
-            //     else{
-            //         // time field empty
-            //         _response.write("bitte füllen Sie alle Felder aus");
-            //     }   
-            // } 
             else if(q.pathname=="/booktime.html"){
+                // check if car is available at wished time
                 console.log("book that car");
                 let duration: number = parseInt(parameter.duration as string );
                 let start: number = parseInt((parameter.time as string).replace(":",""));
@@ -204,14 +183,14 @@ export namespace Carsharing {
                     user:parameter.username as string,
                     price: parameter.price as string,
                 }
-                let available:string=await checktime(bookcar, duration);
+                let available:string=await checkTime(bookcar, duration);
 
                 if( available!="true"){
                     _response.write(available); 
                 }
                 else{
                     console.log("check if car is booked")
-                    let time: boolean = await checkavailable(bookcar);
+                    let time: boolean = await checkAvailable(bookcar);
                     if( time!= true){
                         _response.write("Error"); 
                     }
@@ -221,16 +200,16 @@ export namespace Carsharing {
                 }      
             }
             else if(q.pathname=="/getstatistc.html"){
+                // get user statistic
                 console.log("get Statistic");
                 let stat: UseTimes[] = await statistic(parameter.username as string);
-
                 _response.write(JSON.stringify(stat));
             }     
         }
         _response.end();
     }
 
-    async function registerien(_client: User): Promise<boolean> { 
+    async function register(_client: User): Promise<boolean> { 
         console.log("versucht zu registrieren");
         // trying to find username in the database
         let searchname: any = await collection.findOne({"username": _client.username});    
@@ -250,7 +229,7 @@ export namespace Carsharing {
         }
     }
 
-    async function einloggen(_client: User): Promise<boolean> {
+    async function logIn(_client: User): Promise<boolean> {
         // check if username is found in the collection
         let daten2: any = await collection.findOne({"username": _client.username} );
         //check if a password or a username are entered
@@ -278,8 +257,10 @@ export namespace Carsharing {
             }  
         }  
     }
-    async function addcar(_car:CarData): Promise<boolean>{
-        let daten: any = await collectionCars.findOne({"id": _car.id} );
+    async function addCar(_car:CarData): Promise<boolean>{
+        // add car to collection
+        // check if car id is already taken
+        let daten: any = await collectioncars.findOne({"id": _car.id} );
         if (!_car.id || !_car.name || !_car.fnut || !_car.lnut || !_car.max || !_car.pnd || !_car.ppmin) {
             console.log("Daten fehlen")
             //  trying to add car with empty fields
@@ -296,7 +277,7 @@ export namespace Carsharing {
             return false;
         }
         else{
-            await collectionCars.insertOne(_car);
+            await collectioncars.insertOne(_car);
             // add car to database
             return true;  
         }   
@@ -304,38 +285,42 @@ export namespace Carsharing {
 
     async function showData(): Promise<CarData[]> {
         // get all Cars in an array
-        let data: any[] = await collectionCars.find().toArray();
+        let data: any[] = await collectioncars.find().toArray();
         return data;
     }
 
     async function filterCar(_electro:string, _conven:string): Promise<CarData[]> {
         if(_electro =="on" && _conven== undefined){
+            // if electro engine is wished
             console.log("electro car");
-            let data: any[] = await collectionCars.find({"conventionell": false}).toArray();
+            let data: any[] = await collectioncars.find({"conventionell": false}).toArray();
             return data;
         }
         else if(_conven=="on"&& _electro== undefined){
+            // if conventinell engine is wished
             console.log("benzin car");
-            // let data: any[] = await collectionCars.find({"electro": false,"conventionell": true}).toArray();
-            let data: any[] = await collectionCars.find({"electronic": false}).toArray();
+            let data: any[] = await collectioncars.find({"electronic": false}).toArray();
             return data;
         }
         else{
             console.log("hybrid car");
-            let data: any[] = await collectionCars.find({"electronic": true,"conventionell": true}).toArray();
+            // hybrid car is wished
+            let data: any[] = await collectioncars.find({"electronic": true,"conventionell": true}).toArray();
             return data;
         }  
     }
-    async function filtertimeCar(_date:string,_start:string,_end:string,_duration:number): Promise<CarData[]>{    
+    async function filterTimeCar(_date:string,_start:string,_end:string,_duration:number): Promise<CarData[]>{    
+        //filter all available cars
         let wishstart: number = parseInt(_start);
         let wishend: number = parseInt(_end);
 
-        let data: any[] = await collectionCars.find().toArray();
+        let data: any[] = await collectioncars.find().toArray();
         let potentialcar: string[]= [];
         let carsavailable: string[]= [];
         let finalcars:CarData[]=[];
         
         for ( let i: number = 0; i < data.length; i++){
+            // check if standart parameter fit
             let start: number = parseInt((data[i].fnut).replace(":",""));
             let end: number = parseInt((data[i].lnut).replace(":",""));
             if(wishstart<start){
@@ -357,6 +342,7 @@ export namespace Carsharing {
         }
         else{
             for ( let x: number = 0; x < potentialcar.length; x++){
+                // check the cars that fit with standard parameter if they are booked
                 let time:UseTimes ={
                     carid:potentialcar[x],
                     date: _date,
@@ -365,12 +351,13 @@ export namespace Carsharing {
                     user: null,
                     price: null,
                 }
-                let checkcaravailable:boolean = await checkavailable(time);
+                let checkcaravailable:boolean = await checkAvailable(time);
                 if (checkcaravailable== true){
                     carsavailable.push(potentialcar[x]);
                 }
             }
         }
+        // get all cars, that fit and are not booked, general information 
         for ( let y: number = 0; y < carsavailable.length; y++){
             let daten5: any = await findCar(carsavailable[y]);
             finalcars.push(daten5);
@@ -381,14 +368,14 @@ export namespace Carsharing {
     async function findCar(_carid:string): Promise<CarData>{
         console.log("Auto buchen");
         // get Car by id
-        let daten3: any = await collectionCars.findOne({"id": _carid});
+        let daten3: any = await collectioncars.findOne({"id": _carid});
         return daten3;
     } 
 
-    async function checktime(_time:UseTimes,_duration:number):Promise<string> {
+    async function checkTime(_time:UseTimes,_duration:number):Promise<string> {
         console.log("Auto check time");
         // get Car by id
-        let daten4: any = await collectionCars.findOne({"id": _time.carid});
+        let daten4: any = await collectioncars.findOne({"id": _time.carid});
         // transfer string to integer for comparision
         let start: number = parseInt((daten4.fnut).replace(":",""));
         let wishstart: number = parseInt((_time.starttime).replace(":",""));
@@ -411,10 +398,10 @@ export namespace Carsharing {
         }      
     }
 
-    async function checkavailable(_usetime:UseTimes):Promise<boolean> {
+    async function checkAvailable(_usetime:UseTimes):Promise<boolean> {
         console.log("Auto check time");
         // search for the carid
-        let data5: any[] = await collectionUseTimes.find({"carid": _usetime.carid}).toArray();
+        let data5: any[] = await collectionusetimes.find({"carid": _usetime.carid}).toArray();
         let wishend: number = parseInt(_usetime.endtime);
         let wishstart: number = parseInt((_usetime.starttime));
         // if array is empty car id is not in database
@@ -423,6 +410,7 @@ export namespace Carsharing {
             // carid exist in database
             for ( let i: number = 0; i < data5.length; i++){
                 if(data5[i].date ==_usetime.date){
+                    // date is the same as the wished one
                     console.log("Date is the same");
                     let start: number = parseInt((data5[i].starttime).replace(":","")); 
                     let end: number = parseInt((data5[i].endtime).replace(":",""));
@@ -441,7 +429,8 @@ export namespace Carsharing {
                 }                    
             }
             if (_usetime.user!=null){
-                await collectionUseTimes.insertOne(_usetime);
+                // user is logged in book car for user
+                await collectionusetimes.insertOne(_usetime);
             }
             console.log("auto eingefügt");
             //add car to database because date for car does not exist in database
@@ -449,7 +438,7 @@ export namespace Carsharing {
         }
         else{
             if (_usetime.user!=null){
-                await collectionUseTimes.insertOne(_usetime);
+                await collectionusetimes.insertOne(_usetime);
             }
             console.log("auto existiert noch nicht");
             // add car to database because carid does not exist in database
@@ -457,9 +446,10 @@ export namespace Carsharing {
         }  
     }
     async function statistic(_user:string):Promise<UseTimes[]> {
+        // get userstatistic
         console.log("find statistic");
         // get Car by id
-        let daten: any = await collectionUseTimes.find({"user": _user}).toArray();;
+        let daten: any = await collectionusetimes.find({"user": _user}).toArray();;
         return daten;
     }
 }

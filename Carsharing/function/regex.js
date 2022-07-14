@@ -1,14 +1,16 @@
-export function checkregex(checkString, checkFor) {
+export function checkRegex(checkString, checkFor) {
+    //check if username is valid
     if (checkFor == "username") {
-        const regExUser = /^[A-Za-z][A-Za-z0-9_]/;
-        if (regExUser.test(checkString) == true) {
+        const regexuser = /^[A-Za-z][A-Za-z0-9_]/;
+        if (regexuser.test(checkString) == true) {
             return true;
         }
         ;
     }
+    // check if password is valid
     if (checkFor == "password") {
-        const regExPassword = /^.{4,8}$/;
-        if (regExPassword.test(checkString) == true) {
+        const regexpassword = /^.{4,8}$/;
+        if (regexpassword.test(checkString) == true) {
             return true;
         }
         ;

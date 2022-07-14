@@ -1,4 +1,4 @@
 import {User}from "./class/user.js"
-
-User.startregister();
+// gets Page content
+User.startRegister();
 

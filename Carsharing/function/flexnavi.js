@@ -1,13 +1,17 @@
 export function navibar() {
     console.log("start navibar");
+    // if user is logged in
     if (localStorage.getItem("user") != undefined) {
+        // create logout button
         let logoutbutton = document.createElement("button");
         document.getElementById("logout").appendChild(logoutbutton);
         logoutbutton.innerHTML = "Ausloggen";
         logoutbutton.id = "logoutbutton";
-        logoutbutton.addEventListener("click", logout);
+        logoutbutton.addEventListener("click", logOut);
+        // user is an admin
         if (localStorage.getItem("user") == "username=admin") {
             if (localStorage.getItem("lastmove") == "admin.html") {
+                // user is on admin.html
                 let navliadmin = document.createElement("li");
                 let navli2 = document.createElement("li");
                 let adminlink1 = document.createElement("a");
@@ -23,6 +27,7 @@ export function navibar() {
                 localStorage.removeItem("lastmove");
             }
             else {
+                // admin user gets the option to add cars
                 let navliadmin = document.createElement("li");
                 let adminlink1 = document.createElement("a");
                 adminlink1.href = "admin.html";
@@ -32,6 +37,7 @@ export function navibar() {
             }
         }
         if (localStorage.getItem("lastmove") == "bookcar.html") {
+            // user is on bookcar.html
             let navli = document.createElement("li");
             let navli2 = document.createElement("li");
             let link = document.createElement("a");
@@ -47,15 +53,16 @@ export function navibar() {
             localStorage.removeItem("lastmove");
         }
         else if (localStorage.getItem("lastmove") == "statistic.html") {
+            // user is on statistic.html
             let navli = document.createElement("li");
             let link = document.createElement("a");
             link.href = "index.html";
             link.innerHTML = "Zurück zur Autoauswahl";
             document.getElementById("navi").appendChild(navli);
             navli.appendChild(link);
-            // localStorage.removeItem("lastmove");
         }
         else if (localStorage.getItem("lastmove") == "index.html") {
+            // user is on index.html
             let navli = document.createElement("li");
             let link = document.createElement("a");
             link.href = "statistic.html";
@@ -65,6 +72,7 @@ export function navibar() {
             localStorage.removeItem("lastmove");
         }
     }
+    // if user is not logged in
     else {
         let navli1 = document.createElement("li");
         let navli2 = document.createElement("li");
@@ -89,9 +97,9 @@ export function navibar() {
         }
     }
 }
-async function logout(_event) {
+// user logs out
+async function logOut(_event) {
     localStorage.clear();
-    // window.location.reload();
     window.location.replace("login.html");
 }
 //# sourceMappingURL=flexnavi.js.map
