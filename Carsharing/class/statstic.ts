@@ -1,8 +1,8 @@
-import{UseTimes}from "./interfaces/interface.js";
-import {navibar} from "./function/flexnavi.js";
+import{UseTimes}from "../interfaces/interface.js";
+import {navibar} from "../function/flexnavi.js";
 
 export class Statistic{
-    async showstatistic():Promise<void> {
+    static async showstatistic():Promise<void> {
         document.getElementById("fullstatistic").innerHTML="";
         let url: string = "https://softwaredesign.herokuapp.com/getstatistc.html";
         let user: string =localStorage.getItem("user");
@@ -75,5 +75,4 @@ export class Statistic{
 };
 localStorage.setItem("lastmove","statistic.html");
 navibar();
-let stat:Statistic=new Statistic;
-stat.showstatistic();
+Statistic.showstatistic();

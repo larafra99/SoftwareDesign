@@ -2,7 +2,7 @@ import * as Http from "http";
 import * as Url from "url";
 import * as Mongo from "mongodb";
 import { ParsedUrlQuery } from "querystring";
-import {Car,User,UseTimes} from "./interfaces/interface";
+import {CarData,User,UseTimes} from "./interfaces/interface";
 
 export namespace Carsharing {
     let collection: Mongo.Collection;
@@ -92,7 +92,7 @@ export namespace Carsharing {
 
             else if(q.pathname =="/addcar.html"){
                 console.log("Add Car");
-                let car:Car ={
+                let car:CarData ={
                     id: parameter.carid as string,
                     name: parameter.carname as string,
                     electronic: false,
@@ -122,7 +122,7 @@ export namespace Carsharing {
                 if (parameter.filter == "a"){
                     console.log("get all cars")
                     // get all cars
-                    let listCars: Car[] = await showData();
+                    let listCars: CarData[] = await showData();
                     _response.write( JSON.stringify(listCars));
                 }
                 else if (parameter.filter == "b"){
@@ -132,7 +132,7 @@ export namespace Carsharing {
                     }
                     else{
                         console.log("filter car types")
-                        let listCars:Car[] = await filterCar(parameter.electro as string,parameter.conventionell as string);
+                        let listCars:CarData[] = await filterCar(parameter.electro as string,parameter.conventionell as string);
                         _response.write( JSON.stringify(listCars));
                     }    
                 }
@@ -146,7 +146,7 @@ export namespace Carsharing {
                         let duration: number = parseInt(parameter.duration as string );
                         let start: number = parseInt((parameter.time as string).replace(":",""));
                         let end: number =Math.floor(duration /60)*100 + duration%60 + start;
-                        let listCars:Car[] = await filtertimeCar(parameter.date as string,start.toString(), end.toString(), duration);
+                        let listCars:CarData[] = await filtertimeCar(parameter.date as string,start.toString(), end.toString(), duration);
                         //TODO listcar.length = 0;kein Auto verfügbar
                         _response.write( JSON.stringify(listCars)); 
                     }
@@ -155,7 +155,7 @@ export namespace Carsharing {
 
             else if(q.pathname=="/bookcars.html"){
                 console.log("book car");
-                let car: Car = await findCar(parameter.dataID as string);
+                let car: CarData = await findCar(parameter.dataID as string);
 
                 _response.write(JSON.stringify(car));
             }
@@ -278,7 +278,7 @@ export namespace Carsharing {
             }  
         }  
     }
-    async function addcar(_car:Car): Promise<boolean>{
+    async function addcar(_car:CarData): Promise<boolean>{
         let daten: any = await collectionCars.findOne({"id": _car.id} );
         if (!_car.id || !_car.name || !_car.fnut || !_car.lnut || !_car.max || !_car.pnd || !_car.ppmin) {
             console.log("Daten fehlen")
@@ -302,13 +302,13 @@ export namespace Carsharing {
         }   
     }
 
-    async function showData(): Promise<Car[]> {
+    async function showData(): Promise<CarData[]> {
         // get all Cars in an array
         let data: any[] = await collectionCars.find().toArray();
         return data;
     }
 
-    async function filterCar(_electro:string, _conven:string): Promise<Car[]> {
+    async function filterCar(_electro:string, _conven:string): Promise<CarData[]> {
         if(_electro =="on" && _conven== undefined){
             console.log("electro car");
             let data: any[] = await collectionCars.find({"conventionell": false}).toArray();
@@ -326,14 +326,14 @@ export namespace Carsharing {
             return data;
         }  
     }
-    async function filtertimeCar(_date:string,_start:string,_end:string,_duration:number): Promise<Car[]>{    
+    async function filtertimeCar(_date:string,_start:string,_end:string,_duration:number): Promise<CarData[]>{    
         let wishstart: number = parseInt(_start);
         let wishend: number = parseInt(_end);
 
         let data: any[] = await collectionCars.find().toArray();
         let potentialcar: string[]= [];
         let carsavailable: string[]= [];
-        let finalcars:Car[]=[];
+        let finalcars:CarData[]=[];
         
         for ( let i: number = 0; i < data.length; i++){
             let start: number = parseInt((data[i].fnut).replace(":",""));
@@ -378,7 +378,7 @@ export namespace Carsharing {
         return finalcars;
     }
 
-    async function findCar(_carid:string): Promise<Car>{
+    async function findCar(_carid:string): Promise<CarData>{
         console.log("Auto buchen");
         // get Car by id
         let daten3: any = await collectionCars.findOne({"id": _carid});

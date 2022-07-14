@@ -1,6 +1,6 @@
-import { navibar } from "./function/flexnavi.js";
+import { navibar } from "../function/flexnavi.js";
 export class Statistic {
-    async showstatistic() {
+    static async showstatistic() {
         document.getElementById("fullstatistic").innerHTML = "";
         let url = "https://softwaredesign.herokuapp.com/getstatistc.html";
         let user = localStorage.getItem("user");
@@ -71,6 +71,5 @@ export class Statistic {
 ;
 localStorage.setItem("lastmove", "statistic.html");
 navibar();
-let stat = new Statistic;
-stat.showstatistic();
+Statistic.showstatistic();
 //# sourceMappingURL=statstic.js.map

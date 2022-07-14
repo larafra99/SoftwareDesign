@@ -1,11 +1,11 @@
 import {navibar} from "./function/flexnavi.js";
-import {Car} from "./interfaces/interface";
+import {CarData} from "./interfaces/interface";
 
 localStorage.setItem("lastmove","index.html");
 navibar();
-showallData();
+showcardata();
 
-async function showallData(): Promise<void> {
+async function showcardata(): Promise<void> {
     document.getElementById("showData").innerHTML="";
     document.getElementById("filteroptions").innerHTML="";
     let filter: string = localStorage.getItem("filter");
@@ -88,7 +88,7 @@ async function showallData(): Promise<void> {
         window.alert(responseText);
     }
     else{
-        let responseTextJson: Car[] = JSON.parse(responseText);
+        let responseTextJson: CarData[] = JSON.parse(responseText);
         let tabledescription: string[]= ["Auto Bezeichnung","Antriebsart","frühste Nutzungsuhrzeit","späteste Nutzungsuhrzeit","maximale Nutzungdauer","pauschale Nutzungspreis","Preis pro Minute","Buchen"]
         
         let tabl: HTMLElement = document.createElement("table");
@@ -171,7 +171,7 @@ async function amountbutton(_event:Event):Promise<void> {
     let formData: FormData = new FormData(amountForm);
     let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
     localStorage.setItem("amount",(query.toString()).substring(9));
-    showallData();    
+    showcardata();    
 }
 
 async function filterbutton(_event:Event):Promise<void>{
@@ -184,7 +184,7 @@ async function filterbutton(_event:Event):Promise<void>{
     //localStorage.removeItem("filter");
     localStorage.setItem("filter",(query.toString()).substring(7));
     localStorage.setItem("bookoption","a");
-    showallData();   
+    showcardata();   
 }
 
 async function filtertimebutton(_event:Event): Promise<void>{

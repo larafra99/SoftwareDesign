@@ -1,8 +1,8 @@
 import { navibar } from "./function/flexnavi.js";
 localStorage.setItem("lastmove", "index.html");
 navibar();
-showallData();
-async function showallData() {
+showcardata();
+async function showcardata() {
     document.getElementById("showData").innerHTML = "";
     document.getElementById("filteroptions").innerHTML = "";
     let filter = localStorage.getItem("filter");
@@ -151,7 +151,7 @@ async function amountbutton(_event) {
     let formData = new FormData(amountForm);
     let query = new URLSearchParams(formData);
     localStorage.setItem("amount", (query.toString()).substring(9));
-    showallData();
+    showcardata();
 }
 async function filterbutton(_event) {
     console.log("filter click");
@@ -163,7 +163,7 @@ async function filterbutton(_event) {
     //localStorage.removeItem("filter");
     localStorage.setItem("filter", (query.toString()).substring(7));
     localStorage.setItem("bookoption", "a");
-    showallData();
+    showcardata();
 }
 async function filtertimebutton(_event) {
     console.log("filtersubmit click");

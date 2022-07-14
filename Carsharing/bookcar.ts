@@ -1,4 +1,4 @@
-import{Car}from "./interfaces/interface.js";
+import{CarData}from "./interfaces/interface.js";
 import {navibar} from "./function/flexnavi.js";
 import { checkformdata} from "./function/formdata.js"
 //import{endtime}from"./function/timecalculation";
@@ -14,7 +14,7 @@ async function showData(): Promise<void> {
     url = url + "?" + "&dataID=" + dataId;
     let response: Response = await fetch(url);
     let responseText: string = await response.text();
-    let responseTextJson: Car = JSON.parse(responseText);
+    let responseTextJson: CarData = JSON.parse(responseText);
 
     let filter: string = localStorage.getItem("bookoption");
     if(filter =="b"){

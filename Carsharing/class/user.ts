@@ -1,4 +1,4 @@
-import {checkregex} from "./function/regex.js";
+import {checkregex} from "../function/regex.js";
 
 export class User{
     username: string;

@@ -1,4 +1,4 @@
-interface Car{
+interface CarData{
     id: string;
     name: string;
     electronic: boolean;
@@ -23,7 +23,7 @@ interface UseTimes{
     price: string;
 }
 export{
-    Car,
+    CarData,
     User,
     UseTimes,
 }
