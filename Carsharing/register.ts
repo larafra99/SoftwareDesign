@@ -1,32 +1,4 @@
-import {checkregex} from "./function/regex.js";
-let regForm: HTMLFormElement = <HTMLFormElement>document.getElementById("regForm");
-let regButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("register");
-regButton.addEventListener("click", register);
+import {User}from "./user.js"
 
-async function register(_event: Event): Promise<void> {
-    let formData: FormData = new FormData(regForm);
-    let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
-     console.log(checkregex(formData.get("password").toString(),"password")== true );
-    if(checkregex(formData.get("username").toString(),"username")== true &&checkregex(formData.get("password").toString(),"password")== true ){
-        let url: string = "https://softwaredesign.herokuapp.com/register.html";
-        url = url + "?" + query.toString();
-        //send registration to serve
-        let response: Response = await fetch(url);
-        let responseText: string = await response.text();
-        // displays server response
-        window.alert(responseText);
-        if (responseText == "Nutzer wurde erstellt") {
-            // if registration was a sucess, user send to login
-            localStorage.setItem("lastmove","register.html");
-            window.location.replace("login.html");
-        }  
-    }
+User.startregister();
 
-    else{
-        console.log(formData.get("username"));
-        // displays faild regular expression
-        window.alert("Nutzernamen muss mit einem Buchstaben anfangen und darf Zahlen und Unterstriche enthalten und das Password muss 4 bis 8 Zeichen haben");
-    }
-
-    
-}
