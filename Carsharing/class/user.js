@@ -3,6 +3,7 @@ export class User {
     username;
     password;
     admin;
+    id;
     constructor(_username, _password, _admin) {
         this.username = _username;
         this.password = _password;

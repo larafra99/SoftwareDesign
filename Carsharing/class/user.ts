@@ -1,9 +1,11 @@
+import { ObjectId } from "mongodb";
 import {checkRegex} from "../function/regex.js";
 
 export class User{
     username: string;
     password: string;
     admin: boolean;
+    id: ObjectId;
     
     constructor(_username:string,_password:string,_admin:boolean){
         this.username=_username;
