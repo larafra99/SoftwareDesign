@@ -70,7 +70,7 @@ export class Statistic{
         document.getElementById("statistic").appendChild(stats3);
         stats.innerHTML="Gesamtkosten aller Fahrten:  " +overallprice+" €";
         stats2.innerHTML="Anzahl an Fahrten:  "+Object.keys(responseTextJson).length;
-        stats3.innerHTML="Durchschnitskosten Ihrer Fahrten:  "+averageprice+" €";
+        stats3.innerHTML="Durchschnittskosten Ihrer Fahrten:  "+averageprice+" €";
     }
 };
 localStorage.setItem("lastmove","statistic.html");
