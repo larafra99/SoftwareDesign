@@ -14,13 +14,13 @@ export class User{
     }
     // started from register.html
     static startRegister(){
-        let regform: HTMLFormElement = <HTMLFormElement>document.getElementById("regform");
+        let regform: HTMLFormElement = <HTMLFormElement>document.getElementById("regForm");
         let regbutton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("register");
         regbutton.addEventListener("click", async function (): Promise<void> {User.register(event,regform)});
     }
     // user wants to register
-    static async register(_event: Event, regform: HTMLFormElement): Promise<void> {
-        let formdata: FormData = new FormData(regform);
+    static async register(_event: Event, form: HTMLFormElement): Promise<void> {
+        let formdata: FormData = new FormData(form);
         let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formdata);
         // check with regular expression
         if(checkRegex(formdata.get("username").toString(),"username")== true &&checkRegex(formdata.get("password").toString(),"password")== true ){

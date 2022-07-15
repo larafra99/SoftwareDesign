@@ -11,13 +11,13 @@ export class User {
     }
     // started from register.html
     static startRegister() {
-        let regform = document.getElementById("regform");
+        let regform = document.getElementById("regForm");
         let regbutton = document.getElementById("register");
         regbutton.addEventListener("click", async function () { User.register(event, regform); });
     }
     // user wants to register
-    static async register(_event, regform) {
-        let formdata = new FormData(regform);
+    static async register(_event, form) {
+        let formdata = new FormData(form);
         let query = new URLSearchParams(formdata);
         // check with regular expression
         if (checkRegex(formdata.get("username").toString(), "username") == true && checkRegex(formdata.get("password").toString(), "password") == true) {

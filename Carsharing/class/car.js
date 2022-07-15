@@ -424,6 +424,7 @@ export class Car {
             let response = await fetch(timeurl);
             let responseText = await response.text();
             window.alert(responseText);
+            window.location.replace("index.html");
         }
     }
 }

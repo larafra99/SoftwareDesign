@@ -8,7 +8,7 @@ export function checkRegex (checkString: string, checkFor: string): boolean {
     }
     // check if password is valid
     if (checkFor == "password") {
-      const regexpassword: RegExp = /^.{4,8}$/;
+      const regexpassword: RegExp = /^.{4,19}$/;
       if (regexpassword.test(checkString) == true) {
         return true;
       };

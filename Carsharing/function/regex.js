@@ -9,7 +9,7 @@ export function checkRegex(checkString, checkFor) {
     }
     // check if password is valid
     if (checkFor == "password") {
-        const regexpassword = /^.{4,8}$/;
+        const regexpassword = /^.{4,19}$/;
         if (regexpassword.test(checkString) == true) {
             return true;
         }
