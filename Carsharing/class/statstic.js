@@ -1,4 +1,4 @@
-import { navibar } from "../function/flexnavi.js";
+import { HelpFunktions } from "./function.js";
 export class Statistic {
     static async showStatistic() {
         document.getElementById("fullstatistic").innerHTML = "";
@@ -70,6 +70,6 @@ export class Statistic {
 }
 ;
 localStorage.setItem("lastmove", "statistic.html");
-navibar();
+HelpFunktions.navibar();
 Statistic.showStatistic();
 //# sourceMappingURL=statstic.js.map

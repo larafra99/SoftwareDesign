@@ -1,4 +1,4 @@
-import { checkRegex } from "../function/regex.js";
+import { HelpFunktions } from "./function.js";
 export class User {
     username;
     password;
@@ -20,7 +20,7 @@ export class User {
         let formdata = new FormData(form);
         let query = new URLSearchParams(formdata);
         // check with regular expression
-        if (checkRegex(formdata.get("username").toString(), "username") == true && checkRegex(formdata.get("password").toString(), "password") == true) {
+        if (HelpFunktions.checkRegex(formdata.get("username").toString(), "username") == true && HelpFunktions.checkRegex(formdata.get("password").toString(), "password") == true) {
             let url = "https://softwaredesign.herokuapp.com/register.html";
             url = url + "?" + query.toString();
             //send registration to serve

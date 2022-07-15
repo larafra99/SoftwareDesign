@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import {checkRegex} from "../function/regex.js";
+import{HelpFunktions} from "./function.js"
 
 export class User{
     username: string;
@@ -23,7 +23,7 @@ export class User{
         let formdata: FormData = new FormData(form);
         let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formdata);
         // check with regular expression
-        if(checkRegex(formdata.get("username").toString(),"username")== true &&checkRegex(formdata.get("password").toString(),"password")== true ){
+        if(HelpFunktions.checkRegex(formdata.get("username").toString(),"username")== true &&HelpFunktions.checkRegex(formdata.get("password").toString(),"password")== true ){
             let url: string = "https://softwaredesign.herokuapp.com/register.html";
             url = url + "?" + query.toString();
             //send registration to serve

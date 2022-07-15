@@ -1,5 +1,5 @@
 import {CarData} from "../interfaces/interface";
-import {checkFormData} from "../function/formdata.js"
+import{HelpFunktions} from "./function.js"
 
 export class Car {
     id: string;
@@ -420,7 +420,7 @@ export class Car {
             let timeForm: HTMLFormElement = <HTMLFormElement>document.getElementById("time");
             let formData: FormData = new FormData(timeForm);
             let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
-            let check: boolean = checkFormData(formData,3);
+            let check: boolean = HelpFunktions.checkFormData(formData,3);
             if (check ==true){
                 localStorage.setItem("query",query.toString());
                 localStorage.setItem("bookoption","b");

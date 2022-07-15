@@ -1,4 +1,4 @@
-import { checkFormData } from "../function/formdata.js";
+import { HelpFunktions } from "./function.js";
 export class Car {
     id;
     name;
@@ -395,7 +395,7 @@ export class Car {
             let timeForm = document.getElementById("time");
             let formData = new FormData(timeForm);
             let query = new URLSearchParams(formData);
-            let check = checkFormData(formData, 3);
+            let check = HelpFunktions.checkFormData(formData, 3);
             if (check == true) {
                 localStorage.setItem("query", query.toString());
                 localStorage.setItem("bookoption", "b");

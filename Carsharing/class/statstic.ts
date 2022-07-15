@@ -1,5 +1,5 @@
 import{UseTimes}from "../interfaces/interface.js";
-import {navibar} from "../function/flexnavi.js";
+import{HelpFunktions} from "./function.js"
 
 export class Statistic{
     static async showStatistic():Promise<void> {
@@ -74,5 +74,5 @@ export class Statistic{
     }
 };
 localStorage.setItem("lastmove","statistic.html");
-navibar();
+HelpFunktions.navibar();
 Statistic.showStatistic();

@@ -1,4 +1,4 @@
-import { navibar } from "../function/flexnavi.js";
+import { HelpFunktions } from "./function.js";
 export class Admin {
     static admin() {
         // get Forminput from admin.html
@@ -19,6 +19,6 @@ export class Admin {
     }
 }
 localStorage.setItem("lastmove", "admin.html");
-navibar();
+HelpFunktions.navibar();
 Admin.admin();
 //# sourceMappingURL=admin.js.map

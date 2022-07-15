@@ -1,15 +1,15 @@
-import {checkRegex} from "../function/regex";
+import{HelpFunktions} from "../class/function.js"
 const username: string = "username";
 const password: string = "abc123";
 
 describe("This is a RegEx", () => {
   test("Check for valid Username", () => {
-    expect(checkRegex(username, "username")).toBe(true);
+    expect(HelpFunktions.checkRegex(username, "username")).toBe(true);
   });
 });
 
 describe("This is a RegEx", () => {
   test("Check for valid Password", () => {
-    expect(checkRegex(password, "password")).toBe(true);
+    expect(HelpFunktions.checkRegex(password, "password")).toBe(true);
   });
 });

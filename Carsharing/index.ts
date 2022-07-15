@@ -1,7 +1,8 @@
-import {navibar} from "./function/flexnavi.js";
 import {Car} from "./class/car.js";
+import{HelpFunktions} from "./class/function.js"
+
 
 localStorage.setItem("lastmove","index.html");
-navibar();
+HelpFunktions.navibar();
 // gets Page content
 Car.showCarData();
