@@ -182,7 +182,7 @@ export var Carsharing;
                     console.log("check if car is booked");
                     let time = await checkAvailable(bookcar);
                     if (time != true) {
-                        _response.write("Error");
+                        _response.write("Car is already booked");
                     }
                     else {
                         _response.write("Auto erfolgreich gebucht");
