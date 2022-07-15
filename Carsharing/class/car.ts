@@ -191,6 +191,7 @@ export class Car {
     //sets car amount
     static async carAmount(_event:Event):Promise<void> {
         console.log("amount click");
+        
         let amountform: HTMLFormElement = <HTMLFormElement>document.getElementById("amountForm");
         let formdata: FormData = new FormData(amountform);
         let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formdata);
@@ -199,6 +200,7 @@ export class Car {
     }
     // sets car filter
     static async carFilter(_event:Event):Promise<void>{
+        document.getElementById("showData").innerHTML="";
         console.log("filter click");
         let filterform: HTMLFormElement = <HTMLFormElement>document.getElementById("filterForm");
         let formdata: FormData = new FormData(filterform);
@@ -209,6 +211,7 @@ export class Car {
     }
     // get Cars that are avaiable at wished time from server
     static async filterCarTime(_event:Event): Promise<void>{
+        document.getElementById("showData").innerHTML="";
         let optionform: HTMLFormElement = <HTMLFormElement>document.getElementById("optionForm");
         let formdata: FormData = new FormData(optionform);
         let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formdata);

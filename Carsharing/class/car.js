@@ -185,6 +185,7 @@ export class Car {
     }
     // sets car filter
     static async carFilter(_event) {
+        document.getElementById("showData").innerHTML = "";
         console.log("filter click");
         let filterform = document.getElementById("filterForm");
         let formdata = new FormData(filterform);
@@ -195,6 +196,7 @@ export class Car {
     }
     // get Cars that are avaiable at wished time from server
     static async filterCarTime(_event) {
+        document.getElementById("showData").innerHTML = "";
         let optionform = document.getElementById("optionForm");
         let formdata = new FormData(optionform);
         let query = new URLSearchParams(formdata);
