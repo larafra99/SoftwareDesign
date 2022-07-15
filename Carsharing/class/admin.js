@@ -1,5 +1,6 @@
 import { HelpFunktions } from "./function.js";
-export class Admin {
+import { User } from "./user.js";
+export class Admin extends User {
     static admin() {
         // get Forminput from admin.html
         let carform = document.getElementById("addcar");

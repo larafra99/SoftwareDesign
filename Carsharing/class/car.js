@@ -102,6 +102,7 @@ export class Car {
         }
         else {
             // create table with filtered/non filtered Cars
+            document.getElementById("showData").innerHTML = "";
             let responsetextjson = JSON.parse(responsetext);
             let tabledescription = ["Auto Bezeichnung", "Antriebsart", "frühste Nutzungsuhrzeit", "späteste Nutzungsuhrzeit", "maximale Nutzungdauer", "pauschale Nutzungspreis", "Preis pro Minute", "Buchen"];
             // create table header

@@ -1,6 +1,7 @@
 import{HelpFunktions} from "./function.js"
+import { User } from "./user.js";
 
-export class Admin{
+export class Admin extends User{
 
     static admin(){
         // get Forminput from admin.html
