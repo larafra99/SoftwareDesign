@@ -392,26 +392,18 @@ export class Car {
     }
     // check if Car is available with server
     static async bookCarTime(_event) {
-        let user = localStorage.getItem("user");
-        if (user == null) {
-            console.log("user not logged in");
-            localStorage.setItem("lastmove", "bookcar.html");
-            window.location.replace("login.html");
+        console.log("click");
+        let timeForm = document.getElementById("time");
+        let formData = new FormData(timeForm);
+        let query = new URLSearchParams(formData);
+        let check = HelpFunktions.checkFormData(formData, 3);
+        if (check == true) {
+            localStorage.setItem("query", query.toString());
+            localStorage.setItem("bookoption", "b");
+            Car.showData();
         }
         else {
-            console.log("click");
-            let timeForm = document.getElementById("time");
-            let formData = new FormData(timeForm);
-            let query = new URLSearchParams(formData);
-            let check = HelpFunktions.checkFormData(formData, 3);
-            if (check == true) {
-                localStorage.setItem("query", query.toString());
-                localStorage.setItem("bookoption", "b");
-                Car.showData();
-            }
-            else {
-                window.alert("Bitte füllen Sie alle Felder aus");
-            }
+            window.alert("Bitte füllen Sie alle Felder aus");
         }
     }
     // book that car

@@ -421,27 +421,19 @@ export class Car {
     } 
     // check if Car is available with server
     static async bookCarTime(_event: Event): Promise<void> {
-        let user: string =localStorage.getItem("user");
-        if (user == null){
-            console.log("user not logged in");
-            localStorage.setItem("lastmove","bookcar.html");
-            window.location.replace("login.html");
+        console.log("click");
+        let timeForm: HTMLFormElement = <HTMLFormElement>document.getElementById("time");
+        let formData: FormData = new FormData(timeForm);
+        let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
+        let check: boolean = HelpFunktions.checkFormData(formData,3);
+        if (check ==true){
+            localStorage.setItem("query",query.toString());
+            localStorage.setItem("bookoption","b");
+            Car.showData();
         }
         else{
-            console.log("click");
-            let timeForm: HTMLFormElement = <HTMLFormElement>document.getElementById("time");
-            let formData: FormData = new FormData(timeForm);
-            let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
-            let check: boolean = HelpFunktions.checkFormData(formData,3);
-            if (check ==true){
-                localStorage.setItem("query",query.toString());
-                localStorage.setItem("bookoption","b");
-                Car.showData();
-            }
-            else{
-                window.alert("Bitte füllen Sie alle Felder aus");
-            }
-        }            
+            window.alert("Bitte füllen Sie alle Felder aus");
+        }         
     }
     // book that car
     static async bookCar(_event: Event): Promise<void> {
