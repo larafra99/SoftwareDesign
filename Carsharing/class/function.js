@@ -119,7 +119,9 @@ export class HelpFunktions {
     static checkRegex(checkString, checkFor) {
         //check if username is valid
         if (checkFor == "username") {
-            const regexuser = /^[A-Za-z][A-Za-z0-9_]/;
+            // ^ muss immer am beginn sein
+            // () Der Ausdruck innerhalb der Klammer wird zu einem Element zusammen gefasst
+            const regexuser = /^[A-Za-z0-9_]/;
             if (regexuser.test(checkString) == true) {
                 return true;
             }
@@ -127,6 +129,9 @@ export class HelpFunktions {
         }
         // check if password is valid
         if (checkFor == "password") {
+            // ^ muss immer am beginn sein
+            // () Der Ausdruck innerhalb der Klammer wird zu einem Element zusammen gefasst
+            // {1,3} 	minimale und maximale Anzahl des vorangegangenen Elements.
             const regexpassword = /^.{4,19}$/;
             if (regexpassword.test(checkString) == true) {
                 return true;
