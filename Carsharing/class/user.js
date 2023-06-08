@@ -21,7 +21,7 @@ export class User {
         let query = new URLSearchParams(formdata);
         // check with regular expression
         if (HelpFunktions.checkRegex(formdata.get("username").toString(), "username") == true && HelpFunktions.checkRegex(formdata.get("password").toString(), "password") == true) {
-            let url = "https://softwaredesign.herokuapp.com/register.html";
+            let url = "https://carserver-nw7d.onrender.com/register.html";
             url = url + "?" + query.toString();
             //send registration to serve
             let response = await fetch(url);
@@ -53,7 +53,7 @@ export class User {
     static async login(_event, logForm) {
         let formdata = new FormData(logForm);
         let query = new URLSearchParams(formdata);
-        let url = "https://softwaredesign.herokuapp.com/login.html";
+        let url = "https://carserver-nw7d.onrender.com/login.html";
         url = url + "?" + query.toString();
         //server checked login
         let response = await fetch(url);

@@ -2,7 +2,7 @@ import { HelpFunktions } from "./function.js";
 export class Statistic {
     static async showStatistic() {
         document.getElementById("fullstatistic").innerHTML = "";
-        let url = "https://softwaredesign.herokuapp.com/getstatistc.html";
+        let url = "https://carserver-nw7d.onrender.com/getstatistc.html";
         let user = localStorage.getItem("user");
         url = url + "?" + "&" + user;
         // get statistics from server

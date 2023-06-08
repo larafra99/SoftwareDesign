@@ -31,7 +31,7 @@ export class Car {
         // show all cars
         if(filter =="a" || filter== null){
             localStorage.removeItem("bookoption");
-            let filterurl: string = "https://softwaredesign.herokuapp.com/index.html?filter=a";
+            let filterurl: string = "https://carserver-nw7d.onrender.com/index.html?filter=a";
             localStorage.setItem("url",filterurl);   
         }
         // filter option car power variante
@@ -223,7 +223,7 @@ export class Car {
         let optionform: HTMLFormElement = <HTMLFormElement>document.getElementById("optionForm");
         let formdata: FormData = new FormData(optionform);
         let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formdata);
-        let timeurl: string = "https://softwaredesign.herokuapp.com/index.html?filter=c";
+        let timeurl: string = "https://carserver-nw7d.onrender.com/index.html?filter=c";
         localStorage.setItem("url",timeurl);
         timeurl = timeurl + "&" + query.toString();
         localStorage.setItem("bookoption","b"); 
@@ -236,7 +236,7 @@ export class Car {
         let optionform: HTMLFormElement = <HTMLFormElement>document.getElementById("optionForm");
         let formdata: FormData = new FormData(optionform);
         let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formdata);
-        let filterurl: string = "https://softwaredesign.herokuapp.com/index.html?filter=b";
+        let filterurl: string = "https://carserver-nw7d.onrender.com/index.html?filter=b";
         filterurl = filterurl + "&" + query.toString();
         localStorage.setItem("url",filterurl);  
     } 
@@ -251,7 +251,7 @@ export class Car {
     static async showData(): Promise<void> {
         document.getElementById("showCar").innerHTML="";
         document.getElementById("book").innerHTML="";
-        let url: string = "https://softwaredesign.herokuapp.com/bookcars.html";
+        let url: string = "https://carserver-nw7d.onrender.com/bookcars.html";
         let dataId: string =localStorage.getItem("dataId");
         url = url + "?" + "&dataID=" + dataId;
         //fetch data from server
@@ -448,7 +448,7 @@ export class Car {
             window.location.replace("login.html");
         }
         else{
-            let timeurl: string = "https://softwaredesign.herokuapp.com/booktime.html";
+            let timeurl: string = "https://carserver-nw7d.onrender.com/booktime.html";
             timeurl = timeurl + "?" + query+"&"+user+"&carid="+carid+"&price="+price;
             let response: Response = await fetch(timeurl);
             let responseText: string = await response.text();

@@ -4,7 +4,7 @@ import{HelpFunktions} from "./function.js"
 export class Statistic{
     static async showStatistic():Promise<void> {
         document.getElementById("fullstatistic").innerHTML="";
-        let url: string = "https://softwaredesign.herokuapp.com/getstatistc.html";
+        let url: string = "https://carserver-nw7d.onrender.com/getstatistc.html";
         let user: string =localStorage.getItem("user");
         url = url + "?" + "&" + user;
         // get statistics from server

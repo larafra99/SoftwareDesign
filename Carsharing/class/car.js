@@ -28,7 +28,7 @@ export class Car {
         // show all cars
         if (filter == "a" || filter == null) {
             localStorage.removeItem("bookoption");
-            let filterurl = "https://softwaredesign.herokuapp.com/index.html?filter=a";
+            let filterurl = "https://carserver-nw7d.onrender.com/index.html?filter=a";
             localStorage.setItem("url", filterurl);
         }
         // filter option car power variante
@@ -205,7 +205,7 @@ export class Car {
         let optionform = document.getElementById("optionForm");
         let formdata = new FormData(optionform);
         let query = new URLSearchParams(formdata);
-        let timeurl = "https://softwaredesign.herokuapp.com/index.html?filter=c";
+        let timeurl = "https://carserver-nw7d.onrender.com/index.html?filter=c";
         localStorage.setItem("url", timeurl);
         timeurl = timeurl + "&" + query.toString();
         localStorage.setItem("bookoption", "b");
@@ -218,7 +218,7 @@ export class Car {
         let optionform = document.getElementById("optionForm");
         let formdata = new FormData(optionform);
         let query = new URLSearchParams(formdata);
-        let filterurl = "https://softwaredesign.herokuapp.com/index.html?filter=b";
+        let filterurl = "https://carserver-nw7d.onrender.com/index.html?filter=b";
         filterurl = filterurl + "&" + query.toString();
         localStorage.setItem("url", filterurl);
     }
@@ -233,7 +233,7 @@ export class Car {
     static async showData() {
         document.getElementById("showCar").innerHTML = "";
         document.getElementById("book").innerHTML = "";
-        let url = "https://softwaredesign.herokuapp.com/bookcars.html";
+        let url = "https://carserver-nw7d.onrender.com/bookcars.html";
         let dataId = localStorage.getItem("dataId");
         url = url + "?" + "&dataID=" + dataId;
         //fetch data from server
@@ -419,7 +419,7 @@ export class Car {
             window.location.replace("login.html");
         }
         else {
-            let timeurl = "https://softwaredesign.herokuapp.com/booktime.html";
+            let timeurl = "https://carserver-nw7d.onrender.com/booktime.html";
             timeurl = timeurl + "?" + query + "&" + user + "&carid=" + carid + "&price=" + price;
             let response = await fetch(timeurl);
             let responseText = await response.text();

@@ -14,7 +14,7 @@ export class Admin extends User{
         let formData: FormData = new FormData(form);
         let query: URLSearchParams = new URLSearchParams(<URLSearchParams>formData);
 
-        let url: string = "https://softwaredesign.herokuapp.com/addcar.html";
+        let url: string = "https://carserver-nw7d.onrender.com/addcar.html";
         url = url + "?" + query.toString();
         // send request to add car to server
         let response: Response = await fetch(url);

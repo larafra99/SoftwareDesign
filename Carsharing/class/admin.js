@@ -11,7 +11,7 @@ export class Admin extends User {
     static async addCar(_event, form) {
         let formData = new FormData(form);
         let query = new URLSearchParams(formData);
-        let url = "https://softwaredesign.herokuapp.com/addcar.html";
+        let url = "https://carserver-nw7d.onrender.com/addcar.html";
         url = url + "?" + query.toString();
         // send request to add car to server
         let response = await fetch(url);
